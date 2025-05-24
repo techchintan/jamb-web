@@ -21,7 +21,7 @@ export const nextJsConfig = [
   js.configs.recommended,
   eslintConfigPrettier,
   ...tseslint.configs.recommended,
-  { ignores: ["node_modules", ".next"] },
+  { ignores: [".next"] },
   {
     ...pluginReact.configs.flat.recommended,
     languageOptions: {
