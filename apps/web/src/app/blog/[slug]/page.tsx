@@ -1,5 +1,4 @@
 import { notFound } from "next/navigation";
-import type { PortableTextBlock } from "next-sanity";
 
 import { RichText } from "@/components/richtext";
 import { SanityImage } from "@/components/sanity-image";
@@ -51,11 +50,6 @@ export default async function BlogSlugPage({
   if (!data) return notFound();
   const { title, description, image, richText } = data ?? {};
 
-  // Cast richText to RichText type
-  const typedRichText: PortableTextBlock[] | undefined = richText as
-    | PortableTextBlock[]
-    | undefined;
-
   return (
     <div className="container my-16 mx-auto px-4 md:px-6">
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_300px]">
@@ -82,7 +76,7 @@ export default async function BlogSlugPage({
 
         <aside className="hidden lg:block">
           <div className="sticky top-4 rounded-lg ">
-            <TableOfContent richText={typedRichText} />
+            <TableOfContent richText={richText} />
           </div>
         </aside>
       </div>
