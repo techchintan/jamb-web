@@ -31,9 +31,9 @@ export function Logo({
         <SanityImage
           asset={image}
           alt={alt ?? "logo"}
-          width={width}
-          className="w-[170px] h-[40px] dark:invert"
-          height={height}
+          // width={width}
+          // height={height}
+          className="w-[170px]  dark:invert"
           priority={priority}
           loading="eager"
           decoding="sync"

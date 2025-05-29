@@ -361,3 +361,15 @@ export const queryGlobalSeoSettings = defineQuery(`
     }
   }
 `);
+
+export const querySettingsData = defineQuery(`
+  *[_type == "settings"][0]{
+    _id,
+    _type,
+    siteTitle,
+    siteDescription,
+    "logo": logo.asset->url + "?w=80&h=40&dpr=3&fit=max",
+    "socialLinks": socialLinks,
+    "contactEmail": contactEmail,
+  }
+`);

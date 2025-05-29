@@ -32,7 +32,7 @@ export function Navbar({
         <nav className="grid grid-cols-[auto_1fr] items-center gap-4">
           {logo && <Logo alt={settingsSiteTitle} priority image={logo} />}
 
-          <NavbarClient navbarData={navbarData} />
+          <NavbarClient navbarData={navbarData} settingsData={settingsData} />
         </nav>
       </div>
     </section>
