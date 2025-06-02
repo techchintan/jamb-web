@@ -71,7 +71,7 @@ Your content should now appear in your Next.js app ([http://localhost:3000](http
 
 #### 2. Sample Content
 
-When you initialize the template using the Sanity CLI, sample content is automatically imported into your project. This includes example blog posts, authors, and other content types to help you get started quickly.
+When you initialize the template using the Sanity CLI, sample content is not automatically imported into your project. However, you can import it after the init is done. This data includes example blog posts, authors, and other content types to help you get started quickly (see next step).
 
 #### 3. Seed data using script
 
@@ -79,7 +79,7 @@ To add sample data programmatically, run the following command:
 
 ```shell
 cd apps/studio
-sanity exec scripts/create-data.ts --with-user-token
+npx sanity exec scripts/create-data.ts --with-user-token
 ```
 
 This command executes a TypeScript script that creates and populates content in your Sanity dataset.
