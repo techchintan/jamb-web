@@ -104,7 +104,12 @@ The template includes a GitHub Actions workflow [`deploy-sanity.yml`](https://ra
 > - `SANITY_STUDIO_TITLE`
 > - `SANITY_STUDIO_PRESENTATION_URL`
 
-Alternatively, you can manually deploy from your Studio directory (`/studio`) using:
+Set `SANITY_STUDIO_PRESENTATION_URL` to your web app front-end URL (from the Vercel deployment). This URL is required for production deployments and should be:
+- Set in your GitHub repository secrets for CI/CD deployments
+- Set in your local environment if deploying manually with `npx sanity deploy`
+- Not needed for local development, where preview will automatically use http://localhost:3000
+
+You can then manually deploy from your Studio directory (`/studio`) using:
 
 ```shell
 npx sanity deploy
