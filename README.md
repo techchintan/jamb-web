@@ -103,6 +103,9 @@ The template includes a GitHub Actions workflow [`deploy-sanity.yml`](https://ra
 > - `SANITY_STUDIO_DATASET`
 > - `SANITY_STUDIO_TITLE`
 > - `SANITY_STUDIO_PRESENTATION_URL`
+> - `SANITY_STUDIO_PRODUCTION_HOSTNAME`
+
+Set `SANITY_STUDIO_PRODUCTION_HOSTNAME` to whatever you want your deployed Sanity Studio hostname to be. Eg. for `SANITY_STUDIO_PRODUCTION_HOSTNAME=my-cool-project` you'll get a studio URL of `https://my-cool-project.sanity.studio` (and `<my-branch-name>-my-cool-project.sanity.studio` for PR previews builds done automatically via the `deploy-sanity.yml` github CI workflow when you open a PR.)
 
 Alternatively, you can manually deploy from your Studio directory (`/studio`) using:
 
