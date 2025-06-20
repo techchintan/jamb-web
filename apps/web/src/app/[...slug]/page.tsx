@@ -33,10 +33,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const slugString = slug.join("/");
   const { data: pageData } = await fetchSlugPageData(slugString, false);
-  if (!pageData) {
-    return getMetaData({});
-  }
-  return getMetaData(pageData);
+  return getMetaData(pageData ?? {});
 }
 
 export async function generateStaticParams() {
