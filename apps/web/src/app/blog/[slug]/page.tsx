@@ -8,7 +8,7 @@ import { TableOfContent } from "@/components/table-of-content";
 import { client } from "@/lib/sanity/client";
 import { sanityFetch } from "@/lib/sanity/live";
 import { queryBlogPaths, queryBlogSlugPageData } from "@/lib/sanity/query";
-import { getMetaData } from "@/lib/seo";
+import { getSEOMetadata } from "@/lib/seo";
 
 async function fetchBlogSlugPageData(slug: string, stega = true) {
   return await sanityFetch({
@@ -36,7 +36,18 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
   const { data } = await fetchBlogSlugPageData(slug, false);
-  return await getMetaData(data ?? {});
+  return getSEOMetadata(
+    data
+      ? {
+          title: data?.title ?? data?.seoTitle ?? "",
+          description: data?.description ?? data?.seoDescription ?? "",
+          slug: data?.slug,
+          contentId: data?._id,
+          contentType: data?._type,
+          pageType: "article",
+        }
+      : {},
+  );
 }
 
 export async function generateStaticParams() {
