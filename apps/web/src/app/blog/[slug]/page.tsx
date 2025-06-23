@@ -89,11 +89,11 @@ export default async function BlogSlugPage({
           <RichText richText={richText ?? []} />
         </main>
 
-        <aside className="hidden lg:block">
+        <div className="hidden lg:block">
           <div className="sticky top-4 rounded-lg ">
             <TableOfContent richText={richText} />
           </div>
-        </aside>
+        </div>
       </div>
     </div>
   );
