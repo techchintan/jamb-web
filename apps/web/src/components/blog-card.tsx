@@ -68,10 +68,7 @@ interface BlogCardProps {
 function BlogMeta({ publishedAt }: { publishedAt: string | null }) {
   return (
     <div className="flex items-center gap-x-4 text-xs my-4">
-      <time
-        dateTime={publishedAt ?? ""}
-        className="text-muted-foreground"
-      >
+      <time dateTime={publishedAt ?? ""} className="text-muted-foreground">
         {publishedAt
           ? new Date(publishedAt).toLocaleDateString("en-US", {
               year: "numeric",
@@ -133,11 +130,8 @@ function AuthorSection({ authors }: { authors: Blog["authors"] }) {
   );
 }
 
-
-
 export function FeaturedBlogCard({ blog }: BlogCardProps) {
-  const { title, publishedAt, slug, authors, description, image } =
-    blog ?? {};
+  const { title, publishedAt, slug, authors, description, image } = blog ?? {};
 
   return (
     <article className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
@@ -170,8 +164,7 @@ export function BlogCard({ blog }: BlogCardProps) {
     );
   }
 
-  const { title, publishedAt, slug, authors, description, image } =
-    blog;
+  const { title, publishedAt, slug, authors, description, image } = blog;
 
   return (
     <article className="grid grid-cols-1 gap-4 w-full">
@@ -181,11 +174,7 @@ export function BlogCard({ blog }: BlogCardProps) {
       </div>
       <div className="w-full space-y-4">
         <BlogMeta publishedAt={publishedAt} />
-        <BlogContent
-          title={title}
-          slug={slug}
-          description={description}
-        />
+        <BlogContent title={title} slug={slug} description={description} />
         {/* <AuthorSection authors={authors} /> */}
       </div>
     </article>
