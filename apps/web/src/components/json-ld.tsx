@@ -13,14 +13,13 @@ import type {
   WithContext,
 } from "schema-dts";
 
-import { getBaseUrl } from "@/config";
 import { client, urlFor } from "@/lib/sanity/client";
 import { querySettingsData } from "@/lib/sanity/query";
 import type {
   QueryBlogSlugPageDataResult,
   QuerySettingsDataResult,
 } from "@/lib/sanity/sanity.types";
-import { handleErrors } from "@/utils";
+import { getBaseUrl, handleErrors } from "@/utils";
 
 interface RichTextChild {
   _type: string;
@@ -45,25 +44,36 @@ interface FlexibleFaq {
 
 // Utility function to safely extract plain text from rich text blocks
 function extractPlainTextFromRichText(
-  richText: RichTextBlock[] | null | undefined,
+  richText: RichTextBlock[] | null | undefined
 ): string {
   if (!Array.isArray(richText)) return "";
 
   return richText
-    .filter((block) => block._type === "block" && Array.isArray(block.children))
+    .filter(
+      (block) =>
+        block._type === "block" && Array.isArray(block.children)
+    )
     .map(
       (block) =>
         block.children
-          ?.filter((child) => child._type === "span" && Boolean(child.text))
+          ?.filter(
+            (child) => child._type === "span" && Boolean(child.text)
+          )
           .map((child) => child.text)
-          .join("") ?? "",
+          .join("") ?? ""
     )
     .join(" ")
     .trim();
 }
 
 // Utility function to safely render JSON-LD
-export function JsonLdScript<T>({ data, id }: { data: T; id: string }) {
+export function JsonLdScript<T>({
+  data,
+  id,
+}: {
+  data: T;
+  id: string;
+}) {
   return (
     <script type="application/ld+json" id={id}>
       {JSON.stringify(data, null, 0)}
@@ -94,18 +104,18 @@ export function FaqJsonLd({ faqs }: FaqJsonLdProps) {
           "@type": "Answer",
           text: extractPlainTextFromRichText(faq.richText),
         } as Answer,
-      }),
+      })
     ),
   };
 
   return <JsonLdScript data={faqJsonLd} id="faq-json-ld" />;
 }
 
-function buildSafeImageUrl(image?: { asset?: { _ref: string } }) {
-  if (!image?.asset?._ref) {
+function buildSafeImageUrl(image?: { id?: string | null }) {
+  if (!image?.id) {
     return undefined;
   }
-  return urlFor({ ...image, _id: image.asset?._ref })
+  return urlFor({ ...image, _id: image.id })
     .size(1920, 1080)
     .dpr(2)
     .auto("format")
@@ -118,7 +128,10 @@ interface ArticleJsonLdProps {
   article: QueryBlogSlugPageDataResult;
   settings?: QuerySettingsDataResult;
 }
-export function ArticleJsonLd({ article, settings }: ArticleJsonLdProps) {
+export function ArticleJsonLd({
+  article,
+  settings,
+}: ArticleJsonLdProps) {
   if (!article) return null;
 
   const baseUrl = getBaseUrl();
@@ -157,10 +170,12 @@ export function ArticleJsonLd({ article, settings }: ArticleJsonLdProps) {
         : undefined,
     } as Organization,
     datePublished: new Date(
-      article.publishedAt || article._createdAt || new Date().toISOString(),
+      article.publishedAt ||
+        article._createdAt ||
+        new Date().toISOString()
     ).toISOString(),
     dateModified: new Date(
-      article._updatedAt || new Date().toISOString(),
+      article._updatedAt || new Date().toISOString()
     ).toISOString(),
     url: articleUrl,
     mainEntityOfPage: {
@@ -170,7 +185,10 @@ export function ArticleJsonLd({ article, settings }: ArticleJsonLdProps) {
   };
 
   return (
-    <JsonLdScript data={articleJsonLd} id={`article-json-ld-${article.slug}`} />
+    <JsonLdScript
+      data={articleJsonLd}
+      id={`article-json-ld-${article.slug}`}
+    />
   );
 }
 
@@ -179,13 +197,17 @@ interface OrganizationJsonLdProps {
   settings: QuerySettingsDataResult;
 }
 
-export function OrganizationJsonLd({ settings }: OrganizationJsonLdProps) {
+export function OrganizationJsonLd({
+  settings,
+}: OrganizationJsonLdProps) {
   if (!settings) return null;
 
   const baseUrl = getBaseUrl();
 
   const socialLinks = settings.socialLinks
-    ? (Object.values(settings.socialLinks).filter(Boolean) as string[])
+    ? (Object.values(settings.socialLinks).filter(
+        Boolean
+      ) as string[])
     : undefined;
 
   const organizationJsonLd: WithContext<Organization> = {
@@ -210,7 +232,12 @@ export function OrganizationJsonLd({ settings }: OrganizationJsonLdProps) {
     sameAs: socialLinks?.length ? socialLinks : undefined,
   };
 
-  return <JsonLdScript data={organizationJsonLd} id="organization-json-ld" />;
+  return (
+    <JsonLdScript
+      data={organizationJsonLd}
+      id="organization-json-ld"
+    />
+  );
 }
 
 // Website JSON-LD Component

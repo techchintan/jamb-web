@@ -1,3 +1,4 @@
+"use client";
 import { cn } from "@workspace/ui/lib/utils";
 import Link from "next/link";
 import {
@@ -85,16 +86,24 @@ const components: Partial<PortableTextReactComponents> = {
     },
   },
   types: {
-    image: ({ value }) => (
-      <div className="my-4">
-        <SanityImage
-          asset={value}
-          className="w-full h-auto rounded-lg"
-          width={1600}
-          height={900}
-        />
-      </div>
-    ),
+    image: ({ value }) => {
+      if (!value?.id) return null;
+      return (
+        <figure className="my-4">
+          <SanityImage
+            image={value}
+            className="h-auto rounded-lg w-full"
+            width={1600}
+            height={900}
+          />
+          {value?.caption && (
+            <figcaption className="mt-2 text-center text-sm text-zinc-500 dark:text-zinc-400">
+              {value.caption}
+            </figcaption>
+          )}
+        </figure>
+      );
+    },
   },
   hardBreak: () => <br />,
 };
@@ -112,7 +121,7 @@ export function RichText<T>({
     <div
       className={cn(
         "prose prose-zinc prose-headings:scroll-m-24 prose-headings:text-opacity-90 prose-p:text-opacity-80 prose-a:decoration-dotted prose-ol:text-opacity-80 prose-ul:text-opacity-80 prose-h2:border-b prose-h2:pb-2 prose-h2:text-3xl prose-h2:font-semibold prose-h2:first:mt-0 max-w-none dark:prose-invert",
-        className,
+        className
       )}
     >
       <PortableText

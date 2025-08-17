@@ -1,13 +1,13 @@
 import { notFound } from "next/navigation";
-import { stegaClean } from "next-sanity";
-
-import { ArticleJsonLd } from "@/components/json-ld";
-import { RichText } from "@/components/richtext";
-import { SanityImage } from "@/components/sanity-image";
-import { TableOfContent } from "@/components/table-of-content";
+import { RichText } from "@/components/elements/rich-text";
+import { SanityImage } from "@/components/elements/sanity-image";
+import { TableOfContent } from "@/components/elements/table-of-content";
 import { client } from "@/lib/sanity/client";
 import { sanityFetch } from "@/lib/sanity/live";
-import { queryBlogPaths, queryBlogSlugPageData } from "@/lib/sanity/query";
+import {
+  queryBlogPaths,
+  queryBlogSlugPageData,
+} from "@/lib/sanity/query";
 import { getSEOMetadata } from "@/lib/seo";
 
 async function fetchBlogSlugPageData(slug: string, stega = true) {
@@ -40,13 +40,14 @@ export async function generateMetadata({
     data
       ? {
           title: data?.title ?? data?.seoTitle ?? "",
-          description: data?.description ?? data?.seoDescription ?? "",
+          description:
+            data?.description ?? data?.seoDescription ?? "",
           slug: data?.slug,
           contentId: data?._id,
           contentType: data?._type,
           pageType: "article",
         }
-      : {},
+      : {}
   );
 }
 
@@ -68,19 +69,20 @@ export default async function BlogSlugPage({
     <div className="container my-16 mx-auto px-4 md:px-6">
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_300px]">
         <main>
-          <ArticleJsonLd article={stegaClean(data)} />
+          {/* <ArticleJsonLd article={stegaClean(data)} /> */}
           <header className="mb-8">
             <h1 className="mt-2 text-4xl font-bold">{title}</h1>
-            <p className="mt-4 text-lg text-muted-foreground">{description}</p>
+            <p className="mt-4 text-lg text-muted-foreground">
+              {description}
+            </p>
           </header>
           {image && (
             <div className="mb-12">
               <SanityImage
-                asset={image}
+                image={image}
                 alt={title}
                 width={1600}
                 loading="eager"
-                priority
                 height={900}
                 className="rounded-lg h-auto w-full"
               />

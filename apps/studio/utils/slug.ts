@@ -1,8 +1,8 @@
-import type { SlugifierFn } from "sanity";
 import {
   defineField,
   type FieldDefinition,
   getDraftId,
+  type SlugifierFn,
   getPublishedId,
   type SlugValidationContext,
 } from "sanity";

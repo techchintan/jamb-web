@@ -1,7 +1,10 @@
 import Link from "next/link";
 
 import { sanityFetch } from "@/lib/sanity/live";
-import { queryFooterData, queryGlobalSeoSettings } from "@/lib/sanity/query";
+import {
+  queryFooterData,
+  queryGlobalSeoSettings,
+} from "@/lib/sanity/query";
 import type {
   QueryFooterDataResult,
   QueryGlobalSeoSettingsResult,
@@ -35,8 +38,14 @@ export async function FooterServer() {
     }),
   ]);
 
-  if (!response?.data || !settingsResponse?.data) return <FooterSkeleton />;
-  return <Footer data={response.data} settingsData={settingsResponse.data} />;
+  if (!response?.data || !settingsResponse?.data)
+    return <FooterSkeleton />;
+  return (
+    <Footer
+      data={response.data}
+      settingsData={settingsResponse.data}
+    />
+  );
 }
 
 function SocialLinks({ data }: SocialLinksProps) {
@@ -50,9 +59,17 @@ function SocialLinks({ data }: SocialLinksProps) {
       Icon: InstagramIcon,
       label: "Follow us on Instagram",
     },
-    { url: facebook, Icon: FacebookIcon, label: "Follow us on Facebook" },
+    {
+      url: facebook,
+      Icon: FacebookIcon,
+      label: "Follow us on Facebook",
+    },
     { url: twitter, Icon: XIcon, label: "Follow us on Twitter" },
-    { url: linkedin, Icon: LinkedinIcon, label: "Follow us on LinkedIn" },
+    {
+      url: linkedin,
+      Icon: LinkedinIcon,
+      label: "Follow us on LinkedIn",
+    },
     {
       url: youtube,
       Icon: YoutubeIcon,
@@ -147,7 +164,7 @@ function Footer({ data, settingsData }: FooterProps) {
             <div className="flex w-full max-w-96 shrink flex-col items-center justify-between gap-6 md:gap-8 lg:items-start">
               <div>
                 <span className="flex items-center justify-center gap-4 lg:justify-start">
-                  <Logo image={logo} alt={siteTitle} priority />
+                  <Logo alt={siteTitle} priority image={logo} />
                 </span>
                 {subtitle && (
                   <p className="mt-6 text-sm text-muted-foreground dark:text-zinc-400">
@@ -161,7 +178,9 @@ function Footer({ data, settingsData }: FooterProps) {
               <div className="grid grid-cols-3 gap-6 lg:gap-28 lg:mr-20">
                 {columns.map((column, index) => (
                   <div key={`column-${column?._key}-${index}`}>
-                    <h3 className="mb-6 font-semibold">{column?.title}</h3>
+                    <h3 className="mb-6 font-semibold">
+                      {column?.title}
+                    </h3>
                     {column?.links && column?.links?.length > 0 && (
                       <ul className="space-y-4 text-sm text-muted-foreground dark:text-zinc-400">
                         {column?.links?.map((link, index) => (
@@ -171,7 +190,11 @@ function Footer({ data, settingsData }: FooterProps) {
                           >
                             <Link
                               href={link.href ?? "#"}
-                              target={link.openInNewTab ? "_blank" : undefined}
+                              target={
+                                link.openInNewTab
+                                  ? "_blank"
+                                  : undefined
+                              }
                               rel={
                                 link.openInNewTab
                                   ? "noopener noreferrer"

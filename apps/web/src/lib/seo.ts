@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 
 import type { Maybe } from "@/types";
-import { capitalize } from "@/utils";
-
-import { getBaseUrl } from "../config";
+import { capitalize, getBaseUrl } from "@/utils";
 
 // Site-wide configuration interface
 interface SiteConfig {
@@ -36,7 +34,15 @@ const siteConfig: SiteConfig = {
   title: "Roboto Studio Demo",
   description: "Roboto Studio Demo",
   twitterHandle: "@studioroboto",
-  keywords: ["roboto", "studio", "demo", "sanity", "next", "react", "template"],
+  keywords: [
+    "roboto",
+    "studio",
+    "demo",
+    "sanity",
+    "next",
+    "react",
+    "template",
+  ],
 };
 
 function generateOgImageUrl(params: OgImageParams = {}): string {
@@ -71,7 +77,8 @@ function extractTitle({
   siteTitle: string;
 }): string {
   if (pageTitle) return pageTitle;
-  if (slug && slug !== "/") return capitalize(slug.replace(/^\//, ""));
+  if (slug && slug !== "/")
+    return capitalize(slug.replace(/^\//, ""));
   return siteTitle;
 }
 
@@ -97,7 +104,8 @@ export function getSEOMetadata(page: PageSeoData = {}): Metadata {
     slug,
     siteTitle: siteConfig.title,
   });
-  const defaultDescription = pageDescription || siteConfig.description;
+  const defaultDescription =
+    pageDescription || siteConfig.description;
   const allKeywords = [...siteConfig.keywords, ...pageKeywords];
 
   const ogImage = generateOgImageUrl({
