@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 
 import type { Maybe } from "@/types";
-import { capitalize } from "@/utils";
-
-import { getBaseUrl } from "../config";
+import { capitalize, getBaseUrl } from "@/utils";
 
 // Site-wide configuration interface
 interface SiteConfig {

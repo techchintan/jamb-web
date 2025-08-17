@@ -11,17 +11,17 @@ import {
   NavigationMenu,
   NavigationMenuContent,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@workspace/ui/components/navigation-menu";
 import {
+  Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
+  SheetTrigger,
 } from "@workspace/ui/components/sheet";
-import { Sheet, SheetTrigger } from "@workspace/ui/components/sheet";
 import { cn } from "@workspace/ui/lib/utils";
 import { Menu } from "lucide-react";
 import dynamic from "next/dynamic";
@@ -35,10 +35,11 @@ import type {
   QueryNavbarDataResult,
 } from "@/lib/sanity/sanity.types";
 
+import { SanityButtons } from "./elements/sanity-buttons";
+import { SanityIcon } from "./elements/sanity-icon";
 import { Logo } from "./logo";
 import { ModeToggle } from "./mode-toggle";
-import { SanityButtons } from "./sanity-buttons";
-import { SanityIcon } from "./sanity-icon";
+
 interface MenuItem {
   title: string;
   description: string;
@@ -138,7 +139,17 @@ function MobileNavbar({
       <SheetContent className="overflow-y-auto">
         <SheetHeader>
           <SheetTitle>
-            {logo && <Logo alt={siteTitle} priority image={logo} />}
+            {logo && (
+              <div className="max-w-[130px]">
+                <Logo
+                  alt={siteTitle}
+                  priority
+                  image={logo}
+                  width={80}
+                  height={40}
+                />
+              </div>
+            )}
           </SheetTitle>
         </SheetHeader>
 

@@ -13,14 +13,13 @@ import type {
   WithContext,
 } from "schema-dts";
 
-import { getBaseUrl } from "@/config";
 import { client, urlFor } from "@/lib/sanity/client";
 import { querySettingsData } from "@/lib/sanity/query";
 import type {
   QueryBlogSlugPageDataResult,
   QuerySettingsDataResult,
 } from "@/lib/sanity/sanity.types";
-import { handleErrors } from "@/utils";
+import { getBaseUrl, handleErrors } from "@/utils";
 
 interface RichTextChild {
   _type: string;
@@ -101,11 +100,11 @@ export function FaqJsonLd({ faqs }: FaqJsonLdProps) {
   return <JsonLdScript data={faqJsonLd} id="faq-json-ld" />;
 }
 
-function buildSafeImageUrl(image?: { asset?: { _ref: string } }) {
-  if (!image?.asset?._ref) {
+function buildSafeImageUrl(image?: { id?: string | null }) {
+  if (!image?.id) {
     return undefined;
   }
-  return urlFor({ ...image, _id: image.asset?._ref })
+  return urlFor({ ...image, _id: image.id })
     .size(1920, 1080)
     .dpr(2)
     .auto("format")

@@ -31,8 +31,8 @@ import { styled } from "styled-components";
 
 import { getDocumentPath } from "../utils/helper";
 import {
-  validateSlugForDocumentType,
   cleanSlug,
+  validateSlugForDocumentType,
 } from "../utils/slug-validation";
 
 const presentationOriginUrl = process.env.SANITY_STUDIO_PRESENTATION_URL;

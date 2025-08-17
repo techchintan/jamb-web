@@ -26,6 +26,7 @@ export function Navbar({
   settingsData: QueryGlobalSeoSettingsResult;
 }) {
   const { siteTitle: settingsSiteTitle, logo } = settingsData ?? {};
+
   return (
     <header className="py-3 md:border-b">
       <div className="container mx-auto px-4 md:px-6">
