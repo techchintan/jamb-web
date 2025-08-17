@@ -1,12 +1,12 @@
 "use client";
 
-import { useMemo, useCallback } from "react";
 import { useOptimistic } from "@sanity/visual-editing/react";
 import { createDataAttribute } from "next-sanity";
+import { useCallback, useMemo } from "react";
 
 import { dataset, projectId, studioUrl } from "@/config";
 import type { QueryHomePageDataResult } from "@/lib/sanity/sanity.types";
-import type { PagebuilderType, PageBuilderBlockTypes } from "@/types";
+import type { PageBuilderBlockTypes, PagebuilderType } from "@/types";
 
 import { CTABlock } from "./sections/cta";
 import { FaqAccordion } from "./sections/faq-accordion";
@@ -54,17 +54,12 @@ const BLOCK_COMPONENTS = {
   imageLinkCards: ImageLinkCards as React.ComponentType<
     PagebuilderType<"imageLinkCards">
   >,
-} as const satisfies Record<
-  PageBuilderBlockTypes,
-  React.ComponentType<any>
->;
+} as const satisfies Record<PageBuilderBlockTypes, React.ComponentType<any>>;
 
 /**
  * Helper function to create consistent Sanity data attributes
  */
-function createSanityDataAttribute(
-  config: SanityDataAttributeConfig
-): string {
+function createSanityDataAttribute(config: SanityDataAttributeConfig): string {
   return createDataAttribute({
     id: config.id,
     baseUrl: studioUrl,
@@ -107,7 +102,7 @@ function UnknownBlockError({
  */
 function useOptimisticPageBuilder(
   initialBlocks: PageBuilderBlock[],
-  documentId: string
+  documentId: string,
 ) {
   return useOptimistic<PageBuilderBlock[], any>(
     initialBlocks,
@@ -116,7 +111,7 @@ function useOptimisticPageBuilder(
         return action.document.pageBuilder;
       }
       return currentBlocks;
-    }
+    },
   );
 }
 
@@ -131,15 +126,13 @@ function useBlockRenderer(id: string, type: string) {
         type,
         path: `pageBuilder[_key=="${blockKey}"]`,
       }),
-    [id, type]
+    [id, type],
   );
 
   const renderBlock = useCallback(
     (block: PageBuilderBlock, index: number) => {
       const Component =
-        BLOCK_COMPONENTS[
-          block._type as keyof typeof BLOCK_COMPONENTS
-        ];
+        BLOCK_COMPONENTS[block._type as keyof typeof BLOCK_COMPONENTS];
 
       if (!Component) {
         return (
@@ -160,7 +153,7 @@ function useBlockRenderer(id: string, type: string) {
         </div>
       );
     },
-    [createBlockDataAttribute]
+    [createBlockDataAttribute],
   );
 
   return { renderBlock };
@@ -178,9 +171,8 @@ export function PageBuilder({
   const { renderBlock } = useBlockRenderer(id, type);
 
   const containerDataAttribute = useMemo(
-    () =>
-      createSanityDataAttribute({ id, type, path: "pageBuilder" }),
-    [id, type]
+    () => createSanityDataAttribute({ id, type, path: "pageBuilder" }),
+    [id, type],
   );
 
   if (!blocks.length) {

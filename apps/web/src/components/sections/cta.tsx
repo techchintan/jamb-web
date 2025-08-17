@@ -2,17 +2,12 @@ import { Badge } from "@workspace/ui/components/badge";
 
 import type { PagebuilderType } from "@/types";
 
-import { SanityButtons } from "../elements/sanity-buttons";
 import { RichText } from "../elements/rich-text";
+import { SanityButtons } from "../elements/sanity-buttons";
 
 export type CTABlockProps = PagebuilderType<"cta">;
 
-export function CTABlock({
-  richText,
-  title,
-  eyebrow,
-  buttons,
-}: CTABlockProps) {
+export function CTABlock({ richText, title, eyebrow, buttons }: CTABlockProps) {
   return (
     <section id="features" className="my-6 md:my-16">
       <div className="container mx-auto px-4 md:px-8">
@@ -30,10 +25,7 @@ export function CTABlock({
               {title}
             </h2>
             <div className="text-lg text-muted-foreground">
-              <RichText
-                richText={richText}
-                className="text-balance"
-              />
+              <RichText richText={richText} className="text-balance" />
             </div>
             <div className="flex justify-center">
               <SanityButtons

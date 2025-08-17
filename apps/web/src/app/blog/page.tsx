@@ -1,10 +1,6 @@
 import { notFound } from "next/navigation";
 
-import {
-  BlogCard,
-  BlogHeader,
-  FeaturedBlogCard,
-} from "@/components/blog-card";
+import { BlogCard, BlogHeader, FeaturedBlogCard } from "@/components/blog-card";
 import { PageBuilder } from "@/components/pagebuilder";
 import { sanityFetch } from "@/lib/sanity/live";
 import { queryBlogIndexPageData } from "@/lib/sanity/query";
@@ -12,9 +8,7 @@ import { getSEOMetadata } from "@/lib/seo";
 import { handleErrors } from "@/utils";
 
 async function fetchBlogPosts() {
-  return await handleErrors(
-    sanityFetch({ query: queryBlogIndexPageData })
-  );
+  return await handleErrors(sanityFetch({ query: queryBlogIndexPageData }));
 }
 
 export async function generateMetadata() {
@@ -26,13 +20,12 @@ export async function generateMetadata() {
     result
       ? {
           title: result?.title ?? result?.seoTitle ?? "",
-          description:
-            result?.description ?? result?.seoDescription ?? "",
+          description: result?.description ?? result?.seoDescription ?? "",
           slug: result?.slug,
           contentId: result?._id,
           contentType: result?._type,
         }
-      : {}
+      : {},
   );
 }
 
@@ -65,11 +58,7 @@ export default async function BlogIndexPage() {
           </p>
         </div>
         {pageBuilder && pageBuilder.length > 0 && (
-          <PageBuilder
-            pageBuilder={pageBuilder}
-            id={_id}
-            type={_type}
-          />
+          <PageBuilder pageBuilder={pageBuilder} id={_id} type={_type} />
         )}
       </main>
     );
@@ -108,11 +97,7 @@ export default async function BlogIndexPage() {
       </div>
 
       {pageBuilder && pageBuilder.length > 0 && (
-        <PageBuilder
-          pageBuilder={pageBuilder}
-          id={_id}
-          type={_type}
-        />
+        <PageBuilder pageBuilder={pageBuilder} id={_id} type={_type} />
       )}
     </main>
   );

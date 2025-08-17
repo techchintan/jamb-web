@@ -1,10 +1,7 @@
 import type { PortableTextBlock } from "next-sanity";
 import slugify from "slugify";
 
-export function assertValue<T>(
-  v: T | undefined,
-  errorMessage: string
-): T {
+export function assertValue<T>(v: T | undefined, errorMessage: string): T {
   if (v === undefined) {
     throw new Error(errorMessage);
   }
@@ -47,7 +44,7 @@ export const getTitleCase = (name: string) => {
 type Response<T> = [T, undefined] | [undefined, string];
 
 export async function handleErrors<T>(
-  promise: Promise<T>
+  promise: Promise<T>,
 ): Promise<Response<T>> {
   try {
     const data = await promise;
@@ -62,7 +59,7 @@ export async function handleErrors<T>(
 
 export function convertToSlug(
   text?: string,
-  { fallback }: { fallback?: string } = { fallback: "top-level" }
+  { fallback }: { fallback?: string } = { fallback: "top-level" },
 ) {
   if (!text) return fallback;
   return slugify(text.trim(), {
@@ -71,9 +68,7 @@ export function convertToSlug(
   });
 }
 
-export function parseChildrenToSlug(
-  children: PortableTextBlock["children"]
-) {
+export function parseChildrenToSlug(children: PortableTextBlock["children"]) {
   if (!children) return "";
   return convertToSlug(children.map((child) => child.text).join(""));
 }

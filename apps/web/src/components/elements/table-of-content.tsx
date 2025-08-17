@@ -5,10 +5,7 @@ import Link from "next/link";
 import { type FC, useCallback, useMemo } from "react";
 import slugify from "slugify";
 
-import type {
-  SanityRichTextBlock,
-  SanityRichTextProps,
-} from "@/types";
+import type { SanityRichTextBlock, SanityRichTextProps } from "@/types";
 
 // ============================================================================
 // TYPES & INTERFACES
@@ -52,10 +49,7 @@ type SanityTextChild = {
   readonly _key: string;
 };
 
-type HeadingBlock = Extract<
-  SanityRichTextBlock,
-  { _type: "block" }
-> & {
+type HeadingBlock = Extract<SanityRichTextBlock, { _type: "block" }> & {
   style: HeadingStyle;
   children: readonly SanityTextChild[];
 };
@@ -109,7 +103,7 @@ function isValidTextChild(child: unknown): child is SanityTextChild {
 }
 
 function hasValidTextChildren(
-  children: unknown
+  children: unknown,
 ): children is readonly SanityTextChild[] {
   return (
     Array.isArray(children) &&
@@ -156,9 +150,7 @@ function createSlug(text: string): string {
   }
 }
 
-function extractTextFromChildren(
-  children: readonly SanityTextChild[]
-): string {
+function extractTextFromChildren(children: readonly SanityTextChild[]): string {
   try {
     return children
       .map((child) => child.text?.trim() ?? "")
@@ -171,11 +163,7 @@ function extractTextFromChildren(
   }
 }
 
-function generateUniqueId(
-  text: string,
-  index: number,
-  _key?: string
-): string {
+function generateUniqueId(text: string, index: number, _key?: string): string {
   const baseId = _key || createSlug(text) || `heading-${index}`;
   return `toc-${baseId}`;
 }
@@ -184,9 +172,7 @@ function generateUniqueId(
 // CORE BUSINESS LOGIC
 // ============================================================================
 
-function extractHeadingBlocks(
-  richText: SanityRichTextProps
-): HeadingBlock[] {
+function extractHeadingBlocks(richText: SanityRichTextProps): HeadingBlock[] {
   if (!richText || !Array.isArray(richText)) {
     return [];
   }
@@ -201,7 +187,7 @@ function extractHeadingBlocks(
 
 function createProcessedHeading(
   block: HeadingBlock,
-  index: number
+  index: number,
 ): ProcessedHeading | null {
   try {
     const text = extractTextFromChildren(block.children);
@@ -232,7 +218,7 @@ function createProcessedHeading(
 
 function buildHeadingHierarchy(
   flatHeadings: ProcessedHeading[],
-  maxDepth: number = DEFAULT_MAX_DEPTH
+  maxDepth: number = DEFAULT_MAX_DEPTH,
 ): ProcessedHeading[] {
   if (flatHeadings.length === 0) {
     return [];
@@ -251,7 +237,7 @@ function buildHeadingHierarchy(
         flatHeadings,
         index,
         processed,
-        maxDepth
+        maxDepth,
       );
 
       result.push({
@@ -274,7 +260,7 @@ function collectChildHeadings(
   headings: ProcessedHeading[],
   parentIndex: number,
   processed: Set<number>,
-  maxDepth: number
+  maxDepth: number,
 ): ProcessedHeading[] {
   const parentHeading = headings[parentIndex];
 
@@ -302,7 +288,7 @@ function collectChildHeadings(
       headings,
       i,
       processed,
-      maxDepth
+      maxDepth,
     );
 
     children.push({
@@ -317,7 +303,7 @@ function collectChildHeadings(
 
 function processHeadingBlocks(
   headingBlocks: HeadingBlock[],
-  maxDepth: number = DEFAULT_MAX_DEPTH
+  maxDepth: number = DEFAULT_MAX_DEPTH,
 ): ProcessedHeading[] {
   if (!Array.isArray(headingBlocks) || headingBlocks.length === 0) {
     return [];
@@ -326,9 +312,7 @@ function processHeadingBlocks(
   try {
     const processedHeadings = headingBlocks
       .map(createProcessedHeading)
-      .filter(
-        (heading): heading is ProcessedHeading => heading !== null
-      );
+      .filter((heading): heading is ProcessedHeading => heading !== null);
 
     return buildHeadingHierarchy(processedHeadings, maxDepth);
   } catch (error) {
@@ -343,15 +327,11 @@ function processHeadingBlocks(
 
 function useTableOfContentState(
   richText?: SanityRichTextProps,
-  maxDepth: number = DEFAULT_MAX_DEPTH
+  maxDepth: number = DEFAULT_MAX_DEPTH,
 ): TableOfContentState {
   return useMemo(() => {
     try {
-      if (
-        !richText ||
-        !Array.isArray(richText) ||
-        richText.length === 0
-      ) {
+      if (!richText || !Array.isArray(richText) || richText.length === 0) {
         return {
           shouldShow: false,
           headings: [],
@@ -367,10 +347,7 @@ function useTableOfContentState(
         };
       }
 
-      const processedHeadings = processHeadingBlocks(
-        headingBlocks,
-        maxDepth
-      );
+      const processedHeadings = processHeadingBlocks(headingBlocks, maxDepth);
 
       return {
         shouldShow: processedHeadings.length >= MIN_HEADINGS_TO_SHOW,
@@ -381,8 +358,7 @@ function useTableOfContentState(
       return {
         shouldShow: false,
         headings: [],
-        error:
-          error instanceof Error ? error.message : "Unknown error",
+        error: error instanceof Error ? error.message : "Unknown error",
       };
     }
   }, [richText, maxDepth]);
@@ -401,9 +377,7 @@ const TableOfContentAnchor: FC<AnchorProps> = ({
 
   const shouldRenderChildren = useCallback(() => {
     return (
-      Array.isArray(children) &&
-      children.length > 0 &&
-      currentDepth < maxDepth
+      Array.isArray(children) && children.length > 0 && currentDepth < maxDepth
     );
   }, [children, currentDepth, maxDepth]);
 
@@ -424,7 +398,7 @@ const TableOfContentAnchor: FC<AnchorProps> = ({
       className={cn(
         "list-inside my-2 transition-all duration-200",
         // paddingClass,
-        isChild && "ml-1.5"
+        isChild && "ml-1.5",
       )}
     >
       <div className="flex items-center gap-2">
@@ -433,7 +407,7 @@ const TableOfContentAnchor: FC<AnchorProps> = ({
             "min-w-1.5 min-h-1.5 size-1.5 transition-colors duration-200",
             !isChild
               ? "dark:fill-zinc-100 fill-zinc-900"
-              : "dark:fill-zinc-400 fill-zinc-600"
+              : "dark:fill-zinc-400 fill-zinc-600",
           )}
           aria-hidden="true"
         />
@@ -442,7 +416,7 @@ const TableOfContentAnchor: FC<AnchorProps> = ({
           className={cn(
             "hover:text-blue-500 hover:underline line-clamp-1",
             "transition-colors duration-200 focus:outline-none",
-            "rounded-sm px-1 py-0.5"
+            "rounded-sm px-1 py-0.5",
           )}
           aria-describedby={`${id}-level`}
         >
@@ -457,9 +431,7 @@ const TableOfContentAnchor: FC<AnchorProps> = ({
         <ul className="mt-1">
           {children.map((child, index) => (
             <TableOfContentAnchor
-              key={
-                child.id || `${child.text}-${index}-${currentDepth}`
-              }
+              key={child.id || `${child.text}-${index}-${currentDepth}`}
               heading={child}
               maxDepth={maxDepth}
               currentDepth={currentDepth + 1}
@@ -478,7 +450,7 @@ export const TableOfContent: FC<TableOfContentProps> = ({
 }) => {
   const { shouldShow, headings, error } = useTableOfContentState(
     richText,
-    maxDepth
+    maxDepth,
   );
 
   // Early return for error state
@@ -500,7 +472,7 @@ export const TableOfContent: FC<TableOfContentProps> = ({
         "dark:from-zinc-800 dark:to-zinc-900",
         "shadow-sm rounded-lg border border-zinc-300 dark:border-zinc-700",
         "transition-all duration-200",
-        className
+        className,
       )}
       aria-labelledby="toc-heading"
       //   role="complementary"
@@ -512,7 +484,7 @@ export const TableOfContent: FC<TableOfContentProps> = ({
             "text-lg font-semibold text-zinc-800 dark:text-zinc-200",
             "hover:text-blue-600 dark:hover:text-blue-400",
             "transition-colors duration-200 focus:outline-none",
-            "rounded-sm p-1"
+            "rounded-sm p-1",
           )}
           id="toc-heading"
         >
@@ -520,7 +492,7 @@ export const TableOfContent: FC<TableOfContentProps> = ({
           <ChevronDown
             className={cn(
               "h-5 w-5 transform transition-transform duration-200",
-              "group-open:rotate-180"
+              "group-open:rotate-180",
             )}
             aria-hidden="true"
           />

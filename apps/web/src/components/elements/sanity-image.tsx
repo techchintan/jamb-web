@@ -1,11 +1,12 @@
 "use client";
-import { projectId, dataset } from "@/config";
-import type { SanityImageProps as SanityImageData } from "@/types";
 import { memo } from "react";
 import {
   SanityImage as BaseSanityImage,
   type WrapperProps,
 } from "sanity-image";
+
+import { dataset, projectId } from "@/config";
+import type { SanityImageProps as SanityImageData } from "@/types";
 
 // Types
 interface ImageHotspot {
@@ -58,9 +59,7 @@ function isValidCrop(crop: unknown): crop is ImageCrop {
 }
 
 // Pure functions for data processing
-function extractHotspot(
-  image: SanityImageData
-): ImageHotspot | undefined {
+function extractHotspot(image: SanityImageData): ImageHotspot | undefined {
   if (!isValidHotspot(image?.hotspot)) return undefined;
   return {
     x: image.hotspot.x,
@@ -83,9 +82,7 @@ function hasPreview(preview: unknown): preview is string {
 }
 
 // Main image processing function
-function processImageData(
-  image: SanityImageData
-): ProcessedImageData | null {
+function processImageData(image: SanityImageData): ProcessedImageData | null {
   // Early return for invalid image data
   if (!image?.id || typeof image.id !== "string") {
     console.warn("SanityImage: Invalid image data provided", image);
@@ -94,9 +91,7 @@ function processImageData(
 
   const hotspot = extractHotspot(image);
   const crop = extractCrop(image);
-  const preview = hasPreview(image.preview)
-    ? image.preview
-    : undefined;
+  const preview = hasPreview(image.preview) ? image.preview : undefined;
 
   return {
     id: image.id,
@@ -108,7 +103,7 @@ function processImageData(
 
 // Image wrapper component
 const ImageWrapper = <T extends React.ElementType = "img">(
-  props: WrapperProps<T>
+  props: WrapperProps<T>,
 ) => <BaseSanityImage baseUrl={SANITY_BASE_URL} {...props} />;
 
 // Main component

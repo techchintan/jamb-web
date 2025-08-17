@@ -1,9 +1,5 @@
 import { defineQuery } from "next-sanity";
 
-
-
-
-
 const imageFields = /* groq */ `
   "id": asset._ref,
   "preview": asset->metadata.lqip,

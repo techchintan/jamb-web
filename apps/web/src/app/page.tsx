@@ -17,14 +17,12 @@ export async function generateMetadata() {
       ? {
           title: homePageData?.title ?? homePageData?.seoTitle ?? "",
           description:
-            homePageData?.description ??
-            homePageData?.seoDescription ??
-            "",
+            homePageData?.description ?? homePageData?.seoDescription ?? "",
           slug: homePageData?.slug,
           contentId: homePageData?._id,
           contentType: homePageData?._type,
         }
-      : {}
+      : {},
   );
 }
 
@@ -37,11 +35,5 @@ export default async function Page() {
 
   const { _id, _type, pageBuilder } = homePageData ?? {};
 
-  return (
-    <PageBuilder
-      pageBuilder={pageBuilder ?? []}
-      id={_id}
-      type={_type}
-    />
-  );
+  return <PageBuilder pageBuilder={pageBuilder ?? []} id={_id} type={_type} />;
 }

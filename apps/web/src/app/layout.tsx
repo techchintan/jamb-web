@@ -1,4 +1,9 @@
+import "@workspace/ui/globals.css";
+
 import { Geist, Geist_Mono } from "next/font/google";
+import { draftMode } from "next/headers";
+import { VisualEditing } from "next-sanity";
+import { Suspense } from "react";
 
 import { FooterServer, FooterSkeleton } from "@/components/footer";
 import { CombinedJsonLd } from "@/components/json-ld";
@@ -6,10 +11,6 @@ import { NavbarServer, NavbarSkeleton } from "@/components/navbar";
 import { PreviewBar } from "@/components/preview-bar";
 import { Providers } from "@/components/providers";
 import { SanityLive } from "@/lib/sanity/live";
-import "@workspace/ui/globals.css";
-import { VisualEditing } from "next-sanity";
-import { draftMode } from "next/headers";
-import { Suspense } from "react";
 
 const fontSans = Geist({
   subsets: ["latin"],

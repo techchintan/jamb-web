@@ -44,36 +44,25 @@ interface FlexibleFaq {
 
 // Utility function to safely extract plain text from rich text blocks
 function extractPlainTextFromRichText(
-  richText: RichTextBlock[] | null | undefined
+  richText: RichTextBlock[] | null | undefined,
 ): string {
   if (!Array.isArray(richText)) return "";
 
   return richText
-    .filter(
-      (block) =>
-        block._type === "block" && Array.isArray(block.children)
-    )
+    .filter((block) => block._type === "block" && Array.isArray(block.children))
     .map(
       (block) =>
         block.children
-          ?.filter(
-            (child) => child._type === "span" && Boolean(child.text)
-          )
+          ?.filter((child) => child._type === "span" && Boolean(child.text))
           .map((child) => child.text)
-          .join("") ?? ""
+          .join("") ?? "",
     )
     .join(" ")
     .trim();
 }
 
 // Utility function to safely render JSON-LD
-export function JsonLdScript<T>({
-  data,
-  id,
-}: {
-  data: T;
-  id: string;
-}) {
+export function JsonLdScript<T>({ data, id }: { data: T; id: string }) {
   return (
     <script type="application/ld+json" id={id}>
       {JSON.stringify(data, null, 0)}
@@ -104,7 +93,7 @@ export function FaqJsonLd({ faqs }: FaqJsonLdProps) {
           "@type": "Answer",
           text: extractPlainTextFromRichText(faq.richText),
         } as Answer,
-      })
+      }),
     ),
   };
 
@@ -128,10 +117,7 @@ interface ArticleJsonLdProps {
   article: QueryBlogSlugPageDataResult;
   settings?: QuerySettingsDataResult;
 }
-export function ArticleJsonLd({
-  article,
-  settings,
-}: ArticleJsonLdProps) {
+export function ArticleJsonLd({ article, settings }: ArticleJsonLdProps) {
   if (!article) return null;
 
   const baseUrl = getBaseUrl();
@@ -170,12 +156,10 @@ export function ArticleJsonLd({
         : undefined,
     } as Organization,
     datePublished: new Date(
-      article.publishedAt ||
-        article._createdAt ||
-        new Date().toISOString()
+      article.publishedAt || article._createdAt || new Date().toISOString(),
     ).toISOString(),
     dateModified: new Date(
-      article._updatedAt || new Date().toISOString()
+      article._updatedAt || new Date().toISOString(),
     ).toISOString(),
     url: articleUrl,
     mainEntityOfPage: {
@@ -185,10 +169,7 @@ export function ArticleJsonLd({
   };
 
   return (
-    <JsonLdScript
-      data={articleJsonLd}
-      id={`article-json-ld-${article.slug}`}
-    />
+    <JsonLdScript data={articleJsonLd} id={`article-json-ld-${article.slug}`} />
   );
 }
 
@@ -197,17 +178,13 @@ interface OrganizationJsonLdProps {
   settings: QuerySettingsDataResult;
 }
 
-export function OrganizationJsonLd({
-  settings,
-}: OrganizationJsonLdProps) {
+export function OrganizationJsonLd({ settings }: OrganizationJsonLdProps) {
   if (!settings) return null;
 
   const baseUrl = getBaseUrl();
 
   const socialLinks = settings.socialLinks
-    ? (Object.values(settings.socialLinks).filter(
-        Boolean
-      ) as string[])
+    ? (Object.values(settings.socialLinks).filter(Boolean) as string[])
     : undefined;
 
   const organizationJsonLd: WithContext<Organization> = {
@@ -232,12 +209,7 @@ export function OrganizationJsonLd({
     sameAs: socialLinks?.length ? socialLinks : undefined,
   };
 
-  return (
-    <JsonLdScript
-      data={organizationJsonLd}
-      id="organization-json-ld"
-    />
-  );
+  return <JsonLdScript data={organizationJsonLd} id="organization-json-ld" />;
 }
 
 // Website JSON-LD Component

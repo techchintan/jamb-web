@@ -1,13 +1,11 @@
 import { notFound } from "next/navigation";
+
 import { RichText } from "@/components/elements/rich-text";
 import { SanityImage } from "@/components/elements/sanity-image";
 import { TableOfContent } from "@/components/elements/table-of-content";
 import { client } from "@/lib/sanity/client";
 import { sanityFetch } from "@/lib/sanity/live";
-import {
-  queryBlogPaths,
-  queryBlogSlugPageData,
-} from "@/lib/sanity/query";
+import { queryBlogPaths, queryBlogSlugPageData } from "@/lib/sanity/query";
 import { getSEOMetadata } from "@/lib/seo";
 
 async function fetchBlogSlugPageData(slug: string, stega = true) {
@@ -40,14 +38,13 @@ export async function generateMetadata({
     data
       ? {
           title: data?.title ?? data?.seoTitle ?? "",
-          description:
-            data?.description ?? data?.seoDescription ?? "",
+          description: data?.description ?? data?.seoDescription ?? "",
           slug: data?.slug,
           contentId: data?._id,
           contentType: data?._type,
           pageType: "article",
         }
-      : {}
+      : {},
   );
 }
 
@@ -72,9 +69,7 @@ export default async function BlogSlugPage({
           {/* <ArticleJsonLd article={stegaClean(data)} /> */}
           <header className="mb-8">
             <h1 className="mt-2 text-4xl font-bold">{title}</h1>
-            <p className="mt-4 text-lg text-muted-foreground">
-              {description}
-            </p>
+            <p className="mt-4 text-lg text-muted-foreground">{description}</p>
           </header>
           {image && (
             <div className="mb-12">

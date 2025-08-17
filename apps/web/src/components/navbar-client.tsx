@@ -6,10 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@workspace/ui/components/accordion";
-import {
-  Button,
-  buttonVariants,
-} from "@workspace/ui/components/button";
+import { Button, buttonVariants } from "@workspace/ui/components/button";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -38,10 +35,10 @@ import type {
   QueryNavbarDataResult,
 } from "@/lib/sanity/sanity.types";
 
-import { Logo } from "./logo";
-import { ModeToggle } from "./mode-toggle";
 import { SanityButtons } from "./elements/sanity-buttons";
 import { SanityIcon } from "./elements/sanity-icon";
+import { Logo } from "./logo";
+import { ModeToggle } from "./mode-toggle";
 
 interface MenuItem {
   title: string;
@@ -60,7 +57,7 @@ function MenuItemLink({
   return (
     <Link
       className={cn(
-        "flex select-none gap-4 rounded-md p-3 leading-none outline-none transition-colors hover:bg-accent hover:text-accent-foreground items-center focus:bg-accent focus:text-accent-foreground"
+        "flex select-none gap-4 rounded-md p-3 leading-none outline-none transition-colors hover:bg-accent hover:text-accent-foreground items-center focus:bg-accent focus:text-accent-foreground",
       )}
       aria-label={`Link to ${item.title ?? item.href}`}
       onClick={() => setIsOpen?.(false)}
@@ -81,23 +78,15 @@ function MobileNavbarAccordionColumn({
   column,
   setIsOpen,
 }: {
-  column: NonNullable<
-    NonNullable<QueryNavbarDataResult>["columns"]
-  >[number];
+  column: NonNullable<NonNullable<QueryNavbarDataResult>["columns"]>[number];
   setIsOpen: (isOpen: boolean) => void;
 }) {
   if (column.type !== "column") return null;
   return (
-    <AccordionItem
-      value={column.title ?? column._key}
-      className="border-b-0"
-    >
+    <AccordionItem value={column.title ?? column._key} className="border-b-0">
       <AccordionTrigger className="mb-4 py-0 font-semibold hover:no-underline hover:bg-accent hover:text-accent-foreground pr-2 rounded-md">
         <div
-          className={cn(
-            buttonVariants({ variant: "ghost" }),
-            "justify-start"
-          )}
+          className={cn(buttonVariants({ variant: "ghost" }), "justify-start")}
         >
           {column.title}
         </div>
@@ -110,12 +99,7 @@ function MobileNavbarAccordionColumn({
             item={{
               description: item.description ?? "",
               href: item.href ?? "",
-              icon: (
-                <SanityIcon
-                  icon={item.icon}
-                  className="size-5 shrink-0"
-                />
-              ),
+              icon: <SanityIcon icon={item.icon} className="size-5 shrink-0" />,
               title: item.name ?? "",
             }}
           />
@@ -179,7 +163,7 @@ function MobileNavbar({
                   onClick={() => setIsOpen(false)}
                   className={cn(
                     buttonVariants({ variant: "ghost" }),
-                    "justify-start"
+                    "justify-start",
                   )}
                 >
                   {item.name}
@@ -218,9 +202,7 @@ function NavbarColumnLink({
   column,
 }: {
   column: Extract<
-    NonNullable<
-      NonNullable<QueryNavbarDataResult>["columns"]
-    >[number],
+    NonNullable<NonNullable<QueryNavbarDataResult>["columns"]>[number],
     { type: "link" }
   >;
 }) {
@@ -231,7 +213,7 @@ function NavbarColumnLink({
       // legacyBehavior
       className={cn(
         navigationMenuTriggerStyle(),
-        "text-muted-foreground dark:text-neutral-300"
+        "text-muted-foreground dark:text-neutral-300",
       )}
       // passHref
     >
@@ -253,15 +235,13 @@ export function NavbarColumn({
   column,
 }: {
   column: Extract<
-    NonNullable<
-      NonNullable<QueryNavbarDataResult>["columns"]
-    >[number],
+    NonNullable<NonNullable<QueryNavbarDataResult>["columns"]>[number],
     { type: "column" }
   >;
 }) {
   const layoutClass = useMemo(
     () => getColumnLayoutClass(column.links?.length ?? 0),
-    [column.links?.length]
+    [column.links?.length],
   );
 
   return (
@@ -306,16 +286,10 @@ export function DesktopNavbar({
       <NavigationMenu className="">
         {columns?.map((column) =>
           column.type === "column" ? (
-            <NavbarColumn
-              key={`nav-${column._key}`}
-              column={column}
-            />
+            <NavbarColumn key={`nav-${column._key}`} column={column} />
           ) : (
-            <NavbarColumnLink
-              key={`nav-${column._key}`}
-              column={column}
-            />
-          )
+            <NavbarColumnLink key={`nav-${column._key}`} column={column} />
+          ),
         )}
       </NavigationMenu>
 
@@ -345,10 +319,7 @@ const ClientSideNavbar = ({
   }
 
   return isMobile ? (
-    <MobileNavbar
-      navbarData={navbarData}
-      settingsData={settingsData}
-    />
+    <MobileNavbar navbarData={navbarData} settingsData={settingsData} />
   ) : (
     <DesktopNavbar navbarData={navbarData} />
   );
@@ -400,10 +371,7 @@ export function NavbarSkeletonResponsive() {
 }
 
 // Dynamically import the navbar with no SSR to avoid hydration issues
-export const NavbarClient = dynamic(
-  () => Promise.resolve(ClientSideNavbar),
-  {
-    ssr: false,
-    loading: () => <NavbarSkeletonResponsive />,
-  }
-);
+export const NavbarClient = dynamic(() => Promise.resolve(ClientSideNavbar), {
+  ssr: false,
+  loading: () => <NavbarSkeletonResponsive />,
+});

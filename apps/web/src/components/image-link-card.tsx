@@ -21,7 +21,7 @@ export function CTACard({ card, className }: CTACardProps) {
       href={href ?? "#"}
       className={cn(
         "rounded-3xl p-4 md:p-8 transition-colors relative overflow-hidden group flex flex-col justify-end xl:h-[400px]",
-        className
+        className,
       )}
     >
       {image?.id && (

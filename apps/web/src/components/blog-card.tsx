@@ -132,6 +132,9 @@ function AuthorSection({ authors }: { authors: Blog["authors"] }) {
     </div>
   );
 }
+
+
+
 export function FeaturedBlogCard({ blog }: BlogCardProps) {
   const { title, publishedAt, slug, authors, description, image } =
     blog ?? {};

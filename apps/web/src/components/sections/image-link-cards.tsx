@@ -38,9 +38,7 @@ export function ImageLinkCards({
                     idx === 0 && "lg:rounded-l-3xl lg:rounded-r-none",
                     idx === cards.length - 1 &&
                       "lg:rounded-r-3xl lg:rounded-l-none",
-                    idx !== 0 &&
-                      idx !== cards.length - 1 &&
-                      "lg:rounded-none"
+                    idx !== 0 && idx !== cards.length - 1 && "lg:rounded-none",
                   )}
                 />
               ))}
