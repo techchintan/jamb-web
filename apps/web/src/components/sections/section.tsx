@@ -23,7 +23,7 @@ const Section = ({
     <div className={cn("py-19 bg-[#F3F0ED]", className)}>
       <div
         className="px-[132px] container grid grid-cols-2 gap-[151px] items-center mx-auto"
-        id={title.toLocaleLowerCase()}
+        id={(heading || title).toLocaleLowerCase()}
       >
         <div className="flex flex-col items-center gap-6">
           {heading && (
