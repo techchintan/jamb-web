@@ -109,6 +109,8 @@ Set `SANITY_STUDIO_PRODUCTION_HOSTNAME` to whatever you want your deployed Sanit
 
 Set `SANITY_STUDIO_PRESENTATION_URL` to your web app front-end URL (from the Vercel deployment). This URL is required for production deployments and should be:
 
+Set `SANITY_DEPLOY_TOKEN` as Read + Write Sanity API Key
+
 - Set in your GitHub repository secrets for CI/CD deployments
 - Set in your local environment if deploying manually with `npx sanity deploy`
 - Not needed for local development, where preview will automatically use http://localhost:3000
