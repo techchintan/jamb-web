@@ -12,11 +12,12 @@ import { locations } from "./location";
 import { presentationUrl } from "./plugins/presentation-url";
 import { schemaTypes } from "./schemaTypes";
 import { structure } from "./structure";
-import { createPageTemplate, getPresentationUrl } from "./utils/helper";
+import { createPageTemplate } from "./utils/helper";
 
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID ?? "";
 const dataset = process.env.SANITY_STUDIO_DATASET;
 const title = process.env.SANITY_STUDIO_TITLE;
+const toolUrl = process.env.SANITY_STUDIO_PRESENTATION_URL;
 
 export default defineConfig({
   name: "default",
@@ -30,7 +31,7 @@ export default defineConfig({
         locations,
       },
       previewUrl: {
-        initial: getPresentationUrl(),
+        initial: toolUrl,
         previewMode: {
           enable: "/api/presentation-draft",
         },
