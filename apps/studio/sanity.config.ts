@@ -30,7 +30,7 @@ export default defineConfig({
         locations,
       },
       previewUrl: {
-        origin: getPresentationUrl(),
+        initial: getPresentationUrl(),
         previewMode: {
           enable: "/api/presentation-draft",
         },
