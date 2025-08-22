@@ -30,7 +30,6 @@ export default defineConfig({
   plugins: [
     presentationTool({
       title: "Jamb Presentation Tool",
-      name: "jamb-presentation-tool",
       icon: Logo,
       allowOrigins: toolUrl,
       resolve: {
