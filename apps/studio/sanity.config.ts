@@ -18,7 +18,7 @@ const projectId = process.env.SANITY_STUDIO_PROJECT_ID ?? "";
 const dataset = process.env.SANITY_STUDIO_DATASET;
 const title = process.env.SANITY_STUDIO_TITLE;
 const toolUrl =
-  process.env.SANITY_STUDIO_PRESENTATION_URL ??
+  process.env.NEXT_PUBLIC_SANITY_STUDIO_PRESENTATION_URL ??
   "https://jamb.chintansudani.com";
 
 export default defineConfig({
@@ -31,7 +31,6 @@ export default defineConfig({
     presentationTool({
       title: "Jamb Presentation Tool",
       icon: Logo,
-      allowOrigins: toolUrl,
       resolve: {
         locations,
       },
