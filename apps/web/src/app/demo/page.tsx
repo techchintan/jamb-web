@@ -27,7 +27,7 @@ export default async function Page() {
 
       <ListSection
         title="Our latest chimneypieces"
-        list={Array.from({ length: 4 }, () => ({
+        list={Array.from({ length: 8 }, () => ({
           image: "/images/easton-marble.jpg",
           title: "Lorem Ipsum",
           subTitle: "Subtitle",
@@ -35,7 +35,6 @@ export default async function Page() {
       />
       <ListSection
         title="Our latest lighting"
-        className={"grid-cols-5 gap-[106px]"}
         list={Array.from({ length: 5 }, () => ({
           image: "/images/dish-light.jpg",
           title: "Lorem Ipsum",
@@ -50,7 +49,6 @@ export default async function Page() {
       />
       <ListSection
         title="Our latest furniture"
-        className={"grid-cols-5 gap-[81px]"}
         list={Array.from({ length: 5 }, (_, i) => ({
           image: `/images/latest-furniture-${i + 1}.png`,
           title: "Lorem Ipsum",
@@ -67,7 +65,6 @@ export default async function Page() {
       />
       <ListSection
         title="See more of our latest stories"
-        className={"grid-cols-5 gap-[97px]"}
         list={Array.from({ length: 5 }, () => ({
           image: `/images/jamb-most-prized-possession.jpg`,
           title: "Lorem Ipsum",
