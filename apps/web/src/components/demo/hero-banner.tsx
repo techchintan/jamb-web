@@ -9,7 +9,7 @@ const HeroBanner = () => {
         src={"/images/hero-banner.png"}
         width={1436}
         height={768}
-        className="mx-auto w-full px-10"
+        className="mx-auto w-full px-5 md:px-10"
       />
     </div>
   );

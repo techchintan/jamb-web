@@ -24,7 +24,6 @@ export default async function Page() {
         image="/images/lighting.png"
         title="Lighting"
       />
-
       <ListSection
         title="Our latest chimneypieces"
         list={Array.from({ length: 8 }, () => ({

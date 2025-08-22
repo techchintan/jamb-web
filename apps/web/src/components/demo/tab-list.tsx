@@ -9,7 +9,7 @@ const TabList = () => {
         <Fragment key={index}>
           <Link
             href={`#${tab.toLocaleLowerCase()}`}
-            className="font-medium text-base text-[#9C9C9D]"
+            className="font-medium text-sm sm:text-base text-[#9C9C9D]"
           >
             {tab}
           </Link>
