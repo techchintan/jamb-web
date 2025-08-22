@@ -18,6 +18,7 @@ const ListSection = ({ title, list }: props) => {
       <div className="p-5 lg:p-10 flex flex-col gap-8 container items-center mx-auto">
         <div className="text-xl font-medium">{title}</div>
         <Carousel
+        className="w-full"
           opts={{
             loop: true,
             align: "center",
@@ -38,7 +39,7 @@ const ListSection = ({ title, list }: props) => {
                     src={image}
                     width={333}
                     height={244}
-                    className="flex-1 w-full object-none md:object-contain"
+                    className="flex-1 object-contain"
                   />
                   <div className="flex flex-col items-center">
                     <div className="text-base font-semibold text-[#737373]">

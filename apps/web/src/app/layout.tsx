@@ -37,10 +37,9 @@ export default async function RootLayout({
             <NavbarServer />
           </Suspense>
           {children}
-
-          {/* <Suspense fallback={<FooterSkeleton />}>
+          <Suspense fallback={<FooterSkeleton />}>
             <FooterServer />
-          </Suspense> */}
+          </Suspense>
           <SanityLive />
           <CombinedJsonLd includeWebsite includeOrganization />
           {(await draftMode()).isEnabled && (
