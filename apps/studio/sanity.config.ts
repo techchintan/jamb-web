@@ -17,7 +17,9 @@ import { createPageTemplate } from "./utils/helper";
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID ?? "";
 const dataset = process.env.SANITY_STUDIO_DATASET;
 const title = process.env.SANITY_STUDIO_TITLE;
-const toolUrl = process.env.SANITY_STUDIO_PRESENTATION_URL;
+const toolUrl =
+  process.env.SANITY_STUDIO_PRESENTATION_URL ??
+  "https://jamb.chintansudani.com";
 
 export default defineConfig({
   name: "default",
@@ -27,6 +29,10 @@ export default defineConfig({
   dataset: dataset ?? "production",
   plugins: [
     presentationTool({
+      title: "Jamb Presentation Tool",
+      name: "jamb-presentation-tool",
+      icon: Logo,
+      allowOrigins: toolUrl,
       resolve: {
         locations,
       },
