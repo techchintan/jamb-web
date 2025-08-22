@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useOptimistic } from "@sanity/visual-editing/react";
@@ -23,12 +24,6 @@ export interface PageBuilderProps {
   readonly pageBuilder?: PageBuilderBlock[];
   readonly id: string;
   readonly type: string;
-}
-
-interface PageData {
-  readonly _id: string;
-  readonly _type: string;
-  readonly pageBuilder?: PageBuilderBlock[];
 }
 
 interface SanityDataAttributeConfig {
@@ -126,7 +121,7 @@ function useBlockRenderer(id: string, type: string) {
   );
 
   const renderBlock = useCallback(
-    (block: PageBuilderBlock, index: number) => {
+    (block: PageBuilderBlock) => {
       const Component =
         BLOCK_COMPONENTS[block._type as keyof typeof BLOCK_COMPONENTS];
 
