@@ -31,10 +31,17 @@ interface OgImageParams {
 
 // Default site configuration
 const siteConfig: SiteConfig = {
-  title: "Roboto Studio Demo",
-  description: "Roboto Studio Demo",
-  twitterHandle: "@studioroboto",
-  keywords: ["roboto", "studio", "demo", "sanity", "next", "react", "template"],
+  title: "Jamb Furnish",
+  description: "Jamb: Antique Fireplaces & Antique Reproduction Fireplaces",
+  twitterHandle: "@jambfurnish",
+  keywords: [
+    "jamb furnish",
+    "antique fireplaces",
+    "antique reproduction fireplaces",
+    "country house furniture",
+    "antique",
+    "reproduction",
+  ],
 };
 
 function generateOgImageUrl(params: OgImageParams = {}): string {
