@@ -30,7 +30,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased`}
+        className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased bg-[#F3F0ED]`}
       >
         <Providers>
           <Suspense fallback={<NavbarSkeleton />}>
