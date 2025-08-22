@@ -53,27 +53,6 @@ const richTextFragment = /* groq */ `
   }
 `;
 
-const blogAuthorFragment = /* groq */ `
-  authors[0]->{
-    _id,
-    name,
-    position,
-    ${imageFragment}
-  }
-`;
-
-const blogCardFragment = /* groq */ `
-  _type,
-  _id,
-  title,
-  description,
-  "slug":slug.current,
-  orderRank,
-  ${imageFragment},
-  publishedAt,
-  ${blogAuthorFragment}
-`;
-
 const buttonsFragment = /* groq */ `
   buttons[]{
     text,
@@ -97,6 +76,7 @@ const ctaBlock = /* groq */ `
     ${buttonsFragment},
   }
 `;
+
 const imageLinkCardsBlock = /* groq */ `
   _type == "imageLinkCards" => {
     ...,
@@ -121,31 +101,6 @@ const heroBlock = /* groq */ `
     ${imageFragment},
     ${buttonsFragment},
     ${richTextFragment}
-  }
-`;
-
-const faqFragment = /* groq */ `
-  "faqs": array::compact(faqs[]->{
-    title,
-    _id,
-    _type,
-    ${richTextFragment}
-  })
-`;
-
-const faqAccordionBlock = /* groq */ `
-  _type == "faqAccordion" => {
-    ...,
-    ${faqFragment},
-    link{
-      ...,
-      "openInNewTab": url.openInNewTab,
-      "href": select(
-        url.type == "internal" => url.internal->slug.current,
-        url.type == "external" => url.external,
-        url.href
-      )
-    }
   }
 `;
 
@@ -180,7 +135,6 @@ const pageBuilderFragment = /* groq */ `
     _type,
     ${ctaBlock},
     ${heroBlock},
-    ${faqAccordionBlock},
     ${featureCardsIconBlock},
     ${subscribeNewsletterBlock},
     ${imageLinkCardsBlock}
@@ -221,38 +175,6 @@ export const querySlugPagePaths = defineQuery(`
   *[_type == "page" && defined(slug.current)].slug.current
 `);
 
-export const queryBlogIndexPageData = defineQuery(`
-  *[_type == "blogIndex"][0]{
-    ...,
-    _id,
-    _type,
-    title,
-    description,
-    "displayFeaturedBlogs" : displayFeaturedBlogs == "yes",
-    "featuredBlogsCount" : featuredBlogsCount,
-    ${pageBuilderFragment},
-    "slug": slug.current,
-    "blogs": *[_type == "blog" && (seoHideFromLists != true)] | order(orderRank asc){
-      ${blogCardFragment}
-    }
-  }
-`);
-
-export const queryBlogSlugPageData = defineQuery(`
-  *[_type == "blog" && slug.current == $slug][0]{
-    ...,
-    "slug": slug.current,
-    ${blogAuthorFragment},
-    ${imageFragment},
-    ${richTextFragment},
-    ${pageBuilderFragment}
-  }
-`);
-
-export const queryBlogPaths = defineQuery(`
-  *[_type == "blog" && defined(slug.current)].slug.current
-`);
-
 const ogFieldsFragment = /* groq */ `
   _id,
   _type,
@@ -281,12 +203,6 @@ export const queryHomePageOGData = defineQuery(`
 
 export const querySlugPageOGData = defineQuery(`
   *[_type == "page" && _id == $id][0]{
-    ${ogFieldsFragment}
-  }
-`);
-
-export const queryBlogPageOGData = defineQuery(`
-  *[_type == "blog" && _id == $id][0]{
     ${ogFieldsFragment}
   }
 `);
@@ -359,12 +275,9 @@ export const querySitemapData = defineQuery(`{
   "slugPages": *[_type == "page" && defined(slug.current)]{
     "slug": slug.current,
     "lastModified": _updatedAt
-  },
-  "blogPages": *[_type == "blog" && defined(slug.current)]{
-    "slug": slug.current,
-    "lastModified": _updatedAt
   }
 }`);
+
 export const queryGlobalSeoSettings = defineQuery(`
   *[_type == "settings"][0]{
     _id,
