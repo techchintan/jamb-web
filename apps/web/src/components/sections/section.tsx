@@ -22,12 +22,12 @@ const Section = ({
   return (
     <div
       className={cn(
-        "py-19 bg-[#F3F0ED] sticky top-[calc(100dvh-77px-100%)] md:top-[calc(100dvh-109px-100%)] z-1 scroll-maintain",
+        " bg-[#F3F0ED] sticky top-[calc(100dvh-77px-100%)] md:top-[calc(100dvh-109px-100%)] z-1",
         className,
       )}
     >
       <div
-        className="px-5 lg:px-[132px] container grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-[151px] items-center mx-auto"
+        className="px-5 lg:px-[132px] container grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-[151px] items-center mx-auto py-19"
         id={(heading || title).toLocaleLowerCase()}
       >
         <div className="flex flex-col items-center gap-6">
