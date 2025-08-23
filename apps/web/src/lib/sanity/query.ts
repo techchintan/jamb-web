@@ -69,38 +69,13 @@ const buttonsFragment = /* groq */ `
 `;
 
 // Page builder block fragments
-const ctaBlock = /* groq */ `
-  _type == "cta" => {
-    ...,
-    ${richTextFragment},
-    ${buttonsFragment},
-  }
-`;
-
-const imageLinkCardsBlock = /* groq */ `
-  _type == "imageLinkCards" => {
-    ...,
-    ${richTextFragment},
-    ${buttonsFragment},
-    "cards": array::compact(cards[]{
-      ...,
-      "openInNewTab": url.openInNewTab,
-      "href": select(
-        url.type == "internal" => url.internal->slug.current,
-        url.type == "external" => url.external,
-        url.href
-      ),
-      ${imageFragment},
-    })
-  }
-`;
-
 const heroBlock = /* groq */ `
   _type == "hero" => {
     ...,
-    ${imageFragment},
-    ${buttonsFragment},
-    ${richTextFragment}
+    "slides": slides[]{
+      ...,
+      ${imageFields}
+    },
   }
 `;
 

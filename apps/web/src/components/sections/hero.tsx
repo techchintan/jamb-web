@@ -1,56 +1,78 @@
-import { Badge } from "@workspace/ui/components/badge";
+"use client";
 
 import type { PagebuilderType } from "@/types";
-
-import { RichText } from "../elements/rich-text";
-import { SanityButtons } from "../elements/sanity-buttons";
 import { SanityImage } from "../elements/sanity-image";
+import { cn } from "@workspace/ui/lib/utils";
+import { useEffect, useRef, useState } from "react";
+import TabList from "../tab-list";
 
 type HeroBlockProps = PagebuilderType<"hero">;
 
-export function HeroBlock({
-  title,
-  buttons,
-  badge,
-  image,
-  richText,
-}: HeroBlockProps) {
+export function HeroBlock({ slides = [], links }: HeroBlockProps) {
+  const [selected, setSelected] = useState<number>(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const getLoading = (idx: number) => {
+    if (idx === 0) return "eager";
+    if (idx === 1) return "lazy";
+    return undefined;
+  };
+
+  useEffect(() => {
+    setSelected(0);
+  }, [slides]);
+
+  useEffect(() => {
+    if (!slides || slides.length < 2) return;
+
+    if (intervalRef.current) clearInterval(intervalRef.current);
+
+    intervalRef.current = setInterval(() => {
+      setSelected((prev) => (prev + 1) % slides.length);
+    }, 3000);
+
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [slides]);
+
+  if (!slides || slides.length === 0) return null;
+
   return (
-    <section id="hero" className="mt-4 md:my-16">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="grid items-center gap-8 lg:grid-cols-2">
-          <div className="grid h-full grid-rows-[auto_1fr_auto] gap-4 items-center justify-items-center text-center lg:items-start lg:justify-items-start lg:text-left">
-            <Badge variant="secondary">{badge}</Badge>
-            <div className="grid gap-4">
-              <h1 className="text-4xl lg:text-6xl font-semibold text-balance">
-                {title}
-              </h1>
-              <RichText
-                richText={richText}
-                className="text-base md:text-lg font-normal"
-              />
-            </div>
+    <>
+      <section className="container sticky mx-auto top-[77px] md:top-[109px] w-full z-1">
+        <div className="relative h-[calc(100dvh-157px)] md:h-[calc(100dvh-189px)]">
+          {slides.map((slide, idx) => {
+            const isActive = selected === idx;
+            const isNext =
+              slides.length > 1 && (selected + 1) % slides.length === idx;
+            if (!isActive && !isNext) return null;
 
-            <SanityButtons
-              buttons={buttons}
-              buttonClassName="w-full sm:w-auto"
-              className="w-full sm:w-fit grid gap-2 sm:grid-flow-col lg:justify-start mb-8"
-            />
-          </div>
-
-          {image && (
-            <div className="h-96 w-full">
+            return (
               <SanityImage
-                image={image}
-                loading="eager"
-                width={800}
-                height={800}
-                className="max-h-96 w-full rounded-3xl object-cover"
+                key={slide._key || idx}
+                image={slide}
+                alt={
+                  typeof slide === "object" && "alt" in slide
+                    ? (slide as any).alt || ""
+                    : "Hero Banner Image"
+                }
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                loading={getLoading(idx)}
+                fetchPriority={idx === 0 ? "high" : "auto"}
+                className={cn(
+                  "mx-auto h-full object-contain px-5 md:px-10 inset-0 transition-all ease-in-out duration-500 absolute w-full",
+                  {
+                    "opacity-100 pointer-events-auto z-10": isActive,
+                    "opacity-0 pointer-events-none z-0": !isActive,
+                  },
+                )}
               />
-            </div>
-          )}
+            );
+          })}
         </div>
-      </div>
-    </section>
+      </section>
+      <TabList links={links} />
+    </>
   );
 }
