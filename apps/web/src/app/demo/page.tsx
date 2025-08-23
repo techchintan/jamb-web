@@ -28,8 +28,8 @@ export default async function Page() {
         title="Our latest chimneypieces"
         list={Array.from({ length: 8 }, () => ({
           image: "/images/easton-marble.jpg",
-          title: "Lorem Ipsum",
-          subTitle: "Subtitle",
+          title: "Lorem ipsum dolor sit amet, incididunt ut labore et dolore consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim labore et dolore magn ad minim veniam.",
+          subTitle: "Lorem ipsum dolor sit amet, incididunt ut labore et dolore consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim labore et dolore magn ad minim veniam.",
         }))}
       />
       <ListSection

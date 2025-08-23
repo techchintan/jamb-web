@@ -1,9 +1,8 @@
 import Image from "next/image";
-import React from "react";
 
 const HeroBanner = () => {
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto sticky top-[77px] md:top-[109px] w-full z-1">
       <Image
         alt=""
         src={"/images/hero-banner.png"}

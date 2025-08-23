@@ -28,7 +28,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="scrollbar-hidden">
       <body
         className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased bg-[#F3F0ED]`}
       >

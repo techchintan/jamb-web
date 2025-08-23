@@ -20,7 +20,12 @@ const Section = ({
   heading,
 }: props) => {
   return (
-    <div className={cn("py-19 bg-[#F3F0ED]", className)}>
+    <div
+      className={cn(
+        "py-19 bg-[#F3F0ED] sticky top-[77px] md:top-[109px] z-1",
+        className,
+      )}
+    >
       <div
         className="px-5 lg:px-[132px] container grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-[151px] items-center mx-auto"
         id={(heading || title).toLocaleLowerCase()}

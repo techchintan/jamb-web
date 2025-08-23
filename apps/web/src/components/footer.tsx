@@ -6,6 +6,7 @@ import { queryFooterData, queryGlobalSeoSettings } from "@/lib/sanity/query";
 import { Button } from "@workspace/ui/components/button";
 import { Input } from "@workspace/ui/components/input";
 import { Label } from "@workspace/ui/components/label";
+import { Checkbox } from "@workspace/ui/components/checkbox";
 
 export async function FooterServer() {
   const [response, settingsResponse] = await Promise.all([
@@ -182,6 +183,15 @@ function Footer() {
                 Subscribe
               </Button>
             </div>
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="policy"
+                className="rounded-full border-[#9C9C9D] cursor-pointer"
+              />
+              <Label htmlFor="policy" className="cursor-pointer">
+                I agree to our Privacy Policy
+              </Label>
+            </div>
           </div>
         </div>
         {mainList.map((sublist, index) => (
@@ -192,9 +202,9 @@ function Footer() {
                 <div className="flex flex-col">
                   <p className="text-base text-black">{title}</p>
                   {list.map((item, index) => (
-                    <p className="text-base text-[#9C9C9D]" key={index}>
-                      {item}
-                    </p>
+                    <Link key={index} href={"#"}>
+                      <p className="text-base text-[#9C9C9D]">{item}</p>
+                    </Link>
                   ))}
                 </div>
               </div>

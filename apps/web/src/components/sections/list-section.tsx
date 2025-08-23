@@ -14,7 +14,7 @@ type props = {
 };
 const ListSection = ({ title, list }: props) => {
   return (
-    <div className="bg-[#E3E3E3]">
+    <div className="bg-[#E3E3E3] relative z-2">
       <div className="p-5 lg:p-10 flex flex-col gap-8 container items-center mx-auto">
         <div className="text-xl font-medium">{title}</div>
         <Carousel
@@ -28,7 +28,7 @@ const ListSection = ({ title, list }: props) => {
             {list.map(({ image, subTitle, title }, index) => (
               <CarouselItem
                 key={index}
-                className="min-w-0 shrink-0 grow-0 basis-full p-0 select-none  md:basis-3/4 lg:basis-1/2 xl:basis-1/5"
+                className="min-w-0 shrink-0 grow-0 basis-full p-0 select-none  sm:basis-1/2 lg:basis-1/3 xl:basis-1/5"
               >
                 <div
                   key={index}
@@ -42,10 +42,10 @@ const ListSection = ({ title, list }: props) => {
                     className="flex-1 object-contain"
                   />
                   <div className="flex flex-col items-center">
-                    <div className="text-base font-semibold text-[#737373]">
+                    <div className="text-base font-semibold text-[#737373] line-clamp-1">
                       {title}
                     </div>
-                    <div className="text-base font-medium text-[#737373]">
+                    <div className="text-base text-[#737373] line-clamp-1">
                       {subTitle}
                     </div>
                   </div>
