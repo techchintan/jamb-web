@@ -20,7 +20,7 @@ const HeroBanner = () => {
           alt=""
           src={"/images/hero-banner.png"}
           fill
-         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className={cn(
             "mx-auto h-full object-contain px-5 md:px-10 inset-0 transition-all ease-in-out duration-500",
             {
@@ -33,7 +33,7 @@ const HeroBanner = () => {
           alt=""
           src={"/images/fireplaces.png"}
           fill
-         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className={cn(
             "mx-auto h-full object-contain px-5 md:px-10 inset-0 transition-all ease-in-out duration-500",
             {

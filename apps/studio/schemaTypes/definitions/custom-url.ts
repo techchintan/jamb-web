@@ -58,8 +58,8 @@ export const customUrl = defineType({
           const type = (parent as { type?: string })?.type;
           if (type === "section") {
             if (!value) return "Section anchor can't be empty";
-            if (!/^#[A-Za-z0-9\-_]+$/.test(value)) {
-              return "Section anchor must start with # and contain only letters, numbers, hyphens, or underscores";
+            if (value !== "#" && !/^#[A-Za-z0-9\-_]+$/.test(value)) {
+              return "Section anchor must start with # and contain only letters, numbers, hyphens, or underscores (or just be #)";
             }
           }
           return true;
