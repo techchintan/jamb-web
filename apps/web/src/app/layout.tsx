@@ -49,7 +49,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-UK" suppressHydrationWarning className="scroll-smooth">
+    <html
+      lang="en-UK"
+      suppressHydrationWarning
+      className="scroll-smooth scroll-pt-[77px] md:scroll-pt-[109px]"
+    >
       <body className={`${glxcs.variable} font-glxcs antialiased bg-[#F3F0ED]`}>
         <Providers>
           <Suspense fallback={<NavbarSkeleton />}>

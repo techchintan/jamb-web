@@ -22,7 +22,7 @@ const Section = ({
   return (
     <div
       className={cn(
-        "py-19 bg-[#F3F0ED] sticky top-[77px] md:top-[109px] z-1",
+        "py-19 bg-[#F3F0ED] sticky top-[calc(100dvh-77px-100%)] md:top-[calc(100dvh-109px-100%)] z-1 scroll-maintain",
         className,
       )}
     >
