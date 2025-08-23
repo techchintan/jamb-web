@@ -16,11 +16,11 @@ export function FurnitureTypeBlock({
   return (
     <div
       className={cn(
-        " bg-[#F3F0ED] sticky top-[calc(100dvh-77px-100%)] md:top-[calc(100dvh-109px-100%)] z-1",
+        "bg-[#F3F0ED] sticky top-[calc(100dvh-77px-100%)] md:top-[calc(100dvh-109px-100%)] z-1",
       )}
     >
       <div
-        className="px-5 lg:px-[132px] container grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-[151px] items-center mx-auto py-19"
+        className="px-5 lg:px-28 container grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-[151px] items-center mx-auto py-19"
         id={(prefix || title).toLocaleLowerCase()}
       >
         <div className="flex flex-col items-center gap-6">
@@ -35,7 +35,7 @@ export function FurnitureTypeBlock({
           <SanityButtons
             buttons={buttons}
             buttonClassName="w-full sm:w-fit"
-            className="flex flex-col gap-3 items-center w-full"
+            className="flex !flex-col gap-3 items-center w-full"
           />
         </div>
         {image && (
