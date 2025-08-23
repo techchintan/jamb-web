@@ -29,7 +29,7 @@ export function HeroBlock({ slides = [], links }: HeroBlockProps) {
 
     intervalRef.current = setInterval(() => {
       setSelected((prev) => (prev + 1) % slides.length);
-    }, 3000);
+    }, 5000);
 
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
@@ -40,8 +40,8 @@ export function HeroBlock({ slides = [], links }: HeroBlockProps) {
 
   return (
     <>
-      <section className="container sticky mx-auto top-[77px] md:top-[109px] w-full z-1">
-        <div className="relative h-[calc(100dvh-157px)] md:h-[calc(100dvh-189px)]">
+      <section className="container sticky mx-auto top-[77px] w-full z-1">
+        <div className="relative h-[calc(100dvh-157px)] md:h-[calc(100dvh-250px)]">
           {slides.map((slide, idx) => {
             const isActive = selected === idx;
             const isNext =
