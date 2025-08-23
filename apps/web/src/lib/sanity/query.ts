@@ -104,28 +104,12 @@ const heroBlock = /* groq */ `
   }
 `;
 
-const subscribeNewsletterBlock = /* groq */ `
-  _type == "subscribeNewsletter" => {
-    ...,
-    "subTitle": subTitle[]{
-      ...,
-      ${markDefsFragment}
-    },
-    "helperText": helperText[]{
-      ...,
-      ${markDefsFragment}
-    }
-  }
-`;
-
-const featureCardsIconBlock = /* groq */ `
-  _type == "featureCardsIcon" => {
+const furnitureTypeBlock = /* groq */ `
+  _type == "furnitureType" => {
     ...,
     ${richTextFragment},
-    "cards": array::compact(cards[]{
-      ...,
-      ${richTextFragment},
-    })
+    ${buttonsFragment},
+    ${imageFragment},
   }
 `;
 
@@ -133,11 +117,8 @@ const pageBuilderFragment = /* groq */ `
   pageBuilder[]{
     ...,
     _type,
-    ${ctaBlock},
     ${heroBlock},
-    ${featureCardsIconBlock},
-    ${subscribeNewsletterBlock},
-    ${imageLinkCardsBlock}
+    ${furnitureTypeBlock}
   }
 `;
 
