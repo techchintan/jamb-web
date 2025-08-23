@@ -127,7 +127,7 @@ function Footer({ footer, settings }: FooterProps) {
         </div>
         <Link
           href={"mailto:hello@jamb.co.uk"}
-          className="text-base text-[#9C9C9D]"
+          className="text-base text-[#9C9C9D] w-fit"
         >
           {settings.contactEmail}
         </Link>
@@ -171,7 +171,11 @@ function Footer({ footer, settings }: FooterProps) {
                     {title}
                   </p>
                   {links.map((item, linkIdx) => (
-                    <Link key={item._key ?? linkIdx} href={item.href || "#"}>
+                    <Link
+                      key={item._key ?? linkIdx}
+                      href={item.href || "#"}
+                      className="w-fit"
+                    >
                       <p className="text-base text-[#9C9C9D] font-medium mb-1.5">
                         {item.name}
                       </p>
