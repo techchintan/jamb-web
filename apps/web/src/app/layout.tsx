@@ -1,6 +1,6 @@
 import "@workspace/ui/globals.css";
 
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity";
 import { Suspense } from "react";
@@ -12,14 +12,35 @@ import { PreviewBar } from "@/components/preview-bar";
 import { Providers } from "@/components/providers";
 import { SanityLive } from "@/lib/sanity/live";
 
-const fontSans = Geist({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
-
-const fontMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
+const glxcs = localFont({
+  src: [
+    {
+      path: "./fonts/Copernicus-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Copernicus-Medium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Copernicus-Semibold.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Copernicus-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "./fonts/Copernicus-Extrabold.woff2",
+      weight: "800",
+      style: "normal",
+    },
+  ],
+  variable: "--font-glxcs",
 });
 
 export default async function RootLayout({
@@ -29,9 +50,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en-UK" suppressHydrationWarning className="scroll-smooth">
-      <body
-        className={`${fontSans.variable} ${fontMono.variable} antialiased bg-[#F3F0ED]`}
-      >
+      <body className={`${glxcs.variable} font-glxcs antialiased bg-[#F3F0ED]`}>
         <Providers>
           <Suspense fallback={<NavbarSkeleton />}>
             <NavbarServer />

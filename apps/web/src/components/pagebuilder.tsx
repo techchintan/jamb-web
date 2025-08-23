@@ -80,7 +80,7 @@ function UnknownBlockError({
     >
       <div className="space-y-2">
         <p>Component not found for block type:</p>
-        <code className="font-mono text-sm bg-background px-2 py-1 rounded">
+        <code className="text-sm bg-background px-2 py-1 rounded">
           {blockType}
         </code>
       </div>

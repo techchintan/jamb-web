@@ -167,10 +167,14 @@ function Footer({ footer, settings }: FooterProps) {
               <div key={groupIdx} className="flex flex-col gap-3">
                 <div className="w-full h-[1px] bg-[#9C9C9D]" />
                 <div className="flex flex-col">
-                  <p className="text-base text-black">{title}</p>
+                  <p className="text-base text-black font-semibold mb-2">
+                    {title}
+                  </p>
                   {links.map((item, linkIdx) => (
                     <Link key={item._key ?? linkIdx} href={item.href || "#"}>
-                      <p className="text-base text-[#9C9C9D]">{item.name}</p>
+                      <p className="text-base text-[#9C9C9D] font-medium mb-1.5">
+                        {item.name}
+                      </p>
                     </Link>
                   ))}
                 </div>
