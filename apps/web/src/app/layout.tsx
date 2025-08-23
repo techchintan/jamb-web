@@ -29,8 +29,16 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className="scrollbar-hidden">
+      <head>
+        <link
+          rel="preload"
+          href="https://jamb-web.vercel.app/_next/static/media/99eb34eb7dc4f2bf-s.p.woff2"
+          as="font"
+          type="font/woff2"
+        />
+      </head>
       <body
-        className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased bg-[#F3F0ED]`}
+        className={`${fontSans.variable} ${fontMono.variable}  antialiased bg-[#F3F0ED] [font-family:copernicusBold,copernicusBold_Fallback]`}
       >
         <Providers>
           <Suspense fallback={<NavbarSkeleton />}>
