@@ -19,10 +19,10 @@ const HeroBanner = () => {
         <Image
           alt=""
           src={"/images/hero-banner.png"}
-          width={1436}
-          height={768}
+          fill
+         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className={cn(
-            "mx-auto h-full object-contain px-5 md:px-10 absolute inset-0 transition-all ease-in-out duration-500",
+            "mx-auto h-full object-contain px-5 md:px-10 inset-0 transition-all ease-in-out duration-500",
             {
               "opacity-100 z-1": selected === 0,
               "opacity-0 z-0": selected === 1,
@@ -32,10 +32,10 @@ const HeroBanner = () => {
         <Image
           alt=""
           src={"/images/fireplaces.png"}
-          width={1436}
-          height={768}
+          fill
+         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className={cn(
-            "mx-auto h-full object-contain px-5 md:px-10 absolute inset-0 transition-all ease-in-out duration-500",
+            "mx-auto h-full object-contain px-5 md:px-10 inset-0 transition-all ease-in-out duration-500",
             {
               "opacity-100 z-1": selected === 1,
               "opacity-0 z-0": selected === 0,

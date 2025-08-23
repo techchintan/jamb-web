@@ -40,6 +40,7 @@ const ListSection = ({ title, list }: props) => {
                     width={333}
                     height={244}
                     className="flex-1 object-contain"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <div className="flex flex-col items-center">
                     <div className="text-base font-semibold text-[#737373] line-clamp-1">
