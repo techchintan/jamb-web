@@ -60,7 +60,7 @@ function MobileNavbar({
           </SheetTitle>
         </SheetHeader>
 
-        <div className="my-8 flex flex-col gap-4 mx-4">
+        <div className="flex flex-col gap-4 mx-4">
           <NavigationMenu viewport={false} className="max-w-full">
             <div className="w-full">
               <NavigationMenuList className="w-full flex-col">

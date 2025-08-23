@@ -45,7 +45,7 @@ const ListSection = ({ title, list }: props) => {
                     <div className="text-base font-semibold text-[#737373] line-clamp-1">
                       {title}
                     </div>
-                    <div className="text-base text-[#737373] line-clamp-1">
+                    <div className="text-base text-[#737373] line-clamp-2">
                       {subTitle}
                     </div>
                   </div>

@@ -18,19 +18,21 @@ export default async function Page() {
         image="/images/fireplaces.png"
         title="Fireplaces"
       />
+      <ListSection
+        title="Our latest chimneypieces"
+        list={Array.from({ length: 8 }, () => ({
+          image: "/images/easton-marble.jpg",
+          title:
+            "Lorem ipsum dolor sit amet, incididunt ut labore et dolore consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim labore et dolore magn ad minim veniam.",
+          subTitle:
+            "Lorem ipsum dolor sit amet, incididunt ut labore et dolore consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim labore et dolore magn ad minim veniam.",
+        }))}
+      />
       <Section
         buttonList={[{ label: "Explore our Lighting" }]}
         desc="Lorem ipsum dolor sit amet, incididunt ut labore et dolore consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim labore et dolore magn ad minim veniam."
         image="/images/lighting.png"
         title="Lighting"
-      />
-      <ListSection
-        title="Our latest chimneypieces"
-        list={Array.from({ length: 8 }, () => ({
-          image: "/images/easton-marble.jpg",
-          title: "Lorem ipsum dolor sit amet, incididunt ut labore et dolore consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim labore et dolore magn ad minim veniam.",
-          subTitle: "Lorem ipsum dolor sit amet, incididunt ut labore et dolore consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim labore et dolore magn ad minim veniam.",
-        }))}
       />
       <ListSection
         title="Our latest lighting"

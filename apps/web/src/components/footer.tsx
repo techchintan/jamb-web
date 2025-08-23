@@ -151,7 +151,7 @@ const mainList = [
 
 function Footer() {
   return (
-    <footer className="p-8 bg-[#E3E3E3] text-base text-[#9C9C9D]">
+    <footer className="p-5 sm:p-8 bg-[#E3E3E3] text-base text-[#9C9C9D]">
       <section className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
         <div className="flex flex-col">
           <p>Tel: +44 (0) 207 730 2122</p>
@@ -168,7 +168,7 @@ function Footer() {
         <div className="sm:col-span-2 flex justify-end">
           <div className="flex flex-col gap-3 w-full">
             <Label htmlFor="picture">Newsletter</Label>
-            <div className="flex flex-col sm:flex-row gap-0.5 ">
+            <div className="flex gap-0.5 ">
               <Input
                 type="text"
                 placeholder="Search"
