@@ -18,7 +18,7 @@ const ListSection = ({ title, list }: props) => {
       <div className="p-5 lg:p-10 flex flex-col gap-8 container items-center mx-auto">
         <div className="text-xl font-medium">{title}</div>
         <Carousel
-        className="w-full"
+          className="w-full"
           opts={{
             loop: true,
             align: "center",

@@ -1,5 +1,7 @@
-import { LayoutPanelLeft, Link, PanelBottom } from "lucide-react";
+import { LayoutPanelLeft, Link, LinkIcon, PanelBottom } from "lucide-react";
 import { defineField, defineType } from "sanity";
+
+import { createRadioListLayout } from "../../utils/helper";
 
 const footerColumnLink = defineField({
   name: "footerColumnLink",
@@ -22,19 +24,41 @@ const footerColumnLink = defineField({
       title: "name",
       externalUrl: "url.external",
       urlType: "url.type",
+      sectionAnchor: "url.section",
       internalUrl: "url.internal.slug.current",
       openInNewTab: "url.openInNewTab",
     },
-    prepare({ title, externalUrl, urlType, internalUrl, openInNewTab }) {
-      const url = urlType === "external" ? externalUrl : internalUrl;
+    prepare(selection) {
+      const {
+        title,
+        externalUrl,
+        urlType,
+        internalUrl,
+        sectionAnchor,
+        openInNewTab,
+      } = selection;
+
+      let url = "/[page not found]";
+      if (urlType === "external") {
+        url = externalUrl;
+      } else if (urlType === "section") {
+        url = sectionAnchor;
+      } else if (internalUrl) {
+        url = `/${internalUrl}`;
+      }
+
       const newTabIndicator = openInNewTab ? " ↗" : "";
       const truncatedUrl =
-        url?.length > 30 ? `${url.substring(0, 30)}...` : url;
+        url && url.length > 30 ? `${url.substring(0, 30)}...` : url;
+
+      let urlTypeLabel = "Internal";
+      if (urlType === "external") urlTypeLabel = "External";
+      else if (urlType === "section") urlTypeLabel = "Section";
 
       return {
         title: title || "Untitled Link",
-        subtitle: `${urlType === "external" ? "External" : "Internal"} • ${truncatedUrl}${newTabIndicator}`,
-        media: Link,
+        subtitle: `${urlTypeLabel} • ${truncatedUrl}${newTabIndicator}`,
+        media: LinkIcon,
       };
     },
   },
@@ -46,10 +70,25 @@ const footerColumn = defineField({
   icon: LayoutPanelLeft,
   fields: [
     defineField({
+      name: "type",
+      type: "string",
+      description: "Choose the type of column you want to create.",
+      options: createRadioListLayout([
+        "fireplaces",
+        "lighting",
+        "furniture",
+        "journal",
+        "other",
+      ]),
+      initialValue: () => "fireplaces",
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "title",
       type: "string",
       title: "Title",
       description: "Title for the column",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: "links",
@@ -86,13 +125,6 @@ export const footer = defineType({
       title: "Label",
       description: "Label used to identify footer in the CMS",
       validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: "subtitle",
-      type: "text",
-      rows: 2,
-      title: "Subtitle",
-      description: "Subtitle that sits beneath the logo in the footer",
     }),
     defineField({
       name: "columns",

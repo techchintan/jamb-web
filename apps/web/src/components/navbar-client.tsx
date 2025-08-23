@@ -21,19 +21,24 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import type { QueryGlobalSeoSettingsResult } from "@/lib/sanity/sanity.types";
+import type {
+  QueryGlobalSeoSettingsResult,
+  QueryNavbarDataResult,
+} from "@/lib/sanity/sanity.types";
 
 import { Logo } from "./logo";
 
 function MobileNavbar({
   settingsData,
+  navbarData,
 }: {
   settingsData: QueryGlobalSeoSettingsResult;
+  navbarData: QueryNavbarDataResult;
 }) {
-  const { siteTitle, logo } = settingsData ?? {};
-  const [isOpen, setIsOpen] = useState(false);
-
   const path = usePathname();
+  const { siteTitle, logo } = settingsData ?? {};
+  const { columns } = navbarData ?? {};
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     setIsOpen(false);
@@ -64,25 +69,28 @@ function MobileNavbar({
           <NavigationMenu viewport={false} className="max-w-full">
             <div className="w-full">
               <NavigationMenuList className="w-full flex-col">
-                {["Fireplaces", "Lighting ", "Furniture", "Journal"].map(
-                  (tab, index) => (
-                    <NavigationMenuItem
-                      className="w-full"
-                      key={index}
-                      onClick={() => setIsOpen(false)}
+                {columns?.map((tab, index) => (
+                  <NavigationMenuItem
+                    className="w-full"
+                    key={index}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <NavigationMenuLink
+                      asChild
+                      className={cn(
+                        navigationMenuTriggerStyle(),
+                        "w-full items-start text-base",
+                      )}
                     >
-                      <NavigationMenuLink
-                        asChild
-                        className={cn(
-                          navigationMenuTriggerStyle(),
-                          "w-full items-start text-base",
-                        )}
+                      <Link
+                        target={tab.openInNewTab ? "_blank" : "_self"}
+                        href={tab.href ?? "#"}
                       >
-                        <Link href={`#${tab.toLocaleLowerCase()}`}>{tab}</Link>
-                      </NavigationMenuLink>
-                    </NavigationMenuItem>
-                  ),
-                )}
+                        {tab.name}
+                      </Link>
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                ))}
               </NavigationMenuList>
             </div>
           </NavigationMenu>
@@ -94,8 +102,10 @@ function MobileNavbar({
 
 const ClientSideNavbar = ({
   settingsData,
+  navbarData,
 }: {
   settingsData: QueryGlobalSeoSettingsResult;
+  navbarData: QueryNavbarDataResult;
 }) => {
   return (
     <div className="flex gap-7 items-center">
@@ -103,7 +113,7 @@ const ClientSideNavbar = ({
       <Link href="mailto:example@example.com">
         <Mail color="#9C9C9D" />
       </Link>
-      <MobileNavbar settingsData={settingsData} />
+      <MobileNavbar settingsData={settingsData} navbarData={navbarData} />
     </div>
   );
 };

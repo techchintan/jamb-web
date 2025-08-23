@@ -1,20 +1,28 @@
 import { sanityFetch } from "@/lib/sanity/live";
 import { queryGlobalSeoSettings, queryNavbarData } from "@/lib/sanity/query";
-import type { QueryGlobalSeoSettingsResult } from "@/lib/sanity/sanity.types";
+import type {
+  QueryGlobalSeoSettingsResult,
+  QueryNavbarDataResult,
+} from "@/lib/sanity/sanity.types";
 
 import { Logo } from "./logo";
 import { NavbarClient, NavbarSkeletonResponsive } from "./navbar-client";
 
 export async function NavbarServer() {
-  const [settingsData] = await Promise.all([
+  const [navbarData, settingsData] = await Promise.all([
+    sanityFetch({ query: queryNavbarData }),
     sanityFetch({ query: queryGlobalSeoSettings }),
   ]);
-  return <Navbar settingsData={settingsData.data} />;
+  return (
+    <Navbar navbarData={navbarData.data} settingsData={settingsData.data} />
+  );
 }
 
 export function Navbar({
+  navbarData,
   settingsData,
 }: {
+  navbarData: QueryNavbarDataResult;
   settingsData: QueryGlobalSeoSettingsResult;
 }) {
   const { siteTitle: settingsSiteTitle, logo } = settingsData ?? {};
@@ -24,7 +32,7 @@ export function Navbar({
       <div className="container mx-auto md:px-10 md:py-8 px-5 py-4">
         <div className="flex items-center justify-between gap-4">
           {logo && <Logo alt={settingsSiteTitle} image={logo} />}
-          <NavbarClient settingsData={settingsData} />
+          <NavbarClient settingsData={settingsData} navbarData={navbarData} />
         </div>
       </div>
     </header>

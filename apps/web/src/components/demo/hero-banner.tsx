@@ -1,10 +1,12 @@
 "use client";
+
 import { cn } from "@workspace/ui/lib/utils";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const HeroBanner = () => {
   const [selected, setSelected] = useState(0);
+
   useEffect(() => {
     setTimeout(() => {
       setSelected((prev) => (prev ? 0 : 1));
@@ -12,7 +14,7 @@ const HeroBanner = () => {
   }, [selected]);
 
   return (
-    <div className="container sticky top-[77px] md:top-[109px] w-full z-1">
+    <div className="container sticky mx-auto top-[77px] md:top-[109px] w-full z-1">
       <div className="relative h-[calc(100dvh-77px)] md:h-[calc(100dvh-109px)]">
         <Image
           alt=""

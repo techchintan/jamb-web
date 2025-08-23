@@ -28,17 +28,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="scrollbar-hidden">
-      <head>
-        <link
-          rel="preload"
-          href="https://jamb-web.vercel.app/_next/static/media/99eb34eb7dc4f2bf-s.p.woff2"
-          as="font"
-          type="font/woff2"
-        />
-      </head>
+    <html lang="en-UK" suppressHydrationWarning className="scroll-smooth">
       <body
-        className={`${fontSans.variable} ${fontMono.variable}  antialiased bg-[#F3F0ED] [font-family:copernicusBold,copernicusBold_Fallback]`}
+        className={`${fontSans.variable} ${fontMono.variable} antialiased bg-[#F3F0ED]`}
       >
         <Providers>
           <Suspense fallback={<NavbarSkeleton />}>

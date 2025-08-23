@@ -31,10 +31,6 @@ export function OrganizationJsonLd({ settings }: OrganizationJsonLdProps) {
 
   const baseUrl = getBaseUrl();
 
-  const socialLinks = settings.socialLinks
-    ? (Object.values(settings.socialLinks).filter(Boolean) as string[])
-    : undefined;
-
   const organizationJsonLd: WithContext<Organization> = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -54,7 +50,6 @@ export function OrganizationJsonLd({ settings }: OrganizationJsonLdProps) {
           contactType: "customer service",
         } as ContactPoint)
       : undefined,
-    sameAs: socialLinks?.length ? socialLinks : undefined,
   };
 
   return <JsonLdScript data={organizationJsonLd} id="organization-json-ld" />;

@@ -1,15 +1,19 @@
 import Link from "next/link";
 
-import { sanityFetch } from "@/lib/sanity/live";
-import { queryFooterData, queryGlobalSeoSettings } from "@/lib/sanity/query";
-
 import { Button } from "@workspace/ui/components/button";
+import { Checkbox } from "@workspace/ui/components/checkbox";
 import { Input } from "@workspace/ui/components/input";
 import { Label } from "@workspace/ui/components/label";
-import { Checkbox } from "@workspace/ui/components/checkbox";
+
+import { sanityFetch } from "@/lib/sanity/live";
+import { queryFooterData, queryGlobalSeoSettings } from "@/lib/sanity/query";
+import type {
+  QueryFooterDataResult,
+  QueryGlobalSeoSettingsResult,
+} from "@/lib/sanity/sanity.types";
 
 export async function FooterServer() {
-  const [response, settingsResponse] = await Promise.all([
+  const [footer, settings] = await Promise.all([
     sanityFetch({
       query: queryFooterData,
     }),
@@ -18,8 +22,9 @@ export async function FooterServer() {
     }),
   ]);
 
-  if (!response?.data || !settingsResponse?.data) return <FooterSkeleton />;
-  return <Footer />;
+  if (!footer?.data || !settings?.data) return <FooterSkeleton />;
+
+  return <Footer footer={footer.data} settings={settings.data} />;
 }
 
 export function FooterSkeleton() {
@@ -73,96 +78,58 @@ export function FooterSkeleton() {
   );
 }
 
-const mainList = [
-  [
-    {
-      title: "Reproduction Chimneypieces",
-      list: [
-        "Marble",
-        "Stone",
-        "Grates & Accessories",
-        "Guide to Jamb Marbles",
-      ],
-    },
-    {
-      title: "Antique Chimneypieces",
-      list: ["French & Italian", "Georgian", "Regency"],
-    },
-    {
-      title: "Sell an Antique Chimneypiece",
-      list: [],
-    },
-  ],
-  [
-    {
-      title: "Reproduction Lighting",
-      list: [
-        "Hanging Globes",
-        "Hanging Lanterns",
-        "Wall Lights",
-        "Dish Lights",
-        "Table Lamps",
-        "Chains & Brackets",
-      ],
-    },
-  ],
-  [
-    {
-      title: "Reproduction Furniture",
-      list: ["Seating", "Tables", "Mirrors", "The Pantry Collection"],
-    },
-    {
-      title: "Antique Furniture",
-      list: [
-        "Seating",
-        "Tables",
-        "Desks",
-        "Bookcases & Cabinets",
-        "Chests",
-        "Mirrors",
-        "Fire Accessories",
-        "Objects",
-        "Works of Arts",
-        "Lighting",
-      ],
-    },
-  ],
-  [
-    {
-      title: "Journal",
-      list: ["Praesentium", "Voluptatibus", "Accusamus", "Iusto", "Dignissimo"],
-    },
-  ],
-  [
-    {
-      title: "About",
-      list: [
-        "Founders",
-        "Team",
-        "History",
-        "Galleries",
-        "Workshops",
-        "Showrooms",
-        "Terms &   Conditions",
-      ],
-    },
-  ],
-];
+interface FooterColumnLink {
+  _key?: string;
+  name?: string;
+  href?: string;
+  openInNewTab?: boolean;
+}
 
-function Footer() {
+interface FooterColumn {
+  title: string;
+  links: FooterColumnLink[];
+  type?: string;
+}
+
+interface FooterProps {
+  footer: NonNullable<QueryFooterDataResult>;
+  settings: NonNullable<QueryGlobalSeoSettingsResult>;
+}
+
+function Footer({ footer, settings }: FooterProps) {
+  const columns: FooterColumn[] = Array.isArray(footer.columns)
+    ? (footer.columns as FooterColumn[])
+    : [];
+
+  const footerColumnsByType: Array<
+    Array<{ title: string; links: FooterColumnLink[] }>
+  > = Object.values(
+    columns.reduce<
+      Record<string, Array<{ title: string; links: FooterColumnLink[] }>>
+    >((acc, column) => {
+      const type = column?.type;
+      if (!type) return acc;
+      if (!acc[type]) acc[type] = [];
+      acc[type].push({
+        title: column.title,
+        links: Array.isArray(column.links) ? column.links : [],
+      });
+      return acc;
+    }, {}),
+  );
+
   return (
     <footer className="p-5 sm:p-8 bg-[#E3E3E3] text-base text-[#9C9C9D]">
       <section className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
         <div className="flex flex-col">
-          <p>Tel: +44 (0) 207 730 2122</p>
-          <p>95–97 Pimlico Rd</p>
-          <p>London SW1W 8PH</p>
+          <p>Tel: {settings.contactPhone}</p>
+          <p>{settings.contactAddress}</p>
         </div>
         <Link
           href={"mailto:hello@jamb.co.uk"}
           className="text-base text-[#9C9C9D]"
         >
-          hello@jamb.co.uk
+          {settings.contactEmail}
         </Link>
         <div className="hidden lg:block" />
         <div className="sm:col-span-2 flex justify-end">
@@ -194,16 +161,16 @@ function Footer() {
             </div>
           </div>
         </div>
-        {mainList.map((sublist, index) => (
-          <div className="flex flex-col gap-3" key={index}>
-            {sublist.map(({ title, list }, index) => (
-              <div key={index} className="flex flex-col gap-3">
+        {footerColumnsByType.map((sublist, sublistIdx) => (
+          <div className="flex flex-col gap-3" key={sublistIdx}>
+            {sublist.map(({ title, links }, groupIdx) => (
+              <div key={groupIdx} className="flex flex-col gap-3">
                 <div className="w-full h-[1px] bg-[#9C9C9D]" />
                 <div className="flex flex-col">
                   <p className="text-base text-black">{title}</p>
-                  {list.map((item, index) => (
-                    <Link key={index} href={"#"}>
-                      <p className="text-base text-[#9C9C9D]">{item}</p>
+                  {links.map((item, linkIdx) => (
+                    <Link key={item._key ?? linkIdx} href={item.href || "#"}>
+                      <p className="text-base text-[#9C9C9D]">{item.name}</p>
                     </Link>
                   ))}
                 </div>
