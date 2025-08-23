@@ -90,16 +90,6 @@ function getDocumentTypeConfig(
   sanityDocumentType: string,
 ): SlugValidationOptions {
   switch (sanityDocumentType) {
-    case "blog":
-      return {
-        documentType: "Blog post",
-        requiredPrefix: "/blog/",
-      };
-    case "blogIndex":
-      return {
-        documentType: "Blog index",
-        requiredPrefix: "/blog",
-      };
     case "homePage":
       return {
         documentType: "Home page",
@@ -119,8 +109,7 @@ function validatePrefixes(
   options: SlugValidationOptions,
 ): SlugValidationError[] {
   const errors: SlugValidationError[] = [];
-  const { documentType, requiredPrefix, allowedPrefixes, sanityDocumentType } =
-    options;
+  const { documentType, requiredPrefix, allowedPrefixes } = options;
 
   // Type-specific prefix validation
   if (documentType && requiredPrefix) {
@@ -144,15 +133,6 @@ function validatePrefixes(
         message: `URL must start with one of: "${prefixList}"`,
       });
     }
-  }
-
-  // Special validation for pages - prevent blog prefix usage
-  if (sanityDocumentType === "page" && slug.startsWith("/blog")) {
-    errors.push({
-      type: "prefix",
-      message:
-        'Pages cannot use "/blog" prefix - this is reserved for blog content',
-    });
   }
 
   return errors;
@@ -260,39 +240,11 @@ function applyDocumentTypeRules(
   sanityDocumentType: string,
 ): string {
   switch (sanityDocumentType) {
-    case "blog":
-      // Ensure blog posts start with /blog/
-      if (!slug.startsWith("/blog/")) {
-        if (slug === "/" || slug === "/blog") {
-          return "/blog/untitled";
-        }
-        // Remove any existing prefix and add /blog/
-        const cleanPath = slug.replace(/^\/+/, "");
-        return `/blog/${cleanPath}`;
-      }
-      return slug;
-
-    case "blogIndex":
-      // Blog index should be exactly /blog
-      if (slug !== "/blog") {
-        return "/blog";
-      }
-      return slug;
-
     case "homePage":
       // Home page should be exactly /
       return "/";
 
     case "page":
-      // Pages cannot use /blog prefix
-      if (slug.startsWith("/blog")) {
-        // Remove /blog prefix and clean up
-        const withoutBlogPrefix = slug.replace(/^\/blog\/?/, "");
-        if (!withoutBlogPrefix) {
-          return "/page";
-        }
-        return `/${withoutBlogPrefix}`;
-      }
       return slug;
 
     default:

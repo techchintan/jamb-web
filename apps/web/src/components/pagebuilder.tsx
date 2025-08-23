@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useOptimistic } from "@sanity/visual-editing/react";
@@ -9,7 +10,6 @@ import type { QueryHomePageDataResult } from "@/lib/sanity/sanity.types";
 import type { PageBuilderBlockTypes, PagebuilderType } from "@/types";
 
 import { CTABlock } from "./sections/cta";
-import { FaqAccordion } from "./sections/faq-accordion";
 import { FeatureCardsWithIcon } from "./sections/feature-cards-with-icon";
 import { HeroBlock } from "./sections/hero";
 import { ImageLinkCards } from "./sections/image-link-cards";
@@ -26,12 +26,6 @@ export interface PageBuilderProps {
   readonly type: string;
 }
 
-interface PageData {
-  readonly _id: string;
-  readonly _type: string;
-  readonly pageBuilder?: PageBuilderBlock[];
-}
-
 interface SanityDataAttributeConfig {
   readonly id: string;
   readonly type: string;
@@ -41,9 +35,6 @@ interface SanityDataAttributeConfig {
 // Strongly typed component mapping with proper component signatures
 const BLOCK_COMPONENTS = {
   cta: CTABlock as React.ComponentType<PagebuilderType<"cta">>,
-  faqAccordion: FaqAccordion as React.ComponentType<
-    PagebuilderType<"faqAccordion">
-  >,
   hero: HeroBlock as React.ComponentType<PagebuilderType<"hero">>,
   featureCardsIcon: FeatureCardsWithIcon as React.ComponentType<
     PagebuilderType<"featureCardsIcon">
@@ -130,7 +121,7 @@ function useBlockRenderer(id: string, type: string) {
   );
 
   const renderBlock = useCallback(
-    (block: PageBuilderBlock, index: number) => {
+    (block: PageBuilderBlock) => {
       const Component =
         BLOCK_COMPONENTS[block._type as keyof typeof BLOCK_COMPONENTS];
 

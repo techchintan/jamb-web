@@ -74,11 +74,6 @@ export const page = defineType({
 
             if (basicValidation !== true) return basicValidation;
 
-            // Then check that pages don't use blog prefixes
-            if (slug?.current?.startsWith("/blog")) {
-              return 'Pages cannot use "/blog" prefix - this is reserved for blog content';
-            }
-
             return true;
           }),
     }),

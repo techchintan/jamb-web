@@ -72,7 +72,6 @@ This is a rough idea of how to structure folders and files, ensuring you always 
     │   │   │   ├── index.ts
     │   │   │   ├── blocks/
     │   │   │   │   ├── cta.ts
-    │   │   │   │   ├── faq-accordion.ts
     │   │   │   │   ├── feature-cards-icon.ts
     │   │   │   │   ├── hero.ts
     │   │   │   │   ├── image-link-cards.ts
@@ -85,9 +84,6 @@ This is a rough idea of how to structure folders and files, ensuring you always 
     │   │   │   │   ├── pagebuilder.ts
     │   │   │   │   └── rich-text.ts
     │   │   │   └── documents/
-    │   │   │       ├── author.ts
-    │   │   │       ├── blog.ts
-    │   │   │       ├── faq.ts
     │   │   │       └── page.ts
     │   │   └── utils/
     │   │       ├── const-mock-data.ts
@@ -107,7 +103,6 @@ This is an example of how the blocks index file would be structured, you would c
 ```typescript
 import { callToAction } from './call-to-action';
 import { exploreHero } from './explore-hero';
-import { faqList } from './faq-list';
 import { htmlEmbed } from './html-embed';
 import { iconGrid } from './icon-grid';
 import { latestDocs } from './latest-docs';
@@ -127,7 +122,6 @@ export const pagebuilderBlocks = [
   socialProof,
   quote,
   latestDocs,
-  faqList,
   callToAction,
   trustCard,
   quinstreetEmbed,
@@ -238,7 +232,7 @@ Whenever there is an image within a GROQ query, do not expand it unless explicit
 
 - Import `defineQuery` and `groq` from `next-sanity` at the top of query files
 - Export queries as constants using the `defineQuery` function
-- Organize queries by content type (blogs, pages, products, etc.)
+- Organize queries by content type (pages, products, etc.)
 - Group related queries together
 
 ### Naming Conventions
