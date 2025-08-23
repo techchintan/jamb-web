@@ -1,7 +1,7 @@
 import HeroBanner from "@/components/demo/hero-banner";
-import TabList from "@/components/demo/tab-list";
-import ListSection from "@/components/sections/list-section";
-import Section from "@/components/sections/section";
+import TabList from "@/components/tab-list";
+import ListSection from "@/components/demo/list-section";
+import Section from "@/components/demo/section";
 
 export default async function Page() {
   return (
