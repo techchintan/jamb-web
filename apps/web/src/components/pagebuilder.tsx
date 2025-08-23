@@ -11,6 +11,7 @@ import type { PageBuilderBlockTypes, PagebuilderType } from "@/types";
 
 import { HeroBlock } from "./sections/hero";
 import { FurnitureTypeBlock } from "./sections/furniture-type";
+import { FurnitureListsBlock } from "./sections/furniture-lists";
 
 // More specific and descriptive type aliases
 type PageBuilderBlock = NonNullable<
@@ -34,6 +35,9 @@ const BLOCK_COMPONENTS = {
   hero: HeroBlock as React.ComponentType<PagebuilderType<"hero">>,
   furnitureType: FurnitureTypeBlock as React.ComponentType<
     PagebuilderType<"furnitureType">
+  >,
+  furnitureLists: FurnitureListsBlock as React.ComponentType<
+    PagebuilderType<"furnitureLists">
   >,
 } as const satisfies Record<PageBuilderBlockTypes, React.ComponentType<any>>;
 

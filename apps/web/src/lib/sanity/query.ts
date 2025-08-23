@@ -88,12 +88,23 @@ const furnitureTypeBlock = /* groq */ `
   }
 `;
 
+const furnitureListsBlock = /* groq */ `
+  _type == "furnitureLists" => {
+    ...,
+    lists[]{
+      ...,
+      ${imageFragment},
+    },
+  }
+`;
+
 const pageBuilderFragment = /* groq */ `
   pageBuilder[]{
     ...,
     _type,
     ${heroBlock},
-    ${furnitureTypeBlock}
+    ${furnitureTypeBlock},
+    ${furnitureListsBlock},
   }
 `;
 

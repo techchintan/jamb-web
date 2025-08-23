@@ -25,7 +25,9 @@ export function FurnitureTypeBlock({
       >
         <div className="flex flex-col items-center gap-6">
           {prefix && (
-            <div className="text-base capitalize font-medium">{prefix}</div>
+            <div className="text-base font-medium uppercase">
+              {prefix}
+            </div>
           )}
           <h2 className="font-medium text-4xl text-center">{title}</h2>
           <RichText
