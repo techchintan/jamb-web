@@ -91,6 +91,7 @@ export type FurnitureType = {
       _key: string;
     } & Button
   >;
+  bgColor?: Color;
 };
 
 export type Hero = {
@@ -319,6 +320,39 @@ export type CustomUrl = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "page";
   };
+};
+
+export type Color = {
+  _type: "color";
+  hex?: string;
+  alpha?: number;
+  hsl?: HslaColor;
+  hsv?: HsvaColor;
+  rgb?: RgbaColor;
+};
+
+export type RgbaColor = {
+  _type: "rgbaColor";
+  r?: number;
+  g?: number;
+  b?: number;
+  a?: number;
+};
+
+export type HsvaColor = {
+  _type: "hsvaColor";
+  h?: number;
+  s?: number;
+  v?: number;
+  a?: number;
+};
+
+export type HslaColor = {
+  _type: "hslaColor";
+  h?: number;
+  s?: number;
+  l?: number;
+  a?: number;
 };
 
 export type SanityAssistInstructionTask = {
@@ -603,6 +637,10 @@ export type AllSanitySchemaTypes =
   | HomePage
   | Page
   | CustomUrl
+  | Color
+  | RgbaColor
+  | HsvaColor
+  | HslaColor
   | SanityAssistInstructionTask
   | SanityAssistTaskStatus
   | SanityAssistSchemaTypeAnnotations
@@ -763,6 +801,7 @@ export type QueryHomePageDataResult = {
           openInNewTab: boolean | null;
           href: string | null;
         }> | null;
+        bgColor?: Color;
       }
     | {
         _key: string;
@@ -944,6 +983,7 @@ export type QuerySlugPageDataResult = {
           openInNewTab: boolean | null;
           href: string | null;
         }> | null;
+        bgColor?: Color;
       }
     | {
         _key: string;

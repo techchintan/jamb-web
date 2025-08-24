@@ -54,7 +54,7 @@ export default async function RootLayout({
       suppressHydrationWarning
       className="scroll-smooth scroll-pt-[77px] md:scroll-pt-[109px]"
     >
-      <body className={`${glxcs.variable} font-glxcs antialiased bg-[#F3F0ED]`}>
+      <body className={`${glxcs.variable} font-glxcs antialiased bg-hint-of-red`}>
         <Providers>
           <Suspense fallback={<NavbarSkeleton />}>
             <NavbarServer />

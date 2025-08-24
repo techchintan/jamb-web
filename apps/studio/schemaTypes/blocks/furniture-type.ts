@@ -41,6 +41,13 @@ export const furnitureType = defineType({
       ...buttonsField,
       description: "Call-to-action buttons for this section",
     }),
+    defineField({
+      name: "bgColor",
+      type: "color",
+      title: "Background Color",
+      description:
+        "Background color for this furniture type section, used for the background color of the section",
+    }),
   ],
   preview: {
     select: {

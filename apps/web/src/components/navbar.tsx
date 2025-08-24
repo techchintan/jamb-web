@@ -28,7 +28,7 @@ export function Navbar({
   const { siteTitle: settingsSiteTitle, logo } = settingsData ?? {};
 
   return (
-    <header className="sticky top-0 bg-[#F3F0ED] z-10">
+    <header className="sticky top-0 bg-hint-of-red z-10">
       <div className="container mx-auto md:px-10 px-5 py-4">
         <div className="flex items-center justify-between gap-4">
           {logo && <Logo alt={settingsSiteTitle} image={logo} />}

@@ -5,7 +5,7 @@ const TabList = () => {
   const tablist = ["Fireplaces", "Lighting ", "Furniture", "Journal"];
 
   return (
-    <div className="flex items-center gap-2 pt-7 justify-center container mx-auto bg-[#F3F0ED] relative z-1">
+    <div className="flex items-center gap-2 pt-7 justify-center container mx-auto bg-hint-of-red relative z-1">
       {tablist.map((tab, index) => (
         <Fragment key={index}>
           <Link

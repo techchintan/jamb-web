@@ -1,5 +1,3 @@
-import { cn } from "@workspace/ui/lib/utils";
-
 import type { PagebuilderType } from "@/types";
 
 import { RichText } from "../elements/rich-text";
@@ -14,12 +12,14 @@ export function FurnitureTypeBlock({
   richText,
   image,
   buttons,
+  bgColor,
 }: FurnitureTypeBlockProps) {
   return (
     <div
-      className={cn(
-        "bg-[#F3F0ED] sticky top-[calc(100dvh-77px-100%)] md:top-[calc(100dvh-109px-100%)] z-1",
-      )}
+      className="sticky top-[calc(100dvh-77px-100%)] md:top-[calc(100dvh-109px-100%)] z-1"
+      style={{
+        backgroundColor: bgColor ? bgColor.hex : "#F3F0ED",
+      }}
     >
       <div
         className="px-5 lg:px-28 container grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-[151px] items-center mx-auto py-19"
