@@ -15,7 +15,7 @@ export function Logo({ alt = "logo", image }: LogoProps) {
       <SanityImage
         image={image}
         alt={alt}
-        width={108}
+        width={90}
         height={45}
         className="dark:invert"
         loading="eager"

@@ -11,7 +11,7 @@ export const NavigationBar = ({ links }: NavigationBarProps) => {
 
   return (
     <nav
-      className="sticky top-20 z-20 flex items-center gap-2 py-7 w-full justify-center mx-auto bg-[#F3F0ED] transition-all duration-300"
+      className="sticky top-16 z-20 flex items-center gap-2 py-6 w-full justify-center mx-auto bg-[#F3F0ED] transition-all duration-300"
       aria-label="Section navigation"
     >
       {links.map((link, idx) => {

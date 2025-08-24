@@ -29,7 +29,7 @@ export function Navbar({
 
   return (
     <header className="sticky top-0 bg-[#F3F0ED] z-10">
-      <div className="container mx-auto md:px-10 md:py-8 px-5 py-4">
+      <div className="container mx-auto md:px-10 px-5 py-4">
         <div className="flex items-center justify-between gap-4">
           {logo && <Logo alt={settingsSiteTitle} image={logo} />}
           <NavbarClient settingsData={settingsData} navbarData={navbarData} />

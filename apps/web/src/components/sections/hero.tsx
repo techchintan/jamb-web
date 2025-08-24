@@ -42,8 +42,8 @@ export function HeroBlock({ slides = [], links }: HeroBlockProps) {
 
   return (
     <>
-      <section className="container sticky mx-auto top-[77px] md:top-[109px] w-full z-1">
-        <div className="relative h-[calc(100dvh-157px)] md:h-[calc(100dvh-189px)]">
+      <section className="container sticky mx-auto top-20 w-full z-1 md:px-10 px-5">
+        <div className="relative h-[calc(100dvh-130px)]">
           {slides.map((slide, idx) => {
             const isActive = selected === idx;
             const isNext =
@@ -58,7 +58,7 @@ export function HeroBlock({ slides = [], links }: HeroBlockProps) {
                 loading={getLoading(idx)}
                 fetchPriority={idx === 0 ? "high" : "auto"}
                 className={cn(
-                  "mx-auto h-full object-contain px-5 md:px-10 inset-0 transition-all ease-in-out duration-500 absolute w-full",
+                  "mx-auto h-full object-contain inset-0 transition-all ease-in-out duration-500 absolute w-full",
                   {
                     "opacity-100 pointer-events-auto z-10": isActive,
                     "opacity-0 pointer-events-none z-0": !isActive,
