@@ -104,7 +104,13 @@ function processImageData(image: SanityImageData): ProcessedImageData | null {
 // Image wrapper component
 const ImageWrapper = <T extends React.ElementType = "img">(
   props: WrapperProps<T>,
-) => <BaseSanityImage baseUrl={SANITY_BASE_URL} {...props} />;
+) => (
+  <BaseSanityImage
+    baseUrl={SANITY_BASE_URL}
+    {...props}
+    queryParams={{ fm: "webp" }}
+  />
+);
 
 // Main component
 function SanityImageComponent({ image, ...props }: SanityImageProps) {
