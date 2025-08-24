@@ -17,7 +17,7 @@ export function Logo({ alt = "logo", image }: LogoProps) {
         alt={alt}
         width={90}
         height={45}
-        className="dark:invert"
+        className="hover:opacity-90 transition-all duration-300"
         loading="eager"
         decoding="sync"
       />
