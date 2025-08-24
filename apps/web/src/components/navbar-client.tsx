@@ -5,7 +5,6 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  navigationMenuTriggerStyle,
 } from "@workspace/ui/components/navigation-menu";
 import {
   Sheet,
@@ -14,7 +13,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@workspace/ui/components/sheet";
-import { cn } from "@workspace/ui/lib/utils";
 import { Mail, Menu, Search } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -49,52 +47,44 @@ function MobileNavbar({
       <div className="flex justify-end">
         <SheetTrigger asChild>
           <div className="cursor-pointer">
-            <Menu color="#9C9C9D" />
+            <Menu className="text-santas-grey" />
             <span className="sr-only">Open menu</span>
           </div>
         </SheetTrigger>
       </div>
-      <SheetContent className="overflow-y-auto">
+      <SheetContent className="overflow-y-auto px-10 py-8 gap-10">
         <SheetHeader>
           <SheetTitle>
-            {logo && (
-              <div className="max-w-[50px]">
-                <Logo alt={siteTitle} image={logo} />
-              </div>
-            )}
+            {logo && <Logo alt={siteTitle} image={logo} />}
           </SheetTitle>
         </SheetHeader>
-
-        <div className="flex flex-col gap-4 mx-4">
-          <NavigationMenu viewport={false} className="max-w-full">
-            <div className="w-full">
-              <NavigationMenuList className="w-full flex-col">
-                {columns?.map((tab, index) => (
-                  <NavigationMenuItem
-                    className="w-full"
-                    key={index}
-                    onClick={() => setIsOpen(false)}
+        <NavigationMenu
+          viewport={false}
+          className="max-w-full items-start justify-start"
+        >
+          <NavigationMenuList className="w-full flex-col gap-6">
+            {columns?.map((tab, index) => (
+              <NavigationMenuItem
+                className="w-full"
+                key={index}
+                onClick={() => setIsOpen(false)}
+              >
+                <NavigationMenuLink
+                  asChild
+                  className="w-full items-start text-xl font-medium hover:text-santas-grey/50 transition-all duration-300 hover:bg-transparent"
+                >
+                  <Link
+                    target={tab.openInNewTab ? "_blank" : "_self"}
+                    href={tab.href ?? "#"}
+                    className="!p-0"
                   >
-                    <NavigationMenuLink
-                      asChild
-                      className={cn(
-                        navigationMenuTriggerStyle(),
-                        "w-full items-start text-base",
-                      )}
-                    >
-                      <Link
-                        target={tab.openInNewTab ? "_blank" : "_self"}
-                        href={tab.href ?? "#"}
-                      >
-                        {tab.name}
-                      </Link>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                ))}
-              </NavigationMenuList>
-            </div>
-          </NavigationMenu>
-        </div>
+                    {tab.name}
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            ))}
+          </NavigationMenuList>
+        </NavigationMenu>
       </SheetContent>
     </Sheet>
   );
@@ -109,9 +99,9 @@ const ClientSideNavbar = ({
 }) => {
   return (
     <div className="flex gap-7 items-center">
-      <Search color="#9C9C9D" />
+      <Search className="text-santas-grey" />
       <Link href="mailto:example@example.com">
-        <Mail color="#9C9C9D" />
+        <Mail className="text-santas-grey" />
       </Link>
       <MobileNavbar settingsData={settingsData} navbarData={navbarData} />
     </div>
