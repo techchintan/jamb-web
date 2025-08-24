@@ -15,7 +15,7 @@ export function FurnitureListsBlock({
   lists,
 }: FurnitureListsBlockProps) {
   return (
-    <div className="bg-[#E3E3E3] relative z-2">
+    <div className="bg-gainsboro relative z-2">
       <div className="p-5 lg:p-10 flex flex-col gap-8 container items-center mx-auto">
         <div className="text-xl font-medium">{title}</div>
         <Carousel
@@ -43,10 +43,10 @@ export function FurnitureListsBlock({
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <div className="flex flex-col items-center">
-                    <div className="text-base font-semibold text-[#737373] line-clamp-1">
+                    <div className="text-base font-semibold text-dim-gray line-clamp-1">
                       {title}
                     </div>
-                    <div className="text-base text-[#737373] line-clamp-2">
+                    <div className="text-base text-dim-gray line-clamp-2">
                       {subTitle}
                     </div>
                   </div>

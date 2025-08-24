@@ -42,6 +42,9 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
   --hint-of-red: #F3F0ED;
+  --gainsboro: #E3E3E3;
+  --santas-grey: #9C9C9D;
+  --dim-gray: #737373;
 }
 
 .dark {
@@ -120,7 +123,10 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-hint-of-red: var(--hint-of-red);
-
+  --color-gainsboro: var(--gainsboro);
+  --color-santas-grey: var(--santas-grey);
+  --color-dim-gray: var(--dim-gray);
+  
   /* Fonts */
   --font-glxcs: var(--font-glxcs);
 }
