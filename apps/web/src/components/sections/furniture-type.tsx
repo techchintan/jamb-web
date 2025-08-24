@@ -1,8 +1,10 @@
 import { cn } from "@workspace/ui/lib/utils";
+
+import type { PagebuilderType } from "@/types";
+
+import { RichText } from "../elements/rich-text";
 import { SanityButtons } from "../elements/sanity-buttons";
 import { SanityImage } from "../elements/sanity-image";
-import type { PagebuilderType } from "@/types";
-import { RichText } from "../elements/rich-text";
 
 type FurnitureTypeBlockProps = PagebuilderType<"furnitureType">;
 
@@ -25,9 +27,7 @@ export function FurnitureTypeBlock({
       >
         <div className="flex flex-col items-center gap-6">
           {prefix && (
-            <div className="text-base font-medium uppercase">
-              {prefix}
-            </div>
+            <div className="text-base font-medium uppercase">{prefix}</div>
           )}
           <h2 className="font-medium text-4xl text-center">{title}</h2>
           <RichText
@@ -42,7 +42,6 @@ export function FurnitureTypeBlock({
         </div>
         {image && (
           <SanityImage
-            alt="section-image"
             image={image}
             width={583}
             height={734}

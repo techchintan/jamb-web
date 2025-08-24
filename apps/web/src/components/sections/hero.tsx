@@ -1,10 +1,12 @@
 "use client";
 
-import type { PagebuilderType } from "@/types";
-import { SanityImage } from "../elements/sanity-image";
 import { cn } from "@workspace/ui/lib/utils";
 import { useEffect, useRef, useState } from "react";
-import TabList from "../tab-list";
+
+import type { PagebuilderType } from "@/types";
+
+import { SanityImage } from "../elements/sanity-image";
+import { NavigationBar } from "../navigation-bar";
 
 type HeroBlockProps = PagebuilderType<"hero">;
 
@@ -29,7 +31,7 @@ export function HeroBlock({ slides = [], links }: HeroBlockProps) {
 
     intervalRef.current = setInterval(() => {
       setSelected((prev) => (prev + 1) % slides.length);
-    }, 5000);
+    }, 3000);
 
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
@@ -40,8 +42,8 @@ export function HeroBlock({ slides = [], links }: HeroBlockProps) {
 
   return (
     <>
-      <section className="container sticky mx-auto top-[77px] w-full z-1">
-        <div className="relative h-[calc(100dvh-157px)] md:h-[calc(100dvh-250px)]">
+      <section className="container sticky mx-auto top-[77px] md:top-[109px] w-full z-1">
+        <div className="relative h-[calc(100dvh-157px)] md:h-[calc(100dvh-189px)]">
           {slides.map((slide, idx) => {
             const isActive = selected === idx;
             const isNext =
@@ -52,11 +54,6 @@ export function HeroBlock({ slides = [], links }: HeroBlockProps) {
               <SanityImage
                 key={slide._key || idx}
                 image={slide}
-                alt={
-                  typeof slide === "object" && "alt" in slide
-                    ? (slide as any).alt || ""
-                    : "Hero Banner Image"
-                }
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 loading={getLoading(idx)}
                 fetchPriority={idx === 0 ? "high" : "auto"}
@@ -72,7 +69,7 @@ export function HeroBlock({ slides = [], links }: HeroBlockProps) {
           })}
         </div>
       </section>
-      <TabList links={links} />
+      <NavigationBar links={links} />
     </>
   );
 }

@@ -1,25 +1,20 @@
-import { PagebuilderType } from "@/types";
 import Link from "next/link";
 import { Fragment } from "react";
 
-type TabListProps = {
-  links?: PagebuilderType<"hero">["links"];
-};
-
-const TabList = ({ links }: TabListProps) => {
-  if (!links) return null;
+const TabList = () => {
+  const tablist = ["Fireplaces", "Lighting ", "Furniture", "Journal"];
 
   return (
     <div className="flex items-center gap-2 pt-7 justify-center container mx-auto bg-[#F3F0ED] relative z-1">
-      {links.map((tab, index) => (
+      {tablist.map((tab, index) => (
         <Fragment key={index}>
           <Link
-            href={tab.url?.section ?? "#"}
+            href={`#${tab.toLocaleLowerCase()}`}
             className="font-medium text-sm sm:text-base text-[#9C9C9D]"
           >
-            {tab.name}
+            {tab}
           </Link>
-          {index < links.length - 1 && (
+          {index < tablist.length - 1 && (
             <div className="w-[1px] h-4 bg-[#9C9C9D]" />
           )}
         </Fragment>

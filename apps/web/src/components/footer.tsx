@@ -1,9 +1,8 @@
-import Link from "next/link";
-
 import { Button } from "@workspace/ui/components/button";
 import { Checkbox } from "@workspace/ui/components/checkbox";
 import { Input } from "@workspace/ui/components/input";
 import { Label } from "@workspace/ui/components/label";
+import Link from "next/link";
 
 import { sanityFetch } from "@/lib/sanity/live";
 import { queryFooterData, queryGlobalSeoSettings } from "@/lib/sanity/query";
@@ -119,7 +118,7 @@ function Footer({ footer, settings }: FooterProps) {
   );
 
   return (
-    <footer className="p-5 sm:p-8 bg-[#E3E3E3] text-base text-[#9C9C9D]">
+    <footer className="p-5 sm:p-12 bg-[#E3E3E3] text-base text-[#9C9C9D]">
       <section className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
         <div className="flex flex-col">
           <p>Tel: {settings.contactPhone}</p>

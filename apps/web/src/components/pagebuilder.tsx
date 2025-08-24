@@ -9,9 +9,9 @@ import { dataset, projectId, studioUrl } from "@/config";
 import type { QueryHomePageDataResult } from "@/lib/sanity/sanity.types";
 import type { PageBuilderBlockTypes, PagebuilderType } from "@/types";
 
-import { HeroBlock } from "./sections/hero";
-import { FurnitureTypeBlock } from "./sections/furniture-type";
 import { FurnitureListsBlock } from "./sections/furniture-lists";
+import { FurnitureTypeBlock } from "./sections/furniture-type";
+import { HeroBlock } from "./sections/hero";
 
 // More specific and descriptive type aliases
 type PageBuilderBlock = NonNullable<
@@ -130,12 +130,11 @@ function useBlockRenderer(id: string, type: string) {
       }
 
       return (
-        <div
+        <Component
+          {...(block as any)}
           key={`${block._type}-${block._key}`}
           data-sanity={createBlockDataAttribute(block._key)}
-        >
-          <Component {...(block as any)} />
-        </div>
+        />
       );
     },
     [createBlockDataAttribute],
@@ -165,11 +164,7 @@ export function PageBuilder({
   }
 
   return (
-    <section
-      className="flex flex-col gap-16 my-16 max-w-7xl mx-auto"
-      data-sanity={containerDataAttribute}
-      aria-label="Page content"
-    >
+    <section data-sanity={containerDataAttribute} aria-label="Page content">
       {blocks.map(renderBlock)}
     </section>
   );

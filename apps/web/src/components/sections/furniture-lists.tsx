@@ -1,10 +1,11 @@
-import { PagebuilderType } from "@/types";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from "@workspace/ui/components/carousel";
-import Image from "next/image";
+
+import type { PagebuilderType } from "@/types";
+
 import { SanityImage } from "../elements/sanity-image";
 
 type FurnitureListsBlockProps = PagebuilderType<"furnitureLists">;
@@ -13,7 +14,6 @@ export function FurnitureListsBlock({
   title,
   lists,
 }: FurnitureListsBlockProps) {
-  console.log(lists);
   return (
     <div className="bg-[#E3E3E3] relative z-2">
       <div className="p-5 lg:p-10 flex flex-col gap-8 container items-center mx-auto">
