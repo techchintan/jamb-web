@@ -31,8 +31,8 @@ interface OgImageParams {
 
 // Default site configuration
 const siteConfig: SiteConfig = {
-  title: "Jamb Furnish",
-  description: "Jamb: Antique Fireplaces & Antique Reproduction Fireplaces",
+  title: "Jamb: Antique Fireplaces & Antique Reproduction Fireplaces",
+  description: "Antique fireplaces & reproduction fireplaces. Explore our range of the finest & quality antiques inc. fire grates, reproduction antique lighting & more.",
   twitterHandle: "@jambfurnish",
   keywords: [
     "jamb furnish",
