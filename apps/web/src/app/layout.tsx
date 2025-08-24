@@ -9,7 +9,6 @@ import { FooterServer, FooterSkeleton } from "@/components/footer";
 import { CombinedJsonLd } from "@/components/json-ld";
 import { NavbarServer, NavbarSkeleton } from "@/components/navbar";
 import { PreviewBar } from "@/components/preview-bar";
-import { Providers } from "@/components/providers";
 import { SanityLive } from "@/lib/sanity/live";
 import { cn } from "@workspace/ui/lib/utils";
 
@@ -54,23 +53,21 @@ export default async function RootLayout({
       <body
         className={cn(glxcs.variable, "font-glxcs antialiased bg-hint-of-red")}
       >
-        <Providers>
-          <Suspense fallback={<NavbarSkeleton />}>
-            <NavbarServer />
-          </Suspense>
-          {children}
-          <Suspense fallback={<FooterSkeleton />}>
-            <FooterServer />
-          </Suspense>
-          <SanityLive />
-          <CombinedJsonLd includeWebsite includeOrganization />
-          {(await draftMode()).isEnabled && (
-            <>
-              <PreviewBar />
-              <VisualEditing />
-            </>
-          )}
-        </Providers>
+        <Suspense fallback={<NavbarSkeleton />}>
+          <NavbarServer />
+        </Suspense>
+        {children}
+        <Suspense fallback={<FooterSkeleton />}>
+          <FooterServer />
+        </Suspense>
+        <SanityLive />
+        <CombinedJsonLd includeWebsite includeOrganization />
+        {(await draftMode()).isEnabled && (
+          <>
+            <PreviewBar />
+            <VisualEditing />
+          </>
+        )}
       </body>
     </html>
   );

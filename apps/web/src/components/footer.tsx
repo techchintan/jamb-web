@@ -133,49 +133,49 @@ function Footer({ footer, settings }: FooterProps) {
         <div className="hidden lg:block" />
         <div className="sm:col-span-2 flex justify-end">
           <div className="flex flex-col gap-3 w-full">
-            <Label htmlFor="picture">Newsletter</Label>
+            <Label htmlFor="newsletter">Newsletter</Label>
             <div className="flex gap-0.5 ">
               <Input
                 type="text"
-                placeholder="Search"
-                className="bg-white rounded-none outline-none shadow-none focus-visible:ring-transparent focus-visible:border-none h-10"
+                placeholder="Email"
+                className="bg-white rounded-none outline-none shadow-none focus-visible:ring-transparent focus-visible:border-none h-10 border border-dim-gray"
               />
               <Button
                 type="submit"
                 variant="outline"
                 className="bg-white rounded-none"
-                size={"lg"}
+                size="lg"
               >
                 Subscribe
               </Button>
             </div>
             <div className="flex items-center gap-2">
               <Checkbox
-                id="policy"
+                id="privacy-policy"
                 className="rounded-full border-santas-grey cursor-pointer"
               />
-              <Label htmlFor="policy" className="cursor-pointer">
+              <Label htmlFor="privacy-policy" className="text-xs">
                 I agree to our Privacy Policy
               </Label>
             </div>
           </div>
         </div>
         {footerColumnsByType.map((sublist, sublistIdx) => (
-          <div className="flex flex-col gap-3" key={sublistIdx}>
-            {sublist.map(({ title, links }, groupIdx) => (
-              <div key={groupIdx} className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 line-clamp-1" key={sublistIdx}>
+            {sublist.map(({ title, links }, groupIdx: number) => (
+              <div key={groupIdx} className="flex flex-col gap-3 line-clamp-1">
                 <div className="w-full h-[1px] bg-santas-grey" />
                 <div className="flex flex-col">
-                  <p className="text-base text-black font-semibold mb-2">
+                  <p className="text-base text-black font-semibold mb-2 line-clamp-1">
                     {title}
                   </p>
-                  {links.map((item, linkIdx) => (
+                  {links.map((item, linkIdx: number) => (
                     <Link
-                      key={item._key ?? linkIdx}
+                      key={item._key || linkIdx}
                       href={item.href || "#"}
-                      className="w-fit"
+                      className="w-fit line-clamp-1"
                     >
-                      <p className="text-base text-santas-grey font-medium mb-1.5">
+                      <p className="text-base text-santas-grey font-medium mb-1.5 line-clamp-1">
                         {item.name}
                       </p>
                     </Link>
