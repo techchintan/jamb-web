@@ -11,6 +11,12 @@ export const customUrl = defineType({
     "Configure a link that can point to either an internal page, a section of a page, or an external website",
   fields: [
     defineField({
+      name: "name",
+      type: "string",
+      title: "Link Text",
+      description: "The text that will be displayed for this navigation link.",
+    }),
+    defineField({
       name: "type",
       type: "string",
       description:
@@ -48,23 +54,17 @@ export const customUrl = defineType({
     }),
     defineField({
       name: "section",
-      type: "string",
+      type: "slug",
       title: "Section Anchor",
       description:
         "Enter the section anchor (e.g. #about-section). This should match the id of the section you want to link to on the current page.",
       hidden: ({ parent }) => parent?.type !== "section",
-      validation: (Rule) => [
-        Rule.custom((value, { parent }) => {
-          const type = (parent as { type?: string })?.type;
-          if (type === "section") {
-            if (!value) return "Section anchor can't be empty";
-            if (value !== "#" && !/^#[A-Za-z0-9\-_]+$/.test(value)) {
-              return "Section anchor must start with # and contain only letters, numbers, hyphens, or underscores (or just be #)";
-            }
-          }
-          return true;
-        }),
-      ],
+      options: {
+        source: (_, doc) => {
+          const parent = doc as unknown as { parent: { name: string } };
+          return parent.parent.name;
+        },
+      },
     }),
     defineField({
       name: "href",

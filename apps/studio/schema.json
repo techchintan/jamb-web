@@ -631,13 +631,6 @@
             "of": {
               "type": "object",
               "attributes": {
-                "name": {
-                  "type": "objectAttribute",
-                  "value": {
-                    "type": "string"
-                  },
-                  "optional": true
-                },
                 "url": {
                   "type": "objectAttribute",
                   "value": {
@@ -1098,13 +1091,6 @@
           "of": {
             "type": "object",
             "attributes": {
-              "name": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string"
-                },
-                "optional": true
-              },
               "url": {
                 "type": "objectAttribute",
                 "value": {
@@ -1880,6 +1866,13 @@
             "value": "customUrl"
           }
         },
+        "name": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          },
+          "optional": true
+        },
         "type": {
           "type": "objectAttribute",
           "value": {
@@ -1918,7 +1911,8 @@
         "section": {
           "type": "objectAttribute",
           "value": {
-            "type": "string"
+            "type": "inline",
+            "name": "slug"
           },
           "optional": true
         },

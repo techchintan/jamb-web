@@ -38,30 +38,33 @@ export const button = defineType({
   ],
   preview: {
     select: {
-      title: "text",
-      variant: "variant",
-      externalUrl: "url.external",
+      text: "text",
+      urlName: "url.name",
       urlType: "url.type",
-      sectionAnchor: "url.section",
+      externalUrl: "url.external",
+      sectionAnchor: "url.section.current",
       internalUrl: "url.internal.slug.current",
       openInNewTab: "url.openInNewTab",
+      variant: "variant",
     },
     prepare(selection) {
       const {
-        title,
-        externalUrl,
+        text,
+        urlName,
         urlType,
-        internalUrl,
+        externalUrl,
         sectionAnchor,
+        internalUrl,
         openInNewTab,
+        variant,
       } = selection;
 
       let url = "/[page not found]";
-      if (urlType === "external") {
+      if (urlType === "external" && externalUrl) {
         url = externalUrl;
-      } else if (urlType === "section") {
+      } else if (urlType === "section" && sectionAnchor) {
         url = sectionAnchor;
-      } else if (internalUrl) {
+      } else if (urlType === "internal" && internalUrl) {
         url = `/${internalUrl}`;
       }
 
@@ -74,8 +77,8 @@ export const button = defineType({
       else if (urlType === "section") urlTypeLabel = "Section";
 
       return {
-        title: title || "Untitled Button",
-        subtitle: `${urlTypeLabel} • ${truncatedUrl}${newTabIndicator}`,
+        title: text || urlName || "Untitled Button",
+        subtitle: `${variant ? variant.charAt(0).toUpperCase() + variant.slice(1) + " • " : ""}${urlTypeLabel} • ${truncatedUrl}${newTabIndicator}`,
         media: CommandIcon,
       };
     },

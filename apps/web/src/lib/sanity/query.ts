@@ -76,6 +76,17 @@ const heroBlock = /* groq */ `
       ...,
       ${imageFields}
     },
+    links[]{
+        _key,
+        "name": url.name,
+        "openInNewTab": url.openInNewTab,
+        "href": select(
+          url.type == "internal" => url.internal->slug.current,
+          url.type == "external" => url.external,
+          url.type == "section" => url.section->slug.current,
+          url.href
+        ),
+    }
   }
 `;
 
@@ -190,12 +201,12 @@ export const queryFooterData = defineQuery(`
       type,
       links[]{
         _key,
-        name,
+        "name": url.name,
         "openInNewTab": url.openInNewTab,
         "href": select(
           url.type == "internal" => url.internal->slug.current,
           url.type == "external" => url.external,
-          url.type == "section" => url.section,
+          url.type == "section" => url.section->slug.current,
           url.href
         ),
       }
@@ -213,27 +224,27 @@ export const queryNavbarData = defineQuery(`
         title,
         links[]{
           _key,
-          name,
+          "name": url.name,
           icon,
           description,
           "openInNewTab": url.openInNewTab,
           "href": select(
             url.type == "internal" => url.internal->slug.current,
             url.type == "external" => url.external,
-            url.type == "section" => url.section,
+            url.type == "section" => url.section->slug.current,
             url.href
           )
         }
       },
       _type == "navbarLink" => {
         "type": "link",
-        name,
+        "name": url.name,
         description,
         "openInNewTab": url.openInNewTab,
         "href": select(
           url.type == "internal" => url.internal->slug.current,
           url.type == "external" => url.external,
-          url.type == "section" => url.section,
+          url.type == "section" => url.section->slug.current,
           url.href
         )
       }

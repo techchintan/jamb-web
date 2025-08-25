@@ -8,6 +8,8 @@ type NavigationBarProps = {
 export const NavigationBar = ({ links }: NavigationBarProps) => {
   if (!links || links.length === 0) return null;
 
+  console.log(links);
+
   return (
     <nav
       className="sticky top-[69.5px] z-20 flex items-center py-6 w-full justify-center mx-auto bg-hint-of-red transition-all duration-300"
@@ -19,7 +21,7 @@ export const NavigationBar = ({ links }: NavigationBarProps) => {
         return (
           <span key={link._key ?? idx} className="flex items-center">
             <p
-              onClick={() => scrollToTargetAdjusted(link.url?.section ?? "#")}
+              onClick={() => scrollToTargetAdjusted(link.href ?? "#")}
               aria-label={link.name ?? "Navigation link"}
               className="font-medium text-sm text-gun-powder hover:text-dim-gray transition-all duration-300 cursor-pointer"
             >

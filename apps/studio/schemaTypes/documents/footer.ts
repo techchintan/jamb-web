@@ -21,29 +21,29 @@ const footerColumnLink = defineField({
   ],
   preview: {
     select: {
-      title: "name",
-      externalUrl: "url.external",
+      title: "url.name",
       urlType: "url.type",
-      sectionAnchor: "url.section",
+      externalUrl: "url.external",
+      sectionAnchor: "url.section.current",
       internalUrl: "url.internal.slug.current",
       openInNewTab: "url.openInNewTab",
     },
     prepare(selection) {
       const {
         title,
-        externalUrl,
         urlType,
-        internalUrl,
+        externalUrl,
         sectionAnchor,
+        internalUrl,
         openInNewTab,
       } = selection;
 
       let url = "/[page not found]";
-      if (urlType === "external") {
+      if (urlType === "external" && externalUrl) {
         url = externalUrl;
-      } else if (urlType === "section") {
+      } else if (urlType === "section" && sectionAnchor) {
         url = sectionAnchor;
-      } else if (internalUrl) {
+      } else if (urlType === "internal" && internalUrl) {
         url = `/${internalUrl}`;
       }
 
