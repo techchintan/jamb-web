@@ -69,63 +69,32 @@ const buttonsFragment = /* groq */ `
 `;
 
 // Page builder block fragments
-const ctaBlock = /* groq */ `
-  _type == "cta" => {
-    ...,
-    ${richTextFragment},
-    ${buttonsFragment},
-  }
-`;
-
-const imageLinkCardsBlock = /* groq */ `
-  _type == "imageLinkCards" => {
-    ...,
-    ${richTextFragment},
-    ${buttonsFragment},
-    "cards": array::compact(cards[]{
-      ...,
-      "openInNewTab": url.openInNewTab,
-      "href": select(
-        url.type == "internal" => url.internal->slug.current,
-        url.type == "external" => url.external,
-        url.href
-      ),
-      ${imageFragment},
-    })
-  }
-`;
-
 const heroBlock = /* groq */ `
   _type == "hero" => {
     ...,
-    ${imageFragment},
-    ${buttonsFragment},
-    ${richTextFragment}
-  }
-`;
-
-const subscribeNewsletterBlock = /* groq */ `
-  _type == "subscribeNewsletter" => {
-    ...,
-    "subTitle": subTitle[]{
+    "slides": slides[]{
       ...,
-      ${markDefsFragment}
+      ${imageFields}
     },
-    "helperText": helperText[]{
-      ...,
-      ${markDefsFragment}
-    }
   }
 `;
 
-const featureCardsIconBlock = /* groq */ `
-  _type == "featureCardsIcon" => {
+const furnitureTypeBlock = /* groq */ `
+  _type == "furnitureType" => {
     ...,
     ${richTextFragment},
-    "cards": array::compact(cards[]{
+    ${buttonsFragment},
+    ${imageFragment},
+  }
+`;
+
+const furnitureListsBlock = /* groq */ `
+  _type == "furnitureLists" => {
+    ...,
+    lists[]{
       ...,
-      ${richTextFragment},
-    })
+      ${imageFragment},
+    },
   }
 `;
 
@@ -133,11 +102,9 @@ const pageBuilderFragment = /* groq */ `
   pageBuilder[]{
     ...,
     _type,
-    ${ctaBlock},
     ${heroBlock},
-    ${featureCardsIconBlock},
-    ${subscribeNewsletterBlock},
-    ${imageLinkCardsBlock}
+    ${furnitureTypeBlock},
+    ${furnitureListsBlock},
   }
 `;
 
@@ -220,6 +187,7 @@ export const queryFooterData = defineQuery(`
     columns[]{
       _key,
       title,
+      type,
       links[]{
         _key,
         name,
@@ -227,6 +195,7 @@ export const queryFooterData = defineQuery(`
         "href": select(
           url.type == "internal" => url.internal->slug.current,
           url.type == "external" => url.external,
+          url.type == "section" => url.section,
           url.href
         ),
       }
@@ -251,6 +220,7 @@ export const queryNavbarData = defineQuery(`
           "href": select(
             url.type == "internal" => url.internal->slug.current,
             url.type == "external" => url.external,
+            url.type == "section" => url.section,
             url.href
           )
         }
@@ -263,6 +233,7 @@ export const queryNavbarData = defineQuery(`
         "href": select(
           url.type == "internal" => url.internal->slug.current,
           url.type == "external" => url.external,
+          url.type == "section" => url.section,
           url.href
         )
       }
@@ -287,13 +258,9 @@ export const queryGlobalSeoSettings = defineQuery(`
       ${imageFields}
     },
     siteDescription,
-    socialLinks{
-      linkedin,
-      facebook,
-      twitter,
-      instagram,
-      youtube
-    }
+    contactEmail,
+    contactPhone,
+    contactAddress,
   }
 `);
 
@@ -304,7 +271,8 @@ export const querySettingsData = defineQuery(`
     siteTitle,
     siteDescription,
     "logo": logo.asset->url + "?w=80&h=40&dpr=3&fit=max",
-    "socialLinks": socialLinks,
-    "contactEmail": contactEmail,
+    contactEmail,
+    contactPhone,
+    contactAddress,
   }
 `);

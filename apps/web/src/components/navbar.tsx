@@ -28,11 +28,11 @@ export function Navbar({
   const { siteTitle: settingsSiteTitle, logo } = settingsData ?? {};
 
   return (
-    <header className="py-3 md:border-b">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-[auto_1fr] items-center gap-4">
-          {logo && <Logo alt={settingsSiteTitle} priority image={logo} />}
-          <NavbarClient navbarData={navbarData} settingsData={settingsData} />
+    <header className="sticky top-0 bg-hint-of-red z-10">
+      <div className="container mx-auto md:px-10 px-5 py-4">
+        <div className="flex items-center justify-between gap-4">
+          {logo && <Logo alt={settingsSiteTitle} image={logo} />}
+          <NavbarClient settingsData={settingsData} navbarData={navbarData} />
         </div>
       </div>
     </header>
@@ -41,7 +41,7 @@ export function Navbar({
 
 export function NavbarSkeleton() {
   return (
-    <header className="h-[75px] py-4 md:border-b">
+    <header className="h-[75px] py-4">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-[auto_1fr] items-center gap-4">
           <div className="h-[40px] w-[170px] rounded animate-pulse bg-muted" />

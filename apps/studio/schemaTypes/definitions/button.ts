@@ -1,7 +1,7 @@
-import { Command } from "lucide-react";
+import { Command, CommandIcon } from "lucide-react";
 import { defineField, defineType } from "sanity";
 
-import { capitalize, createRadioListLayout } from "../../utils/helper";
+import { createRadioListLayout } from "../../utils/helper";
 
 const buttonVariants = ["default", "secondary", "outline", "link"];
 
@@ -42,25 +42,41 @@ export const button = defineType({
       variant: "variant",
       externalUrl: "url.external",
       urlType: "url.type",
+      sectionAnchor: "url.section",
       internalUrl: "url.internal.slug.current",
       openInNewTab: "url.openInNewTab",
     },
-    prepare: ({
-      title,
-      variant,
-      externalUrl,
-      urlType,
-      internalUrl,
-      openInNewTab,
-    }) => {
-      const url = urlType === "external" ? externalUrl : internalUrl;
+    prepare(selection) {
+      const {
+        title,
+        externalUrl,
+        urlType,
+        internalUrl,
+        sectionAnchor,
+        openInNewTab,
+      } = selection;
+
+      let url = "/[page not found]";
+      if (urlType === "external") {
+        url = externalUrl;
+      } else if (urlType === "section") {
+        url = sectionAnchor;
+      } else if (internalUrl) {
+        url = `/${internalUrl}`;
+      }
+
       const newTabIndicator = openInNewTab ? " ↗" : "";
       const truncatedUrl =
-        url?.length > 30 ? `${url.substring(0, 30)}...` : url;
+        url && url.length > 30 ? `${url.substring(0, 30)}...` : url;
+
+      let urlTypeLabel = "Internal";
+      if (urlType === "external") urlTypeLabel = "External";
+      else if (urlType === "section") urlTypeLabel = "Section";
 
       return {
         title: title || "Untitled Button",
-        subtitle: `${capitalize(variant ?? "default")} • ${truncatedUrl}${newTabIndicator}`,
+        subtitle: `${urlTypeLabel} • ${truncatedUrl}${newTabIndicator}`,
+        media: CommandIcon,
       };
     },
   },

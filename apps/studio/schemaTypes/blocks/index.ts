@@ -1,13 +1,5 @@
-import { cta } from "./cta";
-import { featureCardsIcon } from "./feature-cards-icon";
+import { furnitureLists } from "./furniture-lists";
+import { furnitureType } from "./furniture-type";
 import { hero } from "./hero";
-import { imageLinkCards } from "./image-link-cards";
-import { subscribeNewsletter } from "./subscribe-newsletter";
 
-export const pageBuilderBlocks = [
-  hero,
-  cta,
-  featureCardsIcon,
-  imageLinkCards,
-  subscribeNewsletter,
-];
+export const pageBuilderBlocks = [hero, furnitureType, furnitureLists];

@@ -34,9 +34,8 @@ type DominantColorSeoImageRenderProps = {
   title?: Maybe<string>;
   logo?: Maybe<string>;
   dominantColor?: Maybe<string>;
-  date?: Maybe<string>;
-  _type?: Maybe<string>;
   description?: Maybe<string>;
+  seoImage?: Maybe<string>;
 };
 
 const seoImageRender = ({ seoImage }: SeoImageRenderProps) => {
@@ -48,69 +47,63 @@ const seoImageRender = ({ seoImage }: SeoImageRenderProps) => {
 };
 
 const dominantColorSeoImageRender = ({
-  image,
   title,
   logo,
   dominantColor,
-  date,
   description,
-  _type,
+  seoImage,
 }: DominantColorSeoImageRenderProps) => {
+  const fallbackColor = "#F3F0ED";
+  const mainColor = dominantColor ?? fallbackColor;
+  const gradient = `linear-gradient(135deg, ${mainColor} 0%, #E3E3E3 50%, #9C9C9D 100%)`;
+
   return (
     <div
-      tw={`bg-[${
-        dominantColor ?? "#12061F"
-      }] flex flex-row overflow-hidden relative w-full`}
-      style={{ fontFamily: "Inter" }}
+      tw="flex flex-row overflow-hidden relative w-full"
+      style={{
+        fontFamily: "Inter",
+        background: gradient,
+        minHeight: "100%",
+        minWidth: "100%",
+      }}
     >
       <svg
         width="100%"
         height="100%"
-        style={{ position: "absolute", top: 0, left: 0 }}
+        style={{ position: "absolute", top: 0, left: 0, zIndex: 0 }}
         aria-hidden="true"
       >
         <defs>
-          <linearGradient id="gradient" x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%" style={{ stopColor: "transparent" }} />
-            <stop offset="100%" style={{ stopColor: "white" }} />
-          </linearGradient>
+          <radialGradient id="radial" cx="70%" cy="30%" r="80%">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.25" />
+            <stop offset="100%" stopColor="transparent" />
+          </radialGradient>
         </defs>
-        <rect width="100%" height="100%" fill="url(#gradient)" opacity="0.2" />
+        <rect width="100%" height="100%" fill="url(#radial)" />
       </svg>
 
       <div tw="flex-1 p-10 flex flex-col justify-between relative z-10">
         <div tw="flex justify-between items-start w-full">
           {logo && <img src={logo} alt="Logo" height={48} />}
-          <div tw="bg-white flex bg-opacity-20 text-white px-4 py-2 rounded-full text-sm font-medium">
-            {new Date(date ?? new Date()).toLocaleDateString("en-US", {
-              month: "long",
-              day: "numeric",
-              year: "numeric",
-            })}
-          </div>
         </div>
 
-        <h1 tw="text-5xl font-bold leading-tight max-w-[90%] text-white">
+        <h1 tw="text-5xl font-bold leading-tight max-w-[90%] text-black">
           {title}
         </h1>
-        {description && <p tw="text-lg text-white">{description}</p>}
-        {_type && (
-          <div
-            tw={`bg-white text-[${
-              dominantColor ?? "#12061F"
-            }] flex px-5 py-2 rounded-full text-base font-semibold self-start`}
-          >
-            {getTitleCase(_type)}
-          </div>
-        )}
+        {description && <p tw="text-lg text-black/80">{description}</p>}
+        <div
+          tw={`bg-black text-[${mainColor}] flex px-5 py-2 rounded-none text-base font-semibold self-start`}
+        >
+          Visit Website
+        </div>
       </div>
 
       <div tw="w-[630px] h-[630px] flex items-center justify-center p-8 relative z-10">
         <div tw="w-[566px] h-[566px] bg-white bg-opacity-20 flex flex-col justify-center items-center rounded-3xl shadow-[0_0_0_1px_rgba(255,255,255,0.05),0_2px_4px_-1px_rgba(0,0,0,0.03),0_4px_6px_-1px_rgba(0,0,0,0.05),0_8px_10px_-1px_rgba(0,0,0,0.05)] overflow-hidden">
           <div tw="flex relative w-full h-full">
-            {image ? (
+            {seoImage ? (
               <img
-                src={image}
+                src={seoImage}
                 tw="w-full h-full rounded-3xl shadow-2xl"
                 width={566}
                 height={566}
@@ -209,7 +202,7 @@ const getHomePageContent = async ({ id }: ContentProps) => {
   if (!id) return undefined;
   const [result, err] = await getHomePageOGData(id);
   if (err || !result) return undefined;
-  if (result?.seoImage) return seoImageRender({ seoImage: result.seoImage });
+  // if (result?.seoImage) return seoImageRender({ seoImage: result.seoImage });
   return dominantColorSeoImageRender(result);
 };
 const getSlugPageContent = async ({ id }: ContentProps) => {

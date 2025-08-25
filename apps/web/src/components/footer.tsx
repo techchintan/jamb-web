@@ -1,3 +1,7 @@
+import { Button } from "@workspace/ui/components/button";
+import { Checkbox } from "@workspace/ui/components/checkbox";
+import { Input } from "@workspace/ui/components/input";
+import { Label } from "@workspace/ui/components/label";
 import Link from "next/link";
 
 import { sanityFetch } from "@/lib/sanity/live";
@@ -7,26 +11,8 @@ import type {
   QueryGlobalSeoSettingsResult,
 } from "@/lib/sanity/sanity.types";
 
-import { Logo } from "./logo";
-import {
-  FacebookIcon,
-  InstagramIcon,
-  LinkedinIcon,
-  XIcon,
-  YoutubeIcon,
-} from "./social-icons";
-
-interface SocialLinksProps {
-  data: NonNullable<QueryGlobalSeoSettingsResult>["socialLinks"];
-}
-
-interface FooterProps {
-  data: NonNullable<QueryFooterDataResult>;
-  settingsData: NonNullable<QueryGlobalSeoSettingsResult>;
-}
-
 export async function FooterServer() {
-  const [response, settingsResponse] = await Promise.all([
+  const [footer, settings] = await Promise.all([
     sanityFetch({
       query: queryFooterData,
     }),
@@ -35,60 +21,9 @@ export async function FooterServer() {
     }),
   ]);
 
-  if (!response?.data || !settingsResponse?.data) return <FooterSkeleton />;
-  return <Footer data={response.data} settingsData={settingsResponse.data} />;
-}
+  if (!footer?.data || !settings?.data) return <FooterSkeleton />;
 
-function SocialLinks({ data }: SocialLinksProps) {
-  if (!data) return null;
-
-  const { facebook, twitter, instagram, youtube, linkedin } = data;
-
-  const socialLinks = [
-    {
-      url: instagram,
-      Icon: InstagramIcon,
-      label: "Follow us on Instagram",
-    },
-    {
-      url: facebook,
-      Icon: FacebookIcon,
-      label: "Follow us on Facebook",
-    },
-    { url: twitter, Icon: XIcon, label: "Follow us on Twitter" },
-    {
-      url: linkedin,
-      Icon: LinkedinIcon,
-      label: "Follow us on LinkedIn",
-    },
-    {
-      url: youtube,
-      Icon: YoutubeIcon,
-      label: "Subscribe to our YouTube channel",
-    },
-  ].filter((link) => link.url);
-
-  return (
-    <ul className="flex items-center space-x-6 text-muted-foreground">
-      {socialLinks.map(({ url, Icon, label }, index) => (
-        <li
-          key={`social-link-${url}-${index.toString()}`}
-          className="font-medium hover:text-primary"
-        >
-          <Link
-            href={url ?? "#"}
-            target="_blank"
-            prefetch={false}
-            rel="noopener noreferrer"
-            aria-label={label}
-          >
-            <Icon className="fill-muted-foreground hover:fill-primary/80 dark:fill-zinc-400 dark:hover:fill-primary" />
-            <span className="sr-only">{label}</span>
-          </Link>
-        </li>
-      ))}
-    </ul>
-  );
+  return <Footer footer={footer.data} settings={settings.data} />;
 }
 
 export function FooterSkeleton() {
@@ -142,77 +77,114 @@ export function FooterSkeleton() {
   );
 }
 
-function Footer({ data, settingsData }: FooterProps) {
-  const { subtitle, columns } = data;
-  const { siteTitle, logo, socialLinks } = settingsData;
-  const year = new Date().getFullYear();
+interface FooterColumnLink {
+  _key?: string;
+  name?: string;
+  href?: string;
+  openInNewTab?: boolean;
+}
+
+interface FooterColumn {
+  title: string;
+  links: FooterColumnLink[];
+  type?: string;
+}
+
+interface FooterProps {
+  footer: NonNullable<QueryFooterDataResult>;
+  settings: NonNullable<QueryGlobalSeoSettingsResult>;
+}
+
+function Footer({ footer, settings }: FooterProps) {
+  const columns: FooterColumn[] = Array.isArray(footer.columns)
+    ? (footer.columns as FooterColumn[])
+    : [];
+
+  const footerColumnsByType: Array<
+    Array<{ title: string; links: FooterColumnLink[] }>
+  > = Object.values(
+    columns.reduce<
+      Record<string, Array<{ title: string; links: FooterColumnLink[] }>>
+    >((acc, column) => {
+      const type = column?.type;
+      if (!type) return acc;
+      if (!acc[type]) acc[type] = [];
+      acc[type].push({
+        title: column.title,
+        links: Array.isArray(column.links) ? column.links : [],
+      });
+      return acc;
+    }, {}),
+  );
 
   return (
-    <footer className="mt-20 pb-8">
-      <section className="container mx-auto">
-        <div className="h-[500px] lg:h-auto">
-          <div className="flex flex-col items-center justify-between gap-10 text-center lg:flex-row lg:text-left mx-auto max-w-7xl px-4 md:px-6">
-            <div className="flex w-full max-w-96 shrink flex-col items-center justify-between gap-6 md:gap-8 lg:items-start">
-              <div>
-                <span className="flex items-center justify-center gap-4 lg:justify-start">
-                  <Logo alt={siteTitle} priority image={logo} />
-                </span>
-                {subtitle && (
-                  <p className="mt-6 text-sm text-muted-foreground dark:text-zinc-400">
-                    {subtitle}
-                  </p>
-                )}
-              </div>
-              {socialLinks && <SocialLinks data={socialLinks} />}
+    <footer className="p-5 sm:p-12 bg-gainsboro text-base text-santas-grey">
+      <section className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
+        <div className="flex flex-col">
+          <p>Tel: {settings.contactPhone}</p>
+          <p>{settings.contactAddress}</p>
+        </div>
+        <Link
+          href={"mailto:hello@jamb.co.uk"}
+          className="text-base text-santas-grey w-fit"
+        >
+          {settings.contactEmail}
+        </Link>
+        <div className="hidden lg:block" />
+        <div className="sm:col-span-2 flex justify-end">
+          <div className="flex flex-col gap-3 w-full">
+            <Label htmlFor="newsletter">Newsletter</Label>
+            <div className="flex gap-0.5 ">
+              <Input
+                type="text"
+                placeholder="Email"
+                className="bg-white rounded-none outline-none shadow-none focus-visible:ring-transparent focus-visible:border-none h-10 border border-dim-gray"
+              />
+              <Button
+                type="submit"
+                variant="outline"
+                className="bg-white rounded-none"
+                size="lg"
+              >
+                Subscribe
+              </Button>
             </div>
-            {Array.isArray(columns) && columns?.length > 0 && (
-              <div className="grid grid-cols-3 gap-6 lg:gap-28 lg:mr-20">
-                {columns.map((column, index) => (
-                  <div key={`column-${column?._key}-${index}`}>
-                    <h3 className="mb-6 font-semibold">{column?.title}</h3>
-                    {column?.links && column?.links?.length > 0 && (
-                      <ul className="space-y-4 text-sm text-muted-foreground dark:text-zinc-400">
-                        {column?.links?.map((link, index) => (
-                          <li
-                            key={`${link?._key}-${index}-column-${column?._key}`}
-                            className="font-medium hover:text-primary"
-                          >
-                            <Link
-                              href={link.href ?? "#"}
-                              target={link.openInNewTab ? "_blank" : undefined}
-                              rel={
-                                link.openInNewTab
-                                  ? "noopener noreferrer"
-                                  : undefined
-                              }
-                            >
-                              {link.name}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-          <div className="mt-20 border-t pt-8">
-            <div className="flex flex-col justify-between gap-4  text-center text-sm font-normal text-muted-foreground lg:flex-row lg:items-center lg:text-left mx-auto max-w-7xl px-4 md:px-6">
-              <p>
-                © {year} {siteTitle}. All rights reserved.
-              </p>
-              <ul className="flex justify-center gap-4 lg:justify-start">
-                <li className="hover:text-primary">
-                  <Link href="/terms">Terms and Conditions</Link>
-                </li>
-                <li className="hover:text-primary">
-                  <Link href="/privacy">Privacy Policy</Link>
-                </li>
-              </ul>
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="privacy-policy"
+                className="rounded-full border-santas-grey cursor-pointer"
+              />
+              <Label htmlFor="privacy-policy" className="text-xs">
+                I agree to our Privacy Policy
+              </Label>
             </div>
           </div>
         </div>
+        {footerColumnsByType.map((sublist, sublistIdx) => (
+          <div className="flex flex-col gap-3 line-clamp-1" key={sublistIdx}>
+            {sublist.map(({ title, links }, groupIdx: number) => (
+              <div key={groupIdx} className="flex flex-col gap-3 line-clamp-1">
+                <div className="w-full h-[1px] bg-santas-grey" />
+                <div className="flex flex-col">
+                  <p className="text-base text-black font-semibold mb-2 line-clamp-1">
+                    {title}
+                  </p>
+                  {links.map((item, linkIdx: number) => (
+                    <Link
+                      key={item._key || linkIdx}
+                      href={item.href || "#"}
+                      className="w-fit line-clamp-1"
+                    >
+                      <p className="text-base text-santas-grey font-medium mb-1.5 line-clamp-1">
+                        {item.name}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        ))}
       </section>
     </footer>
   );

@@ -1,46 +1,6 @@
 import { CogIcon } from "lucide-react";
 import { defineField, defineType } from "sanity";
 
-const socialLinks = defineField({
-  name: "socialLinks",
-  title: "Social Media Links",
-  description: "Add links to your social media profiles",
-  type: "object",
-  options: {},
-  fields: [
-    defineField({
-      name: "linkedin",
-      title: "LinkedIn URL",
-      description: "Full URL to your LinkedIn profile/company page",
-      type: "string",
-    }),
-    defineField({
-      name: "facebook",
-      title: "Facebook URL",
-      description: "Full URL to your Facebook profile/page",
-      type: "string",
-    }),
-    defineField({
-      name: "twitter",
-      title: "Twitter/X URL",
-      description: "Full URL to your Twitter/X profile",
-      type: "string",
-    }),
-    defineField({
-      name: "instagram",
-      title: "Instagram URL",
-      description: "Full URL to your Instagram profile",
-      type: "string",
-    }),
-    defineField({
-      name: "youtube",
-      title: "YouTube URL",
-      description: "Full URL to your YouTube channel",
-      type: "string",
-    }),
-  ],
-});
-
 export const settings = defineType({
   name: "settings",
   type: "document",
@@ -87,7 +47,20 @@ export const settings = defineType({
       description: "Primary contact email address for your website",
       validation: (rule) => rule.email(),
     }),
-    socialLinks,
+    defineField({
+      name: "contactPhone",
+      type: "string",
+      title: "Contact Phone",
+      description: "Primary contact phone number for your website",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "contactAddress",
+      type: "string",
+      title: "Contact Address",
+      description: "Primary contact address for your website",
+      validation: (rule) => rule.required(),
+    }),
   ],
   preview: {
     select: {

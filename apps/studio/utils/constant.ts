@@ -16,7 +16,6 @@ export const GROUP = {
 };
 
 export const GROUPS: FieldGroupDefinition[] = [
-  // { name: CONST.MAIN_CONTENT, default: true },
   {
     name: GROUP.MAIN_CONTENT,
     icon: ComposeIcon,

@@ -9,11 +9,9 @@ import { dataset, projectId, studioUrl } from "@/config";
 import type { QueryHomePageDataResult } from "@/lib/sanity/sanity.types";
 import type { PageBuilderBlockTypes, PagebuilderType } from "@/types";
 
-import { CTABlock } from "./sections/cta";
-import { FeatureCardsWithIcon } from "./sections/feature-cards-with-icon";
+import { FurnitureListsBlock } from "./sections/furniture-lists";
+import { FurnitureTypeBlock } from "./sections/furniture-type";
 import { HeroBlock } from "./sections/hero";
-import { ImageLinkCards } from "./sections/image-link-cards";
-import { SubscribeNewsletter } from "./sections/subscribe-newsletter";
 
 // More specific and descriptive type aliases
 type PageBuilderBlock = NonNullable<
@@ -34,16 +32,12 @@ interface SanityDataAttributeConfig {
 
 // Strongly typed component mapping with proper component signatures
 const BLOCK_COMPONENTS = {
-  cta: CTABlock as React.ComponentType<PagebuilderType<"cta">>,
   hero: HeroBlock as React.ComponentType<PagebuilderType<"hero">>,
-  featureCardsIcon: FeatureCardsWithIcon as React.ComponentType<
-    PagebuilderType<"featureCardsIcon">
+  furnitureType: FurnitureTypeBlock as React.ComponentType<
+    PagebuilderType<"furnitureType">
   >,
-  subscribeNewsletter: SubscribeNewsletter as React.ComponentType<
-    PagebuilderType<"subscribeNewsletter">
-  >,
-  imageLinkCards: ImageLinkCards as React.ComponentType<
-    PagebuilderType<"imageLinkCards">
+  furnitureLists: FurnitureListsBlock as React.ComponentType<
+    PagebuilderType<"furnitureLists">
   >,
 } as const satisfies Record<PageBuilderBlockTypes, React.ComponentType<any>>;
 
@@ -80,7 +74,7 @@ function UnknownBlockError({
     >
       <div className="space-y-2">
         <p>Component not found for block type:</p>
-        <code className="font-mono text-sm bg-background px-2 py-1 rounded">
+        <code className="text-sm bg-background px-2 py-1 rounded">
           {blockType}
         </code>
       </div>
@@ -136,12 +130,11 @@ function useBlockRenderer(id: string, type: string) {
       }
 
       return (
-        <div
+        <Component
+          {...(block as any)}
           key={`${block._type}-${block._key}`}
           data-sanity={createBlockDataAttribute(block._key)}
-        >
-          <Component {...(block as any)} />
-        </div>
+        />
       );
     },
     [createBlockDataAttribute],
@@ -171,11 +164,7 @@ export function PageBuilder({
   }
 
   return (
-    <section
-      className="flex flex-col gap-16 my-16 max-w-7xl mx-auto"
-      data-sanity={containerDataAttribute}
-      aria-label="Page content"
-    >
+    <section data-sanity={containerDataAttribute} aria-label="Page content">
       {blocks.map(renderBlock)}
     </section>
   );

@@ -7,10 +7,7 @@ import {
   PanelBottomIcon,
   Settings2,
 } from "lucide-react";
-import type {
-  StructureBuilder,
-  StructureResolverContext,
-} from "sanity/structure";
+import type { StructureBuilder } from "sanity/structure";
 
 import type { SchemaType, SingletonType } from "./schemaTypes";
 import { getTitleCase } from "./utils/helper";
@@ -35,31 +32,14 @@ const createSingleTon = ({ S, type, title, icon }: CreateSingleTon) => {
     .child(S.document().schemaType(type).documentId(type));
 };
 
-type CreateList = {
-  S: StructureBuilder;
-} & Base;
-
-const createList = ({ S, type, icon, title, id }: CreateList) => {
-  const newTitle = title ?? getTitleCase(type);
-  return S.documentTypeListItem(type)
-    .id(id ?? type)
-    .title(newTitle)
-    .icon(icon ?? File);
-};
-
-export const structure = (
-  S: StructureBuilder,
-  context: StructureResolverContext,
-) => {
+export const structure = (S: StructureBuilder) => {
   return S.list()
-    .title("Content")
+    .title("Content Management")
     .items([
       createSingleTon({ S, type: "homePage", icon: HomeIcon }),
       S.divider(),
-      createList({ S, type: "page", title: "Pages" }),
-      S.divider(),
       S.listItem()
-        .title("Site Configuration")
+        .title("Site Settings")
         .icon(Settings2)
         .child(
           S.list()

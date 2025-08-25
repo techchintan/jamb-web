@@ -21,17 +21,11 @@ function SanityButton({
   ...props
 }: SanityButtonProps & ComponentProps<typeof Button>) {
   if (!href) {
-    console.log("Link Broken", { text, href, variant, openInNewTab });
     return <Button>Link Broken</Button>;
   }
 
   return (
-    <Button
-      variant={variant}
-      {...props}
-      asChild
-      className={cn("rounded-[10px]", className)}
-    >
+    <Button variant={variant} {...props} asChild className={cn(className)}>
       <Link
         href={href || "#"}
         target={openInNewTab ? "_blank" : "_self"}
