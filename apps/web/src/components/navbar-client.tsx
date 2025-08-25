@@ -34,28 +34,28 @@ function MobileNavbar({
   const { contactPhone, contactEmail, contactAddress } = settingsData ?? {};
   const { columns } = navbarData ?? {};
   const footerlinks = footerData?.columns ?? [];
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isDrawerOpen, setDrawerOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    setIsOpen(false);
+    setDrawerOpen(false);
   }, [path]);
 
   return (
-    <Sheet open={isOpen} onOpenChange={setIsOpen}>
+    <Sheet open={isDrawerOpen} onOpenChange={setDrawerOpen}>
       <div className="flex justify-end">
         <SheetTrigger asChild>
           <button
             type="button"
             className="cursor-pointer flex items-center"
-            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-label={isDrawerOpen ? "Close menu" : "Open menu"}
           >
-            {isOpen ? (
+            {isDrawerOpen ? (
               <X className="text-gun-powder hover:text-dim-gray transition-all duration-300" />
             ) : (
               <Menu className="text-gun-powder hover:text-dim-gray transition-all duration-300" />
             )}
             <span className="sr-only">
-              {isOpen ? "Close menu" : "Open menu"}
+              {isDrawerOpen ? "Close menu" : "Open menu"}
             </span>
           </button>
         </SheetTrigger>
@@ -75,11 +75,11 @@ function MobileNavbar({
                   <div
                     className="w-full py-6"
                     key={index}
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => setDrawerOpen(false)}
                   >
                     <p
                       key={index}
-                      className="w-full cursor-pointer items-start text-3xl font-medium hover:text-black text-santas-grey/50 transition-all duration-300 hover:bg-transparent p-0"
+                      className="w-full cursor-pointer items-start text-3xl font-medium hover:text-black text-gun-powder transition-all duration-300 hover:bg-transparent p-0"
                       onClick={() => scrollToTargetAdjusted(tab.href ?? "#")}
                     >
                       {tab.name}
@@ -88,7 +88,7 @@ function MobileNavbar({
                 ))}
               </div>
             </NavigationMenu>
-            <div className="flex gap-4 flex-col sm:flex-row text-base text-santas-grey">
+            <div className="flex gap-4 flex-col sm:flex-row text-base text-gun-powder">
               <div className="flex flex-col line-clamp-1 max-w-[405px] sm:max-w-[222px] w-full">
                 <div className="w-full h-[1px] bg-santas-grey mb-6" />
                 <div className="flex flex-col gap-2">
@@ -112,8 +112,8 @@ function MobileNavbar({
                   <p>Tel: {contactPhone}</p>
                   <p>{contactAddress}</p>
                   <Link
-                    href={"mailto:hello@jamb.co.uk"}
-                    className="text-base text-santas-grey w-fit"
+                    href={`mailto:${contactEmail}`}
+                    className="text-base text-gun-powder w-fit"
                   >
                     {contactEmail}
                   </Link>

@@ -138,3 +138,7 @@
   background-color: var(--color-primary);
   color: var(--color-primary-foreground);
 }
+
+body {
+  pointer-events: auto !important;
+}
