@@ -91,8 +91,8 @@ function MobileNavbar({
                 ))}
               </div>
             </NavigationMenu>
-            <div className="flex gap-4 text-base text-santas-grey">
-              <div className="flex flex-col line-clamp-1 max-w-[222px] w-full">
+            <div className="flex gap-4 flex-col sm:flex-row text-base text-santas-grey">
+              <div className="flex flex-col line-clamp-1 max-w-[405px] sm:max-w-[222px] w-full">
                 <div className="w-full h-[1px] bg-santas-grey mb-6" />
                 <div className="flex flex-col gap-2">
                   {footerlinks.length &&
@@ -109,7 +109,7 @@ function MobileNavbar({
                     )}
                 </div>
               </div>
-              <div className="flex flex-col max-w-[222px] w-full">
+              <div className="flex flex-col max-w-[405px] sm:max-w-[222px] w-full">
                 <div className="w-full h-[1px] bg-santas-grey mb-6" />
                 <div className="flex flex-col gap-2">
                   <p>Tel: {contactPhone}</p>
