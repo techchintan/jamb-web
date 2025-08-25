@@ -1,7 +1,3 @@
-import { Button } from "@workspace/ui/components/button";
-import { Checkbox } from "@workspace/ui/components/checkbox";
-import { Input } from "@workspace/ui/components/input";
-import { Label } from "@workspace/ui/components/label";
 import Link from "next/link";
 
 import { sanityFetch } from "@/lib/sanity/live";
@@ -10,6 +6,7 @@ import type {
   QueryFooterDataResult,
   QueryGlobalSeoSettingsResult,
 } from "@/lib/sanity/sanity.types";
+import { Newsletter } from "./newsletter";
 
 export async function FooterServer() {
   const [footer, settings] = await Promise.all([
@@ -133,33 +130,7 @@ function Footer({ footer, settings }: FooterProps) {
         </Link>
         <div className="hidden lg:block" />
         <div className="sm:col-span-2 flex justify-end">
-          <div className="flex flex-col gap-3 w-full">
-            <Label htmlFor="newsletter">Newsletter</Label>
-            <div className="flex gap-0.5 ">
-              <Input
-                type="text"
-                placeholder="Email"
-                className="bg-white rounded-none outline-none shadow-none focus-visible:ring-transparent focus-visible:border-none h-10 border border-dim-gray"
-              />
-              <Button
-                type="submit"
-                variant="outline"
-                className="bg-white rounded-none"
-                size="lg"
-              >
-                Subscribe
-              </Button>
-            </div>
-            <div className="flex items-center gap-2">
-              <Checkbox
-                id="privacy-policy"
-                className="rounded-full border-gun-powder cursor-pointer"
-              />
-              <Label htmlFor="privacy-policy" className="text-xs">
-                I agree to our Privacy Policy
-              </Label>
-            </div>
-          </div>
+          <Newsletter />
         </div>
         {footerColumnsByType.map((sublist, sublistIdx) => (
           <div className="flex flex-col gap-3 line-clamp-1" key={sublistIdx}>
