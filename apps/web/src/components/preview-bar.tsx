@@ -18,6 +18,7 @@ export const PreviewBar: FC = () => {
             className="text-xs text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200 transition-colors"
             href={`/api/disable-draft?slug=${path}`}
             prefetch={false}
+            aria-label="Exit preview mode"
           >
             Exit
           </Link>

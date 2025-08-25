@@ -11,7 +11,7 @@ interface LogoProps {
 
 export function Logo({ alt = "logo", image }: LogoProps) {
   return (
-    <Link href="/" className="">
+    <Link href="/" aria-label="Go to home page">
       <SanityImage
         image={image}
         alt={alt}

@@ -126,6 +126,7 @@ function Footer({ footer, settings }: FooterProps) {
         </div>
         <Link
           href={"mailto:hello@jamb.co.uk"}
+          aria-label="Send email"
           className="text-base text-gun-powder w-fit"
         >
           {settings.contactEmail}
@@ -173,6 +174,7 @@ function Footer({ footer, settings }: FooterProps) {
                     <Link
                       key={item._key || linkIdx}
                       href={item.href || "#"}
+                      aria-label={item.name}
                       className="w-fit line-clamp-1"
                     >
                       <p className="text-base text-gun-powder font-medium mb-1.5 line-clamp-1">

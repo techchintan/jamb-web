@@ -76,6 +76,7 @@ function MobileNavbar({
                   <Link
                     target={tab.openInNewTab ? "_blank" : "_self"}
                     href={tab.href ?? "#"}
+                    aria-label={tab.name ?? "Navigation link"}
                     className="!p-0"
                   >
                     {tab.name}
@@ -100,7 +101,7 @@ const ClientSideNavbar = ({
   return (
     <div className="flex gap-7 items-center">
       <Search className="text-gun-powder" />
-      <Link href="mailto:example@example.com">
+      <Link href="mailto:example@example.com" aria-label="Send email">
         <Mail className="text-gun-powder" />
       </Link>
       <MobileNavbar settingsData={settingsData} navbarData={navbarData} />
