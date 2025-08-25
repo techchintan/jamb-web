@@ -61,7 +61,7 @@ export function FurnitureTypeBlock({
 
   return (
     <div
-      className="sticky top-[calc(100dvh-137.5px-100%)] z-1 panel"
+      className="sticky  z-1 panel"
       style={{
         backgroundColor: bgColor ? bgColor.hex : "#F3F0ED",
       }}

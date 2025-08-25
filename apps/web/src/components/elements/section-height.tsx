@@ -11,6 +11,7 @@ export function SectionHeight() {
         "data-section-height",
         (section as HTMLElement).offsetTop.toString(),
       );
+      (section as HTMLElement).style.top = `calc(100dvh - ${(section as HTMLElement).clientHeight}px)`;
     });
 
     const resizeObserver = new ResizeObserver((entries) => {
