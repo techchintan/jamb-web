@@ -14,8 +14,8 @@ const HeroBanner = () => {
   }, [selected]);
 
   return (
-    <div className="container sticky mx-auto top-[77px] md:top-[109px] w-full z-1">
-      <div className="relative h-[calc(100dvh-157px)] md:h-[calc(100dvh-189px)]">
+    <div className="container sticky mx-auto top-[70px] w-full z-1">
+      <div className="relative h-[calc(100dvh-150px)]">
         <Image
           alt=""
           src={"/images/hero-banner.png"}
