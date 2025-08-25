@@ -63,7 +63,7 @@ function MobileNavbar({
         </SheetTrigger>
       </div>
       <SheetContent
-        className="overflow-y-auto border-t-0 border-0 focus-visible:outline-none h-[calc(100dvh-70px)] bg-gainsboro"
+        className="overflow-y-auto border-t-0 border-0 focus-visible:outline-none h-[calc(100dvh-69.5px)] bg-gainsboro"
         side="bottom"
       >
         <div className="container mx-auto px-10 py-8 h-full">
