@@ -1238,13 +1238,6 @@
                   "of": {
                     "type": "object",
                     "attributes": {
-                      "name": {
-                        "type": "objectAttribute",
-                        "value": {
-                          "type": "string"
-                        },
-                        "optional": true
-                      },
                       "url": {
                         "type": "objectAttribute",
                         "value": {

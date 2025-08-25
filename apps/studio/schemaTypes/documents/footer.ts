@@ -9,12 +9,6 @@ const footerColumnLink = defineField({
   icon: Link,
   fields: [
     defineField({
-      name: "name",
-      type: "string",
-      title: "Name",
-      description: "Name for the link",
-    }),
-    defineField({
       name: "url",
       type: "customUrl",
     }),

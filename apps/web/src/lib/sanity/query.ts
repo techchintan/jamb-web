@@ -27,6 +27,7 @@ const customLinkFragment = /* groq */ `
     "href": select(
       type == "internal" => internal->slug.current,
       type == "external" => external,
+      type == "section" => section->slug.current,
       "#"
     ),
   }
@@ -63,6 +64,7 @@ const buttonsFragment = /* groq */ `
     "href": select(
       url.type == "internal" => url.internal->slug.current,
       url.type == "external" => url.external,
+      url.type == "section" => url.section.current,
       url.href
     ),
   }
@@ -83,7 +85,7 @@ const heroBlock = /* groq */ `
         "href": select(
           url.type == "internal" => url.internal->slug.current,
           url.type == "external" => url.external,
-          url.type == "section" => url.section->slug.current,
+          url.type == "section" => url.section.current,
           url.href
         ),
     }
@@ -194,7 +196,7 @@ export const queryGenericPageOGData = defineQuery(`
 export const queryFooterData = defineQuery(`
   *[_type == "footer" && _id == "footer"][0]{
     _id,
-    subtitle,
+    label,
     columns[]{
       _key,
       title,
@@ -206,7 +208,7 @@ export const queryFooterData = defineQuery(`
         "href": select(
           url.type == "internal" => url.internal->slug.current,
           url.type == "external" => url.external,
-          url.type == "section" => url.section->slug.current,
+          url.type == "section" => url.section.current,
           url.href
         ),
       }
@@ -231,7 +233,7 @@ export const queryNavbarData = defineQuery(`
           "href": select(
             url.type == "internal" => url.internal->slug.current,
             url.type == "external" => url.external,
-            url.type == "section" => url.section->slug.current,
+            url.type == "section" => url.section.current,
             url.href
           )
         }
@@ -244,7 +246,7 @@ export const queryNavbarData = defineQuery(`
         "href": select(
           url.type == "internal" => url.internal->slug.current,
           url.type == "external" => url.external,
-          url.type == "section" => url.section->slug.current,
+          url.type == "section" => url.section.current,
           url.href
         )
       }

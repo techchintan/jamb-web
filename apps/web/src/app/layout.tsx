@@ -1,17 +1,17 @@
 import "@workspace/ui/globals.css";
 
+import { Suspense } from "react";
 import localFont from "next/font/local";
 import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity";
-import { Suspense } from "react";
 
+import { SectionHeight } from "@/components/elements/section-height";
 import { FooterServer, FooterSkeleton } from "@/components/footer";
 import { CombinedJsonLd } from "@/components/json-ld";
 import { NavbarServer, NavbarSkeleton } from "@/components/navbar";
 import { PreviewBar } from "@/components/preview-bar";
 import { SanityLive } from "@/lib/sanity/live";
 import { cn } from "@workspace/ui/lib/utils";
-import { SectionHeight } from "@/components/elements/section-height";
 
 const glxcs = localFont({
   src: [

@@ -14,51 +14,6 @@ export function FurnitureTypeBlock({
   buttons,
   bgColor,
 }: FurnitureTypeBlockProps) {
-  function getAspectRatio(image: any) {
-    if (
-      image &&
-      image.asset &&
-      typeof image.asset.metadata === "object" &&
-      image.asset.metadata.dimensions
-    ) {
-      const { width, height } = image.asset.metadata.dimensions;
-      if (width && height) {
-        return `${width} / ${height}`;
-      }
-    }
-    return undefined;
-  }
-
-  const aspectRatio = getAspectRatio(image);
-
-  function getNaturalWidth(image: any, fallback: number) {
-    if (
-      image &&
-      image.asset &&
-      typeof image.asset.metadata === "object" &&
-      image.asset.metadata.dimensions &&
-      image.asset.metadata.dimensions.width
-    ) {
-      return image.asset.metadata.dimensions.width;
-    }
-    return fallback;
-  }
-  function getNaturalHeight(image: any, fallback: number) {
-    if (
-      image &&
-      image.asset &&
-      typeof image.asset.metadata === "object" &&
-      image.asset.metadata.dimensions &&
-      image.asset.metadata.dimensions.height
-    ) {
-      return image.asset.metadata.dimensions.height;
-    }
-    return fallback;
-  }
-
-  const naturalWidth = getNaturalWidth(image, 583);
-  const naturalHeight = getNaturalHeight(image, 734);
-
   return (
     <div
       className="sticky  z-1 panel"
@@ -84,20 +39,12 @@ export function FurnitureTypeBlock({
           />
         </div>
         {image && (
-          <div
-            style={
-              aspectRatio ? { aspectRatio, width: "100%" } : { width: "100%" }
-            }
-            className="flex items-center justify-center"
-          >
-            <SanityImage
-              image={image}
-              width={naturalWidth}
-              height={naturalHeight}
-              className="w-full h-auto"
-              style={aspectRatio ? { aspectRatio } : undefined}
-            />
-          </div>
+          <SanityImage
+            image={image}
+            width={583}
+            height={734}
+            className="w-full"
+          />
         )}
       </div>
     </div>

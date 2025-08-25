@@ -4,7 +4,6 @@ import { ImageResponse } from "next/og";
 import type { ImageResponseOptions } from "next/server";
 
 import type { Maybe } from "@/types";
-import { getTitleCase } from "@/utils";
 
 import { getOgMetaData } from "./og-config";
 import {

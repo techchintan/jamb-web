@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  NavigationMenu,
-  NavigationMenuLink,
-} from "@workspace/ui/components/navigation-menu";
+import { NavigationMenu } from "@workspace/ui/components/navigation-menu";
 import {
   Sheet,
   SheetContent,

@@ -8,8 +8,6 @@ type NavigationBarProps = {
 export const NavigationBar = ({ links }: NavigationBarProps) => {
   if (!links || links.length === 0) return null;
 
-  console.log(links);
-
   return (
     <nav
       className="sticky top-[69.5px] z-20 flex items-center py-6 w-full justify-center mx-auto bg-hint-of-red transition-all duration-300"
