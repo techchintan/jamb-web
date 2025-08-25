@@ -13,6 +13,7 @@ export const NavigationBar = ({ links }: NavigationBarProps) => {
     <nav
       className="sticky top-16 z-20 flex items-center gap-2 py-6 w-full justify-center mx-auto bg-hint-of-red transition-all duration-300"
       aria-label="Section navigation"
+      role="navigation"
     >
       {links.map((link, idx) => {
         const isLast = idx === links.length - 1;
@@ -29,6 +30,7 @@ export const NavigationBar = ({ links }: NavigationBarProps) => {
               <span
                 className="w-[1px] h-4 bg-gun-powder mx-2"
                 aria-hidden="true"
+                role="presentation"
               />
             )}
           </span>

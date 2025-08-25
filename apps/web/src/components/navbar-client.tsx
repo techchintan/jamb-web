@@ -61,6 +61,7 @@ function MobileNavbar({
         <NavigationMenu
           viewport={false}
           className="max-w-full items-start justify-start"
+          aria-label="Main navigation"
         >
           <NavigationMenuList className="w-full flex-col gap-6">
             {columns?.map((tab, index) => (

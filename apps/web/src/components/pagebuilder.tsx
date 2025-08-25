@@ -69,7 +69,7 @@ function UnknownBlockError({
     <div
       key={`${blockType}-${blockKey}`}
       className="flex items-center justify-center p-8 text-center text-muted-foreground bg-muted rounded-lg border-2 border-dashed border-muted-foreground/20"
-      role="alert"
+      role="status"
       aria-label={`Unknown block type: ${blockType}`}
     >
       <div className="space-y-2">

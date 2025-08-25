@@ -29,10 +29,20 @@ export default async function Page() {
   const { data: homePageData } = await fetchHomePageData();
 
   if (!homePageData) {
-    return <div>No home page data</div>;
+    return (
+      <div role="status" aria-live="polite">
+        <h1>Home</h1>
+        <p>No home page data available.</p>
+      </div>
+    );
   }
 
-  const { _id, _type, pageBuilder } = homePageData ?? {};
+  const { _id, _type, pageBuilder, title } = homePageData ?? {};
 
-  return <PageBuilder pageBuilder={pageBuilder ?? []} id={_id} type={_type} />;
+  return (
+    <>
+      <h1 className="sr-only">{title || "Home"}</h1>
+      <PageBuilder pageBuilder={pageBuilder ?? []} id={_id} type={_type} />
+    </>
+  );
 }

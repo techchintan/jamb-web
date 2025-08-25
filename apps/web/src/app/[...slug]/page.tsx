@@ -66,12 +66,16 @@ export default async function SlugPage({
   const { title, pageBuilder, _id, _type } = pageData ?? {};
 
   return !Array.isArray(pageBuilder) || pageBuilder?.length === 0 ? (
-    <div className="flex flex-col items-center justify-center min-h-[50vh] text-center p-4">
-      <h1 className="text-2xl font-semibold mb-4 capitalize">{title}</h1>
-      <p className="text-muted-foreground mb-6">
-        This page has no content blocks yet.
-      </p>
-    </div>
+    <section aria-labelledby="page-title">
+      <div className="flex flex-col items-center justify-center min-h-[50vh] text-center p-4">
+        <h1 id="page-title" className="text-2xl font-semibold mb-4 capitalize">
+          {title}
+        </h1>
+        <p className="text-muted-foreground mb-6">
+          This page has no content blocks yet.
+        </p>
+      </div>
+    </section>
   ) : (
     <PageBuilder pageBuilder={pageBuilder} id={_id} type={_type} />
   );
