@@ -118,7 +118,7 @@ function Footer({ footer, settings }: FooterProps) {
   );
 
   return (
-    <footer className="p-5 sm:p-12 bg-gainsboro text-base text-gun-powder">
+    <footer className="p-5 sm:p-12 bg-gainsboro text-base text-gun-powder hover:text-dim-gray transition-all duration-300">
       <section className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
         <div className="flex flex-col">
           <p>Tel: {settings.contactPhone}</p>
@@ -127,7 +127,7 @@ function Footer({ footer, settings }: FooterProps) {
         <Link
           href={"mailto:hello@jamb.co.uk"}
           aria-label="Send email"
-          className="text-base text-gun-powder w-fit"
+          className="text-base text-gun-powder w-fit hover:text-dim-gray transition-all duration-300"
         >
           {settings.contactEmail}
         </Link>
@@ -177,7 +177,7 @@ function Footer({ footer, settings }: FooterProps) {
                       aria-label={item.name}
                       className="w-fit line-clamp-1"
                     >
-                      <p className="text-base text-gun-powder font-medium mb-1.5 line-clamp-1">
+                      <p className="text-base text-gun-powder font-medium mb-1.5 line-clamp-1 hover:text-dim-gray transition-all duration-300">
                         {item.name}
                       </p>
                     </Link>

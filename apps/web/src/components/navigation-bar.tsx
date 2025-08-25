@@ -22,7 +22,7 @@ export const NavigationBar = ({ links }: NavigationBarProps) => {
             <Link
               href={link.url?.section ?? "#"}
               aria-label={link.name ?? "Navigation link"}
-              className="font-medium text-sm text-gun-powder hover:text-gun-powder/50 transition-all duration-300"
+              className="font-medium text-sm text-gun-powder hover:text-dim-gray transition-all duration-300"
             >
               {link.name}
             </Link>

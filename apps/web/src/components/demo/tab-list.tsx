@@ -11,7 +11,7 @@ const TabList = () => {
           <Link
             href={`#${tab.toLocaleLowerCase()}`}
             aria-label={tab}
-            className="font-medium text-sm sm:text-base text-gun-powder"
+            className="font-medium text-sm sm:text-base text-gun-powder hover:text-dim-gray transition-all duration-300"
           >
             {tab}
           </Link>
