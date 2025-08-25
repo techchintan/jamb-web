@@ -22,6 +22,7 @@ import type {
   QueryGlobalSeoSettingsResult,
   QueryNavbarDataResult,
 } from "@/lib/sanity/sanity.types";
+import { scrollToTargetAdjusted } from "@/utils";
 
 function MobileNavbar({
   settingsData,
@@ -79,14 +80,13 @@ function MobileNavbar({
                     key={index}
                     onClick={() => setIsOpen(false)}
                   >
-                    <NavigationMenuLink
+                    <p
                       key={index}
-                      className="w-full items-start text-3xl font-medium hover:text-black text-santas-grey/50 transition-all duration-300 hover:bg-transparent p-0"
-                      target={tab.openInNewTab ? "_blank" : "_self"}
-                      href={tab.href ?? "#"}
+                      className="w-full cursor-pointer items-start text-3xl font-medium hover:text-black text-santas-grey/50 transition-all duration-300 hover:bg-transparent p-0"
+                      onClick={() => scrollToTargetAdjusted(tab.href ?? "#")}
                     >
                       {tab.name}
-                    </NavigationMenuLink>
+                    </p>
                   </div>
                 ))}
               </div>

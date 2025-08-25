@@ -11,6 +11,7 @@ import { NavbarServer, NavbarSkeleton } from "@/components/navbar";
 import { PreviewBar } from "@/components/preview-bar";
 import { SanityLive } from "@/lib/sanity/live";
 import { cn } from "@workspace/ui/lib/utils";
+import { SectionHeight } from "@/components/elements/section-height";
 
 const glxcs = localFont({
   src: [
@@ -49,7 +50,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en-UK" className="scroll-smooth scroll-pt-20">
+    <html lang="en-UK" className="scroll-smooth ">
       <body
         className={cn(glxcs.variable, "font-glxcs antialiased bg-hint-of-red")}
       >
@@ -77,6 +78,9 @@ export default async function RootLayout({
             <VisualEditing />
           </>
         )}
+        <Suspense fallback={null}>
+          <SectionHeight />
+        </Suspense>
       </body>
     </html>
   );

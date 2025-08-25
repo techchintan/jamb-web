@@ -72,3 +72,19 @@ export function parseChildrenToSlug(children: PortableTextBlock["children"]) {
   if (!children) return "";
   return convertToSlug(children.map((child) => child.text).join(""));
 }
+
+
+export const scrollToTargetAdjusted = (id: string, offset = 137.5) => {
+  if (typeof window !== "undefined" && typeof document !== "undefined") {
+    const target = document.getElementById(
+      id.replace("#", ""),
+    ) as HTMLElement;
+    const offsetTop = target.getAttribute("data-section-height") ?? 0;
+    if (target && window) {
+      window.scrollTo({
+        top: Number(offsetTop) - offset,
+        behavior: "smooth",
+      });
+    }
+  }
+};

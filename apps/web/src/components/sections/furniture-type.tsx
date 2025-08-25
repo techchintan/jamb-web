@@ -61,14 +61,14 @@ export function FurnitureTypeBlock({
 
   return (
     <div
-      className="sticky top-[calc(100dvh-137.5px-100%)] z-1"
+      className="sticky top-[calc(100dvh-137.5px-100%)] z-1 panel"
       style={{
         backgroundColor: bgColor ? bgColor.hex : "#F3F0ED",
       }}
+      id={(prefix || title).toLocaleLowerCase()}
     >
       <div
         className="px-5 lg:px-28 container grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-[151px] items-center mx-auto py-19"
-        id={(prefix || title).toLocaleLowerCase()}
       >
         <div className="flex flex-col items-center gap-6">
           {prefix && (

@@ -1,6 +1,5 @@
-import Link from "next/link";
-
 import type { PagebuilderType } from "@/types";
+import { scrollToTargetAdjusted } from "@/utils";
 
 type NavigationBarProps = {
   links?: PagebuilderType<"hero">["links"];
@@ -19,13 +18,13 @@ export const NavigationBar = ({ links }: NavigationBarProps) => {
         const isLast = idx === links.length - 1;
         return (
           <span key={link._key ?? idx} className="flex items-center">
-            <Link
-              href={link.url?.section ?? "#"}
+            <p
+              onClick={() => scrollToTargetAdjusted(link.url?.section ?? "#")}
               aria-label={link.name ?? "Navigation link"}
-              className="font-medium text-sm text-gun-powder hover:text-dim-gray transition-all duration-300"
+              className="font-medium text-sm text-gun-powder hover:text-dim-gray transition-all duration-300 cursor-pointer"
             >
               {link.name}
-            </Link>
+            </p>
             {!isLast && (
               <span
                 className="w-[1px] h-4 bg-gun-powder mx-2"
