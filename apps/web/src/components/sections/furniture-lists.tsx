@@ -43,10 +43,10 @@ export function FurnitureListsBlock({
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <div className="flex flex-col items-center">
-                    <div className="text-base font-semibold text-dim-gray line-clamp-1">
+                    <div className="text-base font-semibold text-gun-powder line-clamp-1">
                       {title}
                     </div>
-                    <div className="text-base text-dim-gray line-clamp-2">
+                    <div className="text-base text-gun-powder line-clamp-2">
                       {subTitle}
                     </div>
                   </div>

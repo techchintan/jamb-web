@@ -41,11 +41,11 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
-  --hint-of-red: #F3F0ED;
-  --gainsboro: #E3E3E3;
-  --santas-grey: #9C9C9D;
+  --hint-of-red: #f3f0ed;
+  --gainsboro: #e3e3e3;
+  --santas-grey: #9c9c9d;
   --dim-gray: #737373;
-  --gun-powder: #49494A;
+  --gun-powder: #49494a;
 }
 
 .dark {
@@ -127,7 +127,8 @@
   --color-gainsboro: var(--gainsboro);
   --color-santas-grey: var(--santas-grey);
   --color-dim-gray: var(--dim-gray);
-  
+  --color-gun-powder: var(--gun-powder);
+
   /* Fonts */
   --font-glxcs: var(--font-glxcs);
 }
