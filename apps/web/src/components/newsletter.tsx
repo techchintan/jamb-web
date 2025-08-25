@@ -51,7 +51,7 @@ export function Newsletter() {
 
   return (
     <form
-      className="flex flex-col gap-3 w-full"
+      className="flex flex-col gap-3 w-full text-gun-powder"
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >
@@ -112,7 +112,7 @@ export function Newsletter() {
           className={cn(
             "text-xs",
             errors.privacyPolicy && "text-destructive",
-            !errors.privacyPolicy && "text-dim-gray",
+            !errors.privacyPolicy && "text-gun-powder",
           )}
         >
           I agree to our Privacy Policy

@@ -115,19 +115,22 @@ function Footer({ footer, settings }: FooterProps) {
   );
 
   return (
-    <footer className="p-5 sm:p-12 bg-gainsboro text-base text-gun-powder hover:text-dim-gray transition-all duration-300">
+    <footer className="p-5 sm:p-12 bg-gainsboro text-base">
       <section className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
-        <div className="flex flex-col">
+        <div className="flex flex-col text-gun-powder">
           <p>Tel: {settings.contactPhone}</p>
           <p>{settings.contactAddress}</p>
         </div>
-        <Link
-          href={"mailto:hello@jamb.co.uk"}
-          aria-label="Send email"
-          className="text-base text-gun-powder w-fit hover:text-dim-gray transition-all duration-300"
-        >
-          {settings.contactEmail}
-        </Link>
+        <div className="flex flex-col text-gun-powder hover:text-dim-gray transition-all duration-300">
+          <Link
+            href={`mailto:${settings.contactEmail}`}
+            aria-label="Send email"
+            className="text-base block w-fit"
+          >
+            {settings.contactEmail}
+          </Link>
+        </div>
+
         <div className="hidden lg:block" />
         <div className="sm:col-span-2 flex justify-end">
           <Newsletter />
