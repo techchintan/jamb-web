@@ -132,3 +132,9 @@
   /* Fonts */
   --font-glxcs: var(--font-glxcs);
 }
+
+/* Selection */
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+}
