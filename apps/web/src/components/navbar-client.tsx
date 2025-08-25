@@ -47,7 +47,7 @@ function MobileNavbar({
       <div className="flex justify-end">
         <SheetTrigger asChild>
           <div className="cursor-pointer">
-            <Menu className="text-santas-grey" />
+            <Menu className="text-gun-powder" />
             <span className="sr-only">Open menu</span>
           </div>
         </SheetTrigger>
@@ -71,7 +71,7 @@ function MobileNavbar({
               >
                 <NavigationMenuLink
                   asChild
-                  className="w-full items-start text-xl font-medium hover:text-santas-grey/50 transition-all duration-300 hover:bg-transparent"
+                  className="w-full items-start text-xl font-medium hover:text-gun-powder/50 transition-all duration-300 hover:bg-transparent"
                 >
                   <Link
                     target={tab.openInNewTab ? "_blank" : "_self"}
@@ -99,9 +99,9 @@ const ClientSideNavbar = ({
 }) => {
   return (
     <div className="flex gap-7 items-center">
-      <Search className="text-santas-grey" />
+      <Search className="text-gun-powder" />
       <Link href="mailto:example@example.com">
-        <Mail className="text-santas-grey" />
+        <Mail className="text-gun-powder" />
       </Link>
       <MobileNavbar settingsData={settingsData} navbarData={navbarData} />
     </div>

@@ -20,13 +20,13 @@ export const NavigationBar = ({ links }: NavigationBarProps) => {
           <span key={link._key ?? idx} className="flex items-center">
             <Link
               href={link.url?.section ?? "#"}
-              className="font-medium text-sm text-santas-grey hover:text-santas-grey/50 transition-all duration-300"
+              className="font-medium text-sm text-gun-powder hover:text-gun-powder/50 transition-all duration-300"
             >
               {link.name}
             </Link>
             {!isLast && (
               <span
-                className="w-[1px] h-4 bg-santas-grey mx-2"
+                className="w-[1px] h-4 bg-gun-powder mx-2"
                 aria-hidden="true"
               />
             )}

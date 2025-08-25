@@ -118,7 +118,7 @@ function Footer({ footer, settings }: FooterProps) {
   );
 
   return (
-    <footer className="p-5 sm:p-12 bg-gainsboro text-base text-santas-grey">
+    <footer className="p-5 sm:p-12 bg-gainsboro text-base text-gun-powder">
       <section className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
         <div className="flex flex-col">
           <p>Tel: {settings.contactPhone}</p>
@@ -126,7 +126,7 @@ function Footer({ footer, settings }: FooterProps) {
         </div>
         <Link
           href={"mailto:hello@jamb.co.uk"}
-          className="text-base text-santas-grey w-fit"
+          className="text-base text-gun-powder w-fit"
         >
           {settings.contactEmail}
         </Link>
@@ -152,7 +152,7 @@ function Footer({ footer, settings }: FooterProps) {
             <div className="flex items-center gap-2">
               <Checkbox
                 id="privacy-policy"
-                className="rounded-full border-santas-grey cursor-pointer"
+                className="rounded-full border-gun-powder cursor-pointer"
               />
               <Label htmlFor="privacy-policy" className="text-xs">
                 I agree to our Privacy Policy
@@ -164,7 +164,7 @@ function Footer({ footer, settings }: FooterProps) {
           <div className="flex flex-col gap-3 line-clamp-1" key={sublistIdx}>
             {sublist.map(({ title, links }, groupIdx: number) => (
               <div key={groupIdx} className="flex flex-col gap-3 line-clamp-1">
-                <div className="w-full h-[1px] bg-santas-grey" />
+                <div className="w-full h-[1px] bg-gun-powder" />
                 <div className="flex flex-col">
                   <p className="text-base text-black font-semibold mb-2 line-clamp-1">
                     {title}
@@ -175,7 +175,7 @@ function Footer({ footer, settings }: FooterProps) {
                       href={item.href || "#"}
                       className="w-fit line-clamp-1"
                     >
-                      <p className="text-base text-santas-grey font-medium mb-1.5 line-clamp-1">
+                      <p className="text-base text-gun-powder font-medium mb-1.5 line-clamp-1">
                         {item.name}
                       </p>
                     </Link>

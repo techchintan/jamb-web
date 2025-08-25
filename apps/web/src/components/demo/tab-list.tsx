@@ -10,12 +10,12 @@ const TabList = () => {
         <Fragment key={index}>
           <Link
             href={`#${tab.toLocaleLowerCase()}`}
-            className="font-medium text-sm sm:text-base text-santas-grey"
+            className="font-medium text-sm sm:text-base text-gun-powder"
           >
             {tab}
           </Link>
           {index < tablist.length - 1 && (
-            <div className="w-[1px] h-4 bg-santas-grey" />
+            <div className="w-[1px] h-4 bg-gun-powder" />
           )}
         </Fragment>
       ))}
