@@ -46,14 +46,20 @@ function MobileNavbar({
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <div className="flex justify-end">
         <SheetTrigger asChild>
-          <div className="cursor-pointer">
+          <button
+            type="button"
+            className="cursor-pointer flex items-center"
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+          >
             {isOpen ? (
               <X className="text-gun-powder hover:text-dim-gray transition-all duration-300" />
             ) : (
               <Menu className="text-gun-powder hover:text-dim-gray transition-all duration-300" />
             )}
-            <span className="sr-only">Open menu</span>
-          </div>
+            <span className="sr-only">
+              {isOpen ? "Close menu" : "Open menu"}
+            </span>
+          </button>
         </SheetTrigger>
       </div>
       <SheetContent
