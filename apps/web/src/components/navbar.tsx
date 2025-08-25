@@ -1,6 +1,11 @@
 import { sanityFetch } from "@/lib/sanity/live";
-import { queryGlobalSeoSettings, queryNavbarData } from "@/lib/sanity/query";
+import {
+  queryFooterData,
+  queryGlobalSeoSettings,
+  queryNavbarData,
+} from "@/lib/sanity/query";
 import type {
+  QueryFooterDataResult,
   QueryGlobalSeoSettingsResult,
   QueryNavbarDataResult,
 } from "@/lib/sanity/sanity.types";
@@ -9,21 +14,30 @@ import { Logo } from "./logo";
 import { NavbarClient, NavbarSkeletonResponsive } from "./navbar-client";
 
 export async function NavbarServer() {
-  const [navbarData, settingsData] = await Promise.all([
+  const [navbarData, settingsData, footerData] = await Promise.all([
     sanityFetch({ query: queryNavbarData }),
     sanityFetch({ query: queryGlobalSeoSettings }),
+    sanityFetch({
+      query: queryFooterData,
+    }),
   ]);
   return (
-    <Navbar navbarData={navbarData.data} settingsData={settingsData.data} />
+    <Navbar
+      navbarData={navbarData.data}
+      settingsData={settingsData.data}
+      footerData={footerData.data}
+    />
   );
 }
 
 export function Navbar({
   navbarData,
   settingsData,
+  footerData,
 }: {
   navbarData: QueryNavbarDataResult;
   settingsData: QueryGlobalSeoSettingsResult;
+  footerData: QueryFooterDataResult;
 }) {
   const { siteTitle: settingsSiteTitle, logo } = settingsData ?? {};
 
@@ -32,7 +46,7 @@ export function Navbar({
       <div className="container mx-auto md:px-10 px-5 py-4">
         <div className="flex items-center justify-between gap-4">
           {logo && <Logo alt={settingsSiteTitle} image={logo} />}
-          <NavbarClient settingsData={settingsData} navbarData={navbarData} />
+          <NavbarClient settingsData={settingsData} navbarData={navbarData} footerData={footerData} />
         </div>
       </div>
     </header>

@@ -43,7 +43,7 @@ export function HeroBlock({ slides = [], links }: HeroBlockProps) {
   return (
     <>
       <section className="container sticky mx-auto top-20 w-full z-1 md:px-10 px-5">
-        <div className={cn("relative w-full h-[calc(100dvh-130px)]")}>
+        <div className={cn("relative w-full h-[calc(100dvh-137px)]")}>
           <div className="w-full h-full aspect-video relative">
             {slides.map((slide, idx) => {
               const isActive = selected === idx;

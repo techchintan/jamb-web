@@ -2,9 +2,7 @@
 
 import {
   NavigationMenu,
-  NavigationMenuItem,
   NavigationMenuLink,
-  NavigationMenuList,
 } from "@workspace/ui/components/navigation-menu";
 import {
   Sheet,
@@ -13,29 +11,31 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@workspace/ui/components/sheet";
-import { Mail, Menu, Search } from "lucide-react";
+import { Mail, Menu, Search, X } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import type {
+  QueryFooterDataResult,
   QueryGlobalSeoSettingsResult,
   QueryNavbarDataResult,
 } from "@/lib/sanity/sanity.types";
 
-import { Logo } from "./logo";
-
 function MobileNavbar({
   settingsData,
   navbarData,
+  footerData,
 }: {
   settingsData: QueryGlobalSeoSettingsResult;
   navbarData: QueryNavbarDataResult;
+  footerData: QueryFooterDataResult;
 }) {
   const path = usePathname();
-  const { siteTitle, logo } = settingsData ?? {};
+  const { contactPhone, contactEmail, contactAddress } = settingsData ?? {};
   const { columns } = navbarData ?? {};
+  const footerlinks = footerData?.columns ?? [];
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -47,46 +47,78 @@ function MobileNavbar({
       <div className="flex justify-end">
         <SheetTrigger asChild>
           <div className="cursor-pointer">
-            <Menu className="text-gun-powder hover:text-dim-gray transition-all duration-300" />
+            {isOpen ? (
+              <X className="text-gun-powder hover:text-dim-gray transition-all duration-300" />
+            ) : (
+              <Menu className="text-gun-powder hover:text-dim-gray transition-all duration-300" />
+            )}
             <span className="sr-only">Open menu</span>
           </div>
         </SheetTrigger>
       </div>
-      <SheetContent className="overflow-y-auto px-10 py-8 gap-10">
-        <SheetHeader>
-          <SheetTitle>
-            {logo && <Logo alt={siteTitle} image={logo} />}
-          </SheetTitle>
-        </SheetHeader>
-        <NavigationMenu
-          viewport={false}
-          className="max-w-full items-start justify-start"
-          aria-label="Main navigation"
-        >
-          <NavigationMenuList className="w-full flex-col gap-6">
-            {columns?.map((tab, index) => (
-              <NavigationMenuItem
-                className="w-full"
-                key={index}
-                onClick={() => setIsOpen(false)}
-              >
-                <NavigationMenuLink
-                  asChild
-                  className="w-full items-start text-xl font-medium hover:text-dim-gray transition-all duration-300 hover:bg-transparent"
-                >
-                  <Link
-                    target={tab.openInNewTab ? "_blank" : "_self"}
-                    href={tab.href ?? "#"}
-                    aria-label={tab.name ?? "Navigation link"}
-                    className="!p-0"
+      <SheetContent
+        className="overflow-y-auto border-t-0 border-0 focus-visible:outline-none h-[calc(100dvh-70px)] bg-[gainsboro]"
+        side="bottom"
+      >
+        <div className="container mx-auto px-10 py-8 h-full">
+          <SheetHeader>
+            <SheetTitle></SheetTitle>
+          </SheetHeader>
+          <div className="flex flex-col h-full">
+            <NavigationMenu className="items-start justify-start max-w-[405px] w-full">
+              <div className="flex flex-col divide-y divide-santas-grey w-full">
+                {columns?.map((tab, index) => (
+                  <div
+                    className="w-full py-6"
+                    key={index}
+                    onClick={() => setIsOpen(false)}
                   >
-                    {tab.name}
+                    <NavigationMenuLink
+                      key={index}
+                      className="w-full items-start text-3xl font-medium hover:text-black text-santas-grey/50 transition-all duration-300 hover:bg-transparent p-0"
+                      target={tab.openInNewTab ? "_blank" : "_self"}
+                      href={tab.href ?? "#"}
+                    >
+                      {tab.name}
+                    </NavigationMenuLink>
+                  </div>
+                ))}
+              </div>
+            </NavigationMenu>
+            <div className="flex gap-4 text-base text-santas-grey">
+              <div className="flex flex-col line-clamp-1 max-w-[222px] w-full">
+                <div className="w-full h-[1px] bg-santas-grey mb-6" />
+                <div className="flex flex-col gap-2">
+                  {footerlinks.length &&
+                    (footerlinks[footerlinks.length - 1]?.links ?? []).map(
+                      (item, linkIdx: number) => (
+                        <Link
+                          key={item._key || linkIdx}
+                          href={item.href || "#"}
+                          className="w-fit line-clamp-1"
+                        >
+                          <p className="line-clamp-1">{item.name}</p>
+                        </Link>
+                      ),
+                    )}
+                </div>
+              </div>
+              <div className="flex flex-col max-w-[222px] w-full">
+                <div className="w-full h-[1px] bg-santas-grey mb-6" />
+                <div className="flex flex-col gap-2">
+                  <p>Tel: {contactPhone}</p>
+                  <p>{contactAddress}</p>
+                  <Link
+                    href={"mailto:hello@jamb.co.uk"}
+                    className="text-base text-santas-grey w-fit"
+                  >
+                    {contactEmail}
                   </Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            ))}
-          </NavigationMenuList>
-        </NavigationMenu>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </SheetContent>
     </Sheet>
   );
@@ -95,9 +127,11 @@ function MobileNavbar({
 const ClientSideNavbar = ({
   settingsData,
   navbarData,
+  footerData,
 }: {
   settingsData: QueryGlobalSeoSettingsResult;
   navbarData: QueryNavbarDataResult;
+  footerData: QueryFooterDataResult;
 }) => {
   return (
     <div className="flex gap-7 items-center">
@@ -105,7 +139,11 @@ const ClientSideNavbar = ({
       <Link href="mailto:example@example.com" aria-label="Send email">
         <Mail className="text-gun-powder hover:text-dim-gray transition-all duration-300" />
       </Link>
-      <MobileNavbar settingsData={settingsData} navbarData={navbarData} />
+      <MobileNavbar
+        settingsData={settingsData}
+        navbarData={navbarData}
+        footerData={footerData}
+      />
     </div>
   );
 };

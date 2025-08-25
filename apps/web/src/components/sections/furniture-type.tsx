@@ -16,7 +16,7 @@ export function FurnitureTypeBlock({
 }: FurnitureTypeBlockProps) {
   return (
     <div
-      className="sticky top-[calc(100dvh-77px-100%)] md:top-[calc(100dvh-109px-100%)] z-1"
+      className="sticky top-[calc(100dvh-70px-100%)] z-1"
       style={{
         backgroundColor: bgColor ? bgColor.hex : "#F3F0ED",
       }}
