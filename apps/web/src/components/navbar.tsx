@@ -46,7 +46,11 @@ export function Navbar({
       <div className="container mx-auto md:px-10 px-5 py-4">
         <div className="flex items-center justify-between gap-4">
           {logo && <Logo alt={settingsSiteTitle} image={logo} />}
-          <NavbarClient settingsData={settingsData} navbarData={navbarData} footerData={footerData} />
+          <NavbarClient
+            settingsData={settingsData}
+            navbarData={navbarData}
+            footerData={footerData}
+          />
         </div>
       </div>
     </header>

@@ -67,9 +67,7 @@ export function FurnitureTypeBlock({
       }}
       id={(prefix || title).toLocaleLowerCase()}
     >
-      <div
-        className="px-5 lg:px-28 container grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-[151px] items-center mx-auto py-19"
-      >
+      <div className="px-5 lg:px-28 container grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-[151px] items-center mx-auto py-19">
         <div className="flex flex-col items-center gap-6">
           {prefix && (
             <div className="text-base font-medium uppercase">{prefix}</div>
