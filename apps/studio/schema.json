@@ -366,6 +366,27 @@
                   },
                   "optional": false
                 },
+                "aspectRatio": {
+                  "type": "objectAttribute",
+                  "value": {
+                    "type": "union",
+                    "of": [
+                      {
+                        "type": "string",
+                        "value": "strict"
+                      },
+                      {
+                        "type": "string",
+                        "value": "free"
+                      },
+                      {
+                        "type": "string",
+                        "value": "normal"
+                      }
+                    ]
+                  },
+                  "optional": true
+                },
                 "_type": {
                   "type": "objectAttribute",
                   "value": {

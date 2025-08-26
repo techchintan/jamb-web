@@ -1,7 +1,10 @@
 import { ListChecksIcon } from "lucide-react";
 import { defineField, defineType } from "sanity";
 
+import { createRadioListLayout } from "../../utils/helper";
 import { richTextField } from "../common";
+
+const aspectRatioOptions = ["strict", "free", "normal"];
 
 const listItem = {
   name: "listItem",
@@ -28,6 +31,16 @@ const listItem = {
         hotspot: true,
       },
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: "aspectRatio",
+      type: "string",
+      title: "Aspect Ratio",
+      description: "Choose the aspect ratio of the image",
+      options: createRadioListLayout(aspectRatioOptions, {
+        direction: "horizontal",
+      }),
+      initialValue: () => "normal",
     }),
   ],
 };

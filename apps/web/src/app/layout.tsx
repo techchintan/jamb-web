@@ -60,15 +60,15 @@ export default async function RootLayout({
         >
           Skip to main content
         </a>
-
         <Suspense fallback={<NavbarSkeleton />}>
           <NavbarServer />
         </Suspense>
-
         <main id="main-content">{children}</main>
-
         <Suspense fallback={<FooterSkeleton />}>
           <FooterServer />
+        </Suspense>
+        <Suspense fallback={null}>
+          <SectionHeight />
         </Suspense>
         <SanityLive />
         <CombinedJsonLd includeWebsite includeOrganization />
@@ -78,9 +78,6 @@ export default async function RootLayout({
             <VisualEditing />
           </>
         )}
-        <Suspense fallback={null}>
-          <SectionHeight />
-        </Suspense>
       </body>
     </html>
   );

@@ -16,7 +16,7 @@ export function FurnitureTypeBlock({
 }: FurnitureTypeBlockProps) {
   return (
     <div
-      className="sticky  z-1 panel"
+      className="sticky z-1 panel"
       style={{
         backgroundColor: bgColor ? bgColor.hex : "#F3F0ED",
       }}

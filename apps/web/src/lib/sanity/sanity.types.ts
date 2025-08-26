@@ -64,6 +64,7 @@ export type FurnitureLists = {
       crop?: SanityImageCrop;
       _type: "image";
     };
+    aspectRatio?: "strict" | "free" | "normal";
     _type: "listItem";
     _key: string;
   }>;
@@ -781,6 +782,7 @@ export type QueryHomePageDataResult = {
               top: number | null;
             } | null;
           };
+          aspectRatio?: "free" | "normal" | "strict";
           _type: "listItem";
           _key: string;
         }>;
@@ -996,6 +998,7 @@ export type QuerySlugPageDataResult = {
               top: number | null;
             } | null;
           };
+          aspectRatio?: "free" | "normal" | "strict";
           _type: "listItem";
           _key: string;
         }>;
