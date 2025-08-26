@@ -1,3 +1,4 @@
+"use client";
 import type { PagebuilderType } from "@/types";
 import { scrollToTargetAdjusted } from "@/utils";
 

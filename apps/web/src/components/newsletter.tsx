@@ -31,7 +31,6 @@ export function Newsletter() {
   const [showThankYou, setShowThankYou] = useState(false);
 
   const onSubmit = async (data: NewsletterFormValues) => {
-    console.log(data);
     setValue("email", "");
     setValue("privacyPolicy", false);
     setShowThankYou(true);

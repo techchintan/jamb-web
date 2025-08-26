@@ -66,7 +66,7 @@ function MobileNavbar({
       >
         <div className="container mx-auto px-10 py-8 h-full">
           <SheetHeader>
-            <SheetTitle></SheetTitle>
+            <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
           </SheetHeader>
           <div className="flex flex-col h-full">
             <NavigationMenu className="items-start justify-start max-w-[405px] w-full">
@@ -79,7 +79,7 @@ function MobileNavbar({
                   >
                     <p
                       key={index}
-                      className="w-full cursor-pointer items-start text-3xl font-medium hover:text-black text-gun-powder transition-all duration-300 hover:bg-transparent p-0"
+                      className="w-full cursor-pointer items-start text-3xl font-medium hover:text-dim-gray text-gun-powder transition-all duration-300 hover:bg-transparent p-0"
                       onClick={() => scrollToTargetAdjusted(tab.href ?? "#")}
                     >
                       {tab.name}
@@ -88,7 +88,7 @@ function MobileNavbar({
                 ))}
               </div>
             </NavigationMenu>
-            <div className="flex gap-4 flex-col sm:flex-row text-base text-gun-powder">
+            <div className="flex gap-4 flex-col sm:flex-row text-gun-powder">
               <div className="flex flex-col line-clamp-1 max-w-[405px] sm:max-w-[222px] w-full">
                 <div className="w-full h-[1px] bg-santas-grey mb-6" />
                 <div className="flex flex-col gap-2">
@@ -100,7 +100,7 @@ function MobileNavbar({
                           href={item.href || "#"}
                           className="w-fit line-clamp-1"
                         >
-                          <p className="line-clamp-1">{item.name}</p>
+                          <p className="line-clamp-1 text-sm">{item.name}</p>
                         </Link>
                       ),
                     )}
@@ -108,12 +108,12 @@ function MobileNavbar({
               </div>
               <div className="flex flex-col max-w-[405px] sm:max-w-[222px] w-full">
                 <div className="w-full h-[1px] bg-santas-grey mb-6" />
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2 text-base text-gun-powder">
                   <p>Tel: {contactPhone}</p>
                   <p>{contactAddress}</p>
                   <Link
                     href={`mailto:${contactEmail}`}
-                    className="text-base text-gun-powder w-fit"
+                    className="text-base text-gun-powder hover:text-dim-gray transition-all duration-300 w-fit"
                   >
                     {contactEmail}
                   </Link>
