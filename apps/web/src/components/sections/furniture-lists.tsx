@@ -43,7 +43,7 @@ export function FurnitureListsBlock({
                     width={333}
                     height={244}
                     className={cn(
-                      "flex-1 aspect-auto object-contain hover:opacity-80 transition-opacity duration-300",
+                      "flex-1 object-contain hover:opacity-80 transition-opacity duration-300",
                       aspectRatio === "strict" && "aspect-square object-cover",
                       aspectRatio === "free" && "aspect-video object-contain",
                     )}
@@ -55,7 +55,7 @@ export function FurnitureListsBlock({
                     </div>
                     <RichText
                       richText={richText}
-                      className="text-xs sm:text-sm line-clamp-3 text-gun-powder/80 h-[80px] sm:h-[92px]"
+                      className="text-xs sm:text-sm line-clamp-3 text-gun-powder/80"
                     />
                   </div>
                 </div>
