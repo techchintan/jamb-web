@@ -87,7 +87,7 @@ export function PathnameFieldComponent(props: ObjectFieldProps<SlugValue>) {
     description,
   } = props;
 
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const currentSlug = value?.current || "";
   const segments = useMemo(

@@ -146,6 +146,7 @@ body {
 /* Scroll Styles */
 ::-webkit-scrollbar {
   width: 10px;
+  height: 0px;
 }
 
 ::-webkit-scrollbar-track {

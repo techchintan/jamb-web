@@ -12,13 +12,9 @@ type ImageSlidesProps = {
 
 export default function ImageSlides({ slides }: ImageSlidesProps) {
   const [selected, setSelected] = useState<number>(0);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const getLoading = (idx: number) => {
-    if (idx === 0) return "eager";
-    if (idx === 1) return "lazy";
-    return undefined;
-  };
+  const getLoading = (idx: number) => (idx === 0 ? "eager" : "lazy");
 
   useEffect(() => {
     setSelected(0);
@@ -38,18 +34,18 @@ export default function ImageSlides({ slides }: ImageSlidesProps) {
     };
   }, [slides]);
 
+  const width = 1600;
+  const height = 900;
+
   return (
-    <section className="container sticky mx-auto top-[69.5px] w-full z-1 md:px-10 px-5">
+    <section
+      className="container sticky mx-auto top-[69.5px] w-full z-1 md:px-10 px-5"
+      aria-label="Image Slides"
+    >
       <div className="relative w-full h-[calc(100dvh-137px)]">
         <div className="w-full h-full aspect-video relative">
           {slides.map((slide, idx) => {
             const isActive = selected === idx;
-            const isNext =
-              slides.length > 1 && (selected + 1) % slides.length === idx;
-            if (!isActive && !isNext) return null;
-
-            const width = 1600;
-            const height = 900;
 
             return (
               <SanityImage
@@ -61,12 +57,14 @@ export default function ImageSlides({ slides }: ImageSlidesProps) {
                 width={width}
                 height={height}
                 className={cn(
-                  "mx-auto h-full object-contain inset-0 transition-all ease-in-out duration-500 absolute w-full pointer-events-none top-0 left-0",
+                  "mx-auto h-full object-contain inset-0 transition-opacity duration-500 absolute w-full top-0 left-0",
                   {
-                    "opacity-100 pointer-events-auto z-10": isActive,
-                    "opacity-0 pointer-events-none z-0": !isActive,
+                    "opacity-100 pointer-events-auto z-10 visible": isActive,
+                    "opacity-0 pointer-events-none z-0 hidden": !isActive,
                   },
                 )}
+                aria-hidden={!isActive}
+                tabIndex={-1}
               />
             );
           })}

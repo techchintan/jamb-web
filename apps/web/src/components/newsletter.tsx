@@ -28,7 +28,7 @@ export function Newsletter() {
     },
   });
 
-  const [showThankYou, setShowThankYou] = useState(false);
+  const [showThankYou, setShowThankYou] = useState<boolean>(false);
 
   const onSubmit = async (data: NewsletterFormValues) => {
     setValue("email", "");
