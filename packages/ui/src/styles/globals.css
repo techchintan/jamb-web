@@ -7,6 +7,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+body {
+  pointer-events: auto !important;
+}
+
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -139,6 +143,15 @@
   color: var(--color-primary-foreground);
 }
 
-body {
-  pointer-events: auto !important;
+/* Scroll Styles */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-hint-of-red);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-gun-powder);
 }

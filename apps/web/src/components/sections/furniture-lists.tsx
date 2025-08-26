@@ -7,6 +7,7 @@ import {
 import type { PagebuilderType } from "@/types";
 
 import { SanityImage } from "../elements/sanity-image";
+import { RichText } from "../elements/rich-text";
 
 type FurnitureListsBlockProps = PagebuilderType<"furnitureLists">;
 
@@ -26,7 +27,7 @@ export function FurnitureListsBlock({
           }}
         >
           <CarouselContent>
-            {lists.map(({ title, subTitle, image, _key }) => (
+            {lists.map(({ title, richText, image, _key }) => (
               <CarouselItem
                 key={_key}
                 className="min-w-0 shrink-0 grow-0 basis-full p-0 select-none  sm:basis-1/2 lg:basis-1/3 xl:basis-1/5"
@@ -46,9 +47,10 @@ export function FurnitureListsBlock({
                     <div className="text-base font-semibold text-gun-powder line-clamp-1">
                       {title}
                     </div>
-                    <div className="text-base text-gun-powder line-clamp-2">
-                      {subTitle}
-                    </div>
+                    <RichText
+                      richText={richText}
+                      className="text-base md:text-lg font-normal"
+                    />
                   </div>
                 </div>
               </CarouselItem>

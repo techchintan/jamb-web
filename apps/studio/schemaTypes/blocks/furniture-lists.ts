@@ -1,6 +1,8 @@
 import { ListChecksIcon } from "lucide-react";
 import { defineField, defineType } from "sanity";
 
+import { richTextField } from "../common";
+
 const listItem = {
   name: "listItem",
   title: "List Item",
@@ -13,9 +15,8 @@ const listItem = {
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "subTitle",
-      type: "string",
-      title: "Sub Title",
+      ...richTextField,
+      title: "Description",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
