@@ -27,7 +27,7 @@ export function FurnitureTypeBlock({
           {prefix && (
             <div className="text-base font-medium uppercase">{prefix}</div>
           )}
-          <h2 className="font-medium text-4xl text-center">{title}</h2>
+          <h2 className="font-medium text-4xl text-center text-balance">{title}</h2>
           <RichText
             richText={richText}
             className="text-base md:text-lg font-normal"

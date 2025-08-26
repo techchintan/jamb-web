@@ -55,7 +55,7 @@ export function FurnitureListsBlock({
                     </div>
                     <RichText
                       richText={richText}
-                      className="text-xs sm:text-sm line-clamp-3 text-gun-powder/80"
+                      className="text-xs sm:text-sm line-clamp-3 text-gun-powder/80 h-[80px] sm:h-[92px]"
                     />
                   </div>
                 </div>
